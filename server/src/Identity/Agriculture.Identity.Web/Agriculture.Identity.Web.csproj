@@ -14,4 +14,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Agriculture.Shared.Web\Agriculture.Shared.Web.csproj" />
+  </ItemGroup>
+
 </Project>

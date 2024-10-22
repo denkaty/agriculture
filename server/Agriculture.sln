@@ -7,27 +7,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E4D8648A-E5A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{DA7EB9FF-ACDA-4BB5-8F5F-2C3D2EAF51BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agriculture.Gateway.Web", "src\Gateway\Agriculture.Gateway.Web\Agriculture.Gateway.Web.csproj", "{0EBCDDF4-1273-440F-ACD0-03A9CACBC8C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Gateway.Web", "src\Gateway\Agriculture.Gateway.Web\Agriculture.Gateway.Web.csproj", "{0EBCDDF4-1273-440F-ACD0-03A9CACBC8C2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{CD44828E-87D1-4E1E-A552-9CA3BE53FEAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agriculture.Identity.Web", "src\Identity\Agriculture.Identity.Web\Agriculture.Identity.Web.csproj", "{B51A487B-77E5-4C87-8E80-031BCBD9F27B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Identity.Web", "src\Identity\Agriculture.Identity.Web\Agriculture.Identity.Web.csproj", "{B51A487B-77E5-4C87-8E80-031BCBD9F27B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agriculture.Identity.Application", "src\Identity\Agriculture.Identity.Application\Agriculture.Identity.Application.csproj", "{D89ECCF6-C251-4235-BB8C-BFA5822FE000}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Identity.Application", "src\Identity\Agriculture.Identity.Application\Agriculture.Identity.Application.csproj", "{D89ECCF6-C251-4235-BB8C-BFA5822FE000}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agriculture.Identity.Domain", "src\Identity\Agriculture.Identity.Domain\Agriculture.Identity.Domain.csproj", "{10E34E9E-FA05-4EC8-84F7-C2355C8105C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Identity.Domain", "src\Identity\Agriculture.Identity.Domain\Agriculture.Identity.Domain.csproj", "{10E34E9E-FA05-4EC8-84F7-C2355C8105C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agriculture.Identity.Infrastructure", "src\Identity\Agriculture.Identity.Infrastructure\Agriculture.Identity.Infrastructure.csproj", "{6BF38E83-A9A9-49A8-A4B1-F2F86ADFB221}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Identity.Infrastructure", "src\Identity\Agriculture.Identity.Infrastructure\Agriculture.Identity.Infrastructure.csproj", "{6BF38E83-A9A9-49A8-A4B1-F2F86ADFB221}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{17F888C8-BA82-4787-9451-016DE21640E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agriculture.Shared.Web", "src\Shared\Agriculture.Shared.Web\Agriculture.Shared.Web.csproj", "{A2364674-ADFC-432E-98CE-3D7D58A06EFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Shared.Web", "src\Shared\Agriculture.Shared.Web\Agriculture.Shared.Web.csproj", "{A2364674-ADFC-432E-98CE-3D7D58A06EFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agriculture.Shared.Domain", "src\Shared\Agriculture.Shared.Domain\Agriculture.Shared.Domain.csproj", "{9B6ED4EA-95E5-4281-9551-236C899A3670}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Shared.Domain", "src\Shared\Agriculture.Shared.Domain\Agriculture.Shared.Domain.csproj", "{9B6ED4EA-95E5-4281-9551-236C899A3670}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agriculture.Shared.Infrastructure", "src\Shared\Agriculture.Shared.Infrastructure\Agriculture.Shared.Infrastructure.csproj", "{BE85DF5D-1F82-4D43-9A71-D8BDA8409C1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Shared.Infrastructure", "src\Shared\Agriculture.Shared.Infrastructure\Agriculture.Shared.Infrastructure.csproj", "{BE85DF5D-1F82-4D43-9A71-D8BDA8409C1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agriculture.Shared.Application", "src\Shared\Agriculture.Shared.Application\Agriculture.Shared.Application.csproj", "{3EEEF660-BF8C-4028-9D51-44B16B1D5579}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Shared.Application", "src\Shared\Agriculture.Shared.Application\Agriculture.Shared.Application.csproj", "{3EEEF660-BF8C-4028-9D51-44B16B1D5579}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agriculture.Shared.Common", "src\Shared\Agriculture.Shared.Common\Agriculture.Shared.Common.csproj", "{A5C33D33-4969-4F42-A604-9F9A9B8D85C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{3EEEF660-BF8C-4028-9D51-44B16B1D5579}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EEEF660-BF8C-4028-9D51-44B16B1D5579}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EEEF660-BF8C-4028-9D51-44B16B1D5579}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5C33D33-4969-4F42-A604-9F9A9B8D85C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5C33D33-4969-4F42-A604-9F9A9B8D85C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5C33D33-4969-4F42-A604-9F9A9B8D85C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5C33D33-4969-4F42-A604-9F9A9B8D85C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +94,7 @@ Global
 		{9B6ED4EA-95E5-4281-9551-236C899A3670} = {17F888C8-BA82-4787-9451-016DE21640E8}
 		{BE85DF5D-1F82-4D43-9A71-D8BDA8409C1C} = {17F888C8-BA82-4787-9451-016DE21640E8}
 		{3EEEF660-BF8C-4028-9D51-44B16B1D5579} = {17F888C8-BA82-4787-9451-016DE21640E8}
+		{A5C33D33-4969-4F42-A604-9F9A9B8D85C7} = {17F888C8-BA82-4787-9451-016DE21640E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2AF23295-C69C-4EE6-835E-001C1A7CA4C7}
