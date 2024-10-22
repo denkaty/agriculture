@@ -10,7 +10,8 @@ namespace Agriculture.Gateway.Web
                .AddApiControllers()
                .AddSwagger()
                .AddJwtBearer(configuration)
-               .AddAuthorizationPolicies();
+               .AddAuthorizationPolicies()
+               .AddVersioning();
 
             return services;
         }

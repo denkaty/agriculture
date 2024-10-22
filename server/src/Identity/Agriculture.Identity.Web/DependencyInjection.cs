@@ -10,7 +10,8 @@ namespace Agriculture.Identity.Web
                .AddApiControllers()
                .AddSwagger()
                .AddJwtBearer(configuration)
-               .AddAuthorizationPolicies();
+               .AddAuthorizationPolicies()
+               .AddVersioning();
 
             return services;
         }

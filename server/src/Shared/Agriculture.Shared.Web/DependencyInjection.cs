@@ -1,6 +1,8 @@
 ﻿using Agriculture.Shared.Common.Utilities;
+using Agriculture.Shared.Web.Extensions;
 using Agriculture.Shared.Web.Models.Options;
 using Agriculture.Shared.Web.Utilities;
+using Asp.Versioning;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -79,8 +81,6 @@ namespace Agriculture.Shared.Web
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    //var jwtOptions = configuration.GetSection(nameof(AccessTokenOptions)).Get<AccessTokenOptions>();
-
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
@@ -145,7 +145,26 @@ namespace Agriculture.Shared.Web
             return serviceCollection;
         }
 
+        public static IServiceCollection AddVersioning(this IServiceCollection serviceCollection)
+        {
+            serviceCollection
+                .AddApiVersioning(options =>
+                {
+                    options.DefaultApiVersion = new ApiVersion(1);
+                    options.ReportApiVersions = true;
+                    options.ApiVersionReader = new UrlSegmentApiVersionReader();
+                })
+                .AddMvc()
+                .AddApiExplorer(options =>
+                {
+                    options.GroupNameFormat = "'v'V";
+                    options.SubstituteApiVersionInUrl = true;
+                });
 
+            serviceCollection.ConfigureOptions<ConfigureSwaggerGenOptions>();
+
+            return serviceCollection;
+        }
 
     }
 }
