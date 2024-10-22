@@ -33,6 +33,5 @@ namespace Agriculture.Shared.Web.Extensions
             Configure(options);
         }
 
-
     }
 }
