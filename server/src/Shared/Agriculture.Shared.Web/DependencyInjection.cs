@@ -166,5 +166,13 @@ namespace Agriculture.Shared.Web
             return serviceCollection;
         }
 
+        //public static IServiceCollection AddExceptionHandler(this IServiceCollection serviceCollection)
+        //{
+        //    serviceCollection.AddProblemDetails();
+        //    serviceCollection.AddExceptionHandler<AppExceptionHandler>();
+
+        //    return serviceCollection;
+        //}
+
     }
 }

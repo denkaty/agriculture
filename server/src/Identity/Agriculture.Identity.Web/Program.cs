@@ -1,4 +1,5 @@
 using Agriculture.Identity.Web;
+using Agriculture.Shared.Web.Middlewares;
 using Asp.Versioning.ApiExplorer;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,8 @@ if (app.Environment.IsDevelopment())
         }
     });
 }
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
