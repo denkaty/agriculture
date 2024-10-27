@@ -12,6 +12,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Agriculture.Shared.Web\Agriculture.Shared.Web.csproj" />
+    <ProjectReference Include="..\Agriculture.Identity.Application\Agriculture.Identity.Application.csproj" />
+    <ProjectReference Include="..\Agriculture.Identity.Infrastructure\Agriculture.Identity.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Users\Models\Responses\" />
+    <Folder Include="Features\Users\Models\Requests\" />
   </ItemGroup>
 
 </Project>

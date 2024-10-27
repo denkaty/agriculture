@@ -1,9 +1,7 @@
-﻿using Agriculture.Shared.Common.Exceptions.Base;
-using Agriculture.Shared.Common.Exceptions.Users;
-using Asp.Versioning;
+﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Agriculture.Identity.Web.Controllers.v1
+namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
 {
     [ApiVersion("1")]
     [Route("api/v{apiVersion:apiVersion}/users")]
