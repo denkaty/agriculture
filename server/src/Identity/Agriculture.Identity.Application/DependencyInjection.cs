@@ -1,4 +1,4 @@
-﻿using Agriculture.Shared.Application;
+﻿using Agriculture.Shared.Application.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;

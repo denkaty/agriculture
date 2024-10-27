@@ -1,6 +1,7 @@
 using Agriculture.Identity.Application;
-using Agriculture.Identity.Infrastructure;
-using Agriculture.Identity.Web;
+using Agriculture.Identity.Infrastructure.Extensions;
+using Agriculture.Identity.Web.Extensions;
+using Agriculture.Shared.Web.Extensions;
 using Agriculture.Shared.Web.Middlewares;
 using Asp.Versioning.ApiExplorer;
 
@@ -10,6 +11,9 @@ builder.Services
     .AddWebServices(builder.Configuration)
     .AddApplicationServices(builder.Configuration)
     .AddInfrastructureServices(builder.Configuration);
+
+
+builder.Host.AddSerilog();
 
 var app = builder.Build();
 

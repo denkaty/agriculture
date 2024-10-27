@@ -1,8 +1,8 @@
-﻿using Agriculture.Shared.Web;
+﻿using Agriculture.Shared.Web.Extensions;
 
-namespace Agriculture.Gateway.Web
+namespace Agriculture.Gateway.Web.Extensions
 {
-    public static class DependencyInjection
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddWebServices(this IServiceCollection services, ConfigurationManager configuration)
         {

@@ -1,11 +1,10 @@
-﻿using Agriculture.Shared.Infrastructure;
+﻿using Agriculture.Shared.Infrastructure.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
-namespace Agriculture.Identity.Infrastructure
+namespace Agriculture.Identity.Infrastructure.Extensions
 {
-    public static class DependencyInjection
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {

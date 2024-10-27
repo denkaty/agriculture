@@ -4,9 +4,9 @@ using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace Agriculture.Shared.Application
+namespace Agriculture.Shared.Application.Extensions
 {
-    public static class DependencyInjection
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddMapper(this IServiceCollection services, Assembly assembly)
         {

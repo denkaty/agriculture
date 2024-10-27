@@ -1,10 +1,13 @@
-using Agriculture.Gateway.Web;
+using Agriculture.Gateway.Web.Extensions;
+using Agriculture.Shared.Web.Extensions;
 using Asp.Versioning.ApiExplorer;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddWebServices(builder.Configuration);
+
+builder.Host.AddSerilog();
 
 var app = builder.Build();
 

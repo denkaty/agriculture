@@ -13,9 +13,9 @@ using Microsoft.OpenApi.Models;
 using System.Security.Claims;
 using System.Text.Json.Serialization;
 
-namespace Agriculture.Shared.Web
+namespace Agriculture.Shared.Web.Extensions
 {
-    public static class DependencyInjection
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddApiControllers(this IServiceCollection serviceCollection)
         {
