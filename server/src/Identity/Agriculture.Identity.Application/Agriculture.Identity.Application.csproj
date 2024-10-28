@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Features\Users\Abstractions\" />
-    <Folder Include="Features\Users\Commands\" />
     <Folder Include="Features\Users\Mappings\" />
     <Folder Include="Features\Users\Queries\" />
   </ItemGroup>

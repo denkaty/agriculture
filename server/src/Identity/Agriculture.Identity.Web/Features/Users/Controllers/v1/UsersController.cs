@@ -1,4 +1,8 @@
-﻿using Asp.Versioning;
+﻿using Agriculture.Identity.Application.Features.Users.Commands.Register;
+using Agriculture.Shared.Application.Abstractions.Mapper;
+using Agriculture.Shared.Application.Abstractions.MediatR;
+using Agriculture.Shared.Domain.Abstractions;
+using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
@@ -8,9 +12,20 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
     [ApiController]
     public class UsersController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult Test()
+        private readonly IAgricultureSender _sender;
+        private readonly IAgricultureMapper _mapper;
+
+        public UsersController(IAgricultureSender sender, IAgricultureMapper mapper)
         {
+            _sender = sender;
+            _mapper = mapper;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Test([FromQuery] string email, CancellationToken cancellationToken)
+        {
+            RegisterCommand registerCommand = new RegisterCommand(email);
+            await _sender.SendAsync(registerCommand, cancellationToken);
             return Ok("v1");
         }
     }

@@ -1,4 +1,5 @@
-﻿using Agriculture.Shared.Application.Abstractions.Mapper;
+﻿using Agriculture.Shared.Application.PipelineBehaviors;
+using FluentValidation;
 using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,26 @@ namespace Agriculture.Shared.Application.Extensions
             services.AddScoped<IMapper, Mapper>();
 
             return services;
+        }
+
+        public static IServiceCollection AddMediatR(this IServiceCollection serviceCollection, Assembly assembly)
+        {
+            serviceCollection.AddMediatR(
+                cf =>
+                {
+                    cf.RegisterServicesFromAssembly(assembly);
+
+                    cf.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
+                });
+
+            return serviceCollection;
+        }
+
+        public static IServiceCollection AddValidationBehavior(this IServiceCollection serviceCollection, Assembly assembly)
+        {
+            serviceCollection.AddValidatorsFromAssembly(assembly);
+
+            return serviceCollection;
         }
     }
 }
