@@ -1,8 +1,10 @@
-﻿using Agriculture.Shared.Application.Abstractions.Mapper;
+﻿using Agriculture.Shared.Application.Abstractions.CurrentUserContext;
+using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Application.Abstractions.Messaging;
 using Agriculture.Shared.Application.Abstractions.UnitOfWork;
 using Agriculture.Shared.Domain.Models.Options;
+using Agriculture.Shared.Infrastructure.Implementations.CurrentUserContext;
 using Agriculture.Shared.Infrastructure.Implementations.Mapper;
 using Agriculture.Shared.Infrastructure.Implementations.MediatR;
 using Agriculture.Shared.Infrastructure.Implementations.Messaging;
@@ -118,6 +120,15 @@ namespace Agriculture.Shared.Infrastructure.Extensions
             });
 
             serviceCollection.AddScoped<IEventPublisher, EventPublisher>();
+
+            return serviceCollection;
+        }
+
+        public static IServiceCollection AddCurrentUserContext(this IServiceCollection serviceCollection)
+        {
+            serviceCollection
+                .AddHttpContextAccessor()
+                .AddScoped<ICurrentUserContext, CurrentUserContext>();
 
             return serviceCollection;
         }

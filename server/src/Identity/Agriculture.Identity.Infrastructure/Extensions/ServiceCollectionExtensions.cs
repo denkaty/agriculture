@@ -22,7 +22,8 @@ namespace Agriculture.Identity.Infrastructure.Extensions
                 .AddDatabaseIdentity()
                 .AddUnitOfWork<IdentityContext>()
                 .AddMediatR()
-                .AddMessageBroker(configuration, assembly, busConfigurator => busConfigurator.AddTransactionalOutbox<IdentityContext>());
+                .AddMessageBroker(configuration, assembly, busConfigurator => busConfigurator.AddTransactionalOutbox<IdentityContext>())
+                .AddCurrentUserContext();
 
             return services;
         }

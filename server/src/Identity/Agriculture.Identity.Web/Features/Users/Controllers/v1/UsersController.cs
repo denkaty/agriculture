@@ -1,6 +1,7 @@
 ﻿using Agriculture.Identity.Application.Features.Users.Commands.Register;
 using Agriculture.Identity.Contracts.Features.Users.Register;
 using Agriculture.Identity.Web.Features.Users.Models.Requests;
+using Agriculture.Shared.Application.Abstractions.CurrentUserContext;
 using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Web.Utilities;
@@ -18,11 +19,13 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
     {
         private readonly IAgricultureSender _sender;
         private readonly IAgricultureMapper _mapper;
+        private readonly ICurrentUserContext _currentUserContext;
 
-        public UsersController(IAgricultureSender sender, IAgricultureMapper mapper)
+        public UsersController(IAgricultureSender sender, IAgricultureMapper mapper, ICurrentUserContext currentUserContext)
         {
             _sender = sender;
             _mapper = mapper;
+            _currentUserContext = currentUserContext;
         }
 
         [HttpPost("register")]
