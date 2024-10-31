@@ -6,6 +6,7 @@ using Agriculture.Shared.Infrastructure.Implementations.MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace Agriculture.Identity.Infrastructure.Extensions
 {
@@ -13,12 +14,15 @@ namespace Agriculture.Identity.Infrastructure.Extensions
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+
             services
                 .AddMapper()
                 .AddDatabaseContext<IdentityContext>(configuration)
                 .AddDatabaseIdentity()
                 .AddUnitOfWork<IdentityContext>()
-                .AddMediatR();
+                .AddMediatR()
+                .AddMessageBroker(configuration, assembly, busConfigurator => busConfigurator.AddTransactionalOutbox<IdentityContext>());
 
             return services;
         }

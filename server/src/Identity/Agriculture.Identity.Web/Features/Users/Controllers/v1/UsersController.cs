@@ -1,7 +1,8 @@
 ﻿using Agriculture.Identity.Application.Features.Users.Commands.Register;
+using Agriculture.Identity.Contracts.Features.Users.Register;
+using Agriculture.Identity.Web.Features.Users.Models.Requests;
 using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
-using Agriculture.Shared.Domain.Abstractions;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,12 +22,13 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
             _mapper = mapper;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Test([FromQuery] string email, CancellationToken cancellationToken)
+        [HttpPost("register")]
+        public async Task<IActionResult> RegisterAsync([FromBody] RegisterCommandRequest request, CancellationToken cancellationToken)
         {
-            RegisterCommand registerCommand = new RegisterCommand(email);
-            await _sender.SendAsync(registerCommand, cancellationToken);
-            return Ok("v1");
+            RegisterCommand registerCommand = _mapper.Map<RegisterCommand>(request);
+            RegisterCommandResult registerCommandResult = await _sender.SendAsync(registerCommand, cancellationToken);
+            RegisterCommandResponse registerCommandRespone = _mapper.Map<RegisterCommandResponse>(registerCommandResult);
+            return Ok(registerCommandRespone);
         }
     }
 }

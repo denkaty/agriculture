@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <Folder Include="Features\Users\Implementations\" />
-    <Folder Include="Features\Users\Options\" />
+    <Folder Include="Features\Users\Consumers\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Features\Users\Abstractions\" />
-    <Folder Include="Features\Users\Mappings\" />
     <Folder Include="Features\Users\Queries\" />
   </ItemGroup>
 
@@ -19,6 +18,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Agriculture.Shared.Application\Agriculture.Shared.Application.csproj" />
+    <ProjectReference Include="..\Agriculture.Identity.Contracts\Agriculture.Identity.Contracts.csproj" />
+    <ProjectReference Include="..\Agriculture.Identity.Domain\Agriculture.Identity.Domain.csproj" />
   </ItemGroup>
 
 </Project>

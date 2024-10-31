@@ -1,14 +1,19 @@
 ﻿using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
+using Agriculture.Shared.Application.Abstractions.Messaging;
 using Agriculture.Shared.Application.Abstractions.UnitOfWork;
 using Agriculture.Shared.Domain.Models.Options;
 using Agriculture.Shared.Infrastructure.Implementations.Mapper;
 using Agriculture.Shared.Infrastructure.Implementations.MediatR;
+using Agriculture.Shared.Infrastructure.Implementations.Messaging;
+using Agriculture.Shared.Infrastructure.Models.Options;
 using Agriculture.Shared.Infrastructure.Persistences;
 using Agriculture.Shared.Infrastructure.Persistences.Interceptors;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace Agriculture.Shared.Infrastructure.Extensions
 {
@@ -75,6 +80,48 @@ namespace Agriculture.Shared.Infrastructure.Extensions
 
             return serviceCollection;
         }
+
+        public static IServiceCollection AddMessageBroker(
+            this IServiceCollection serviceCollection,
+            IConfiguration configuration,
+            Assembly currentAssembly,
+            Action<IBusRegistrationConfigurator>? configure = null)
+        {
+            serviceCollection
+                .AddOptions<MessageBrokerOptions>()
+                .BindConfiguration(nameof(MessageBrokerOptions))
+                .ValidateDataAnnotations()
+                .ValidateOnStart();
+
+            var messageBrokerOptions = configuration
+                .GetSection(nameof(MessageBrokerOptions))
+                .Get<MessageBrokerOptions>()!;
+
+            serviceCollection.AddMassTransit(busConfigurator =>
+            {
+                busConfigurator.SetKebabCaseEndpointNameFormatter();
+
+                busConfigurator.AddConsumers(currentAssembly);
+
+                busConfigurator.UsingRabbitMq((context, configurator) =>
+                {
+                    configurator.Host(new Uri(messageBrokerOptions.Host), host =>
+                    {
+                        host.Username(messageBrokerOptions.Username);
+                        host.Password(messageBrokerOptions.Password);
+                    });
+
+                    configurator.ConfigureEndpoints(context);
+                });
+
+                configure?.Invoke(busConfigurator);
+            });
+
+            serviceCollection.AddScoped<IEventPublisher, EventPublisher>();
+
+            return serviceCollection;
+        }
+
 
     }
 }
