@@ -3,14 +3,17 @@ using Agriculture.Identity.Contracts.Features.Users.Register;
 using Agriculture.Identity.Web.Features.Users.Models.Requests;
 using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
+using Agriculture.Shared.Web.Utilities;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
 {
     [ApiController]
     [ApiVersion("1")]
     [Route("api/v{apiVersion:apiVersion}/users")]
+    [EnableRateLimiting(AppPolicies.RateLimiterPolicy)]
     public class UsersController : ControllerBase
     {
         private readonly IAgricultureSender _sender;

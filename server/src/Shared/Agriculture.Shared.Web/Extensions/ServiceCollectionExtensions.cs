@@ -5,6 +5,7 @@ using Agriculture.Shared.Web.Utilities;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Claims;
 using System.Text.Json.Serialization;
+using System.Threading.RateLimiting;
 
 namespace Agriculture.Shared.Web.Extensions
 {
@@ -189,6 +191,25 @@ namespace Agriculture.Shared.Web.Extensions
                     builder.WithOrigins(corsOptions.AllowedOrigins.Split(", "))
                            .AllowAnyHeader()
                            .AllowAnyMethod());
+            });
+
+            return serviceCollection;
+        }
+
+        public static IServiceCollection AddRateLimiterPolicies(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddRateLimiter(options =>
+            {
+                options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+                options.AddPolicy(AppPolicies.RateLimiterPolicy,
+                    httpContext => RateLimitPartition.GetFixedWindowLimiter(
+                        partitionKey: httpContext.Connection.RemoteIpAddress?.ToString(),
+                        factory: _ => new FixedWindowRateLimiterOptions
+                        {
+                            PermitLimit = 100,
+                            Window = TimeSpan.FromSeconds(10),
+                        }));
             });
 
             return serviceCollection;

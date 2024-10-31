@@ -12,7 +12,8 @@ namespace Agriculture.Identity.Web.Extensions
                .AddJwtBearer(configuration)
                .AddAuthorizationPolicies()
                .AddVersioning()
-               .AddCorsPolicies(configuration);
+               .AddCorsPolicies(configuration)
+               .AddRateLimiterPolicies();
 
             return services;
         }

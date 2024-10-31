@@ -5,5 +5,7 @@
         public const string EmployeePolicy = nameof(EmployeePolicy);
 
         public const string CorsPolicy = nameof(CorsPolicy);
+
+        public const string RateLimiterPolicy = nameof(RateLimiterPolicy);
     }
 }

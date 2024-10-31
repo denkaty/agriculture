@@ -12,7 +12,8 @@ namespace Agriculture.Gateway.Web.Extensions
                .AddJwtBearer(configuration)
                .AddAuthorizationPolicies()
                .AddVersioning()
-               .AddCorsPolicies(configuration);
+               .AddCorsPolicies(configuration)
+               .AddRateLimiterPolicies();
 
             services
                 .AddReverseProxy()
