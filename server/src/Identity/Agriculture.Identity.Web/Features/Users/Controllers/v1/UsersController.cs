@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
 {
+    [ApiController]
     [ApiVersion("1")]
     [Route("api/v{apiVersion:apiVersion}/users")]
-    [ApiController]
     public class UsersController : ControllerBase
     {
         private readonly IAgricultureSender _sender;
@@ -29,6 +29,12 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
             RegisterCommandResult registerCommandResult = await _sender.SendAsync(registerCommand, cancellationToken);
             RegisterCommandResponse registerCommandRespone = _mapper.Map<RegisterCommandResponse>(registerCommandResult);
             return Ok(registerCommandRespone);
+        }
+
+        [HttpGet("login")]
+        public async Task<IActionResult> Test(CancellationToken cancellationToken)
+        {
+            return Ok("bravo");
         }
     }
 }

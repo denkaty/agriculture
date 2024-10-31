@@ -4,14 +4,19 @@ namespace Agriculture.Gateway.Web.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddWebServices(this IServiceCollection services, ConfigurationManager configuration)
+        public static IServiceCollection AddWebServices(this IServiceCollection services, IConfiguration configuration)
         {
             services
                .AddApiControllers()
                .AddSwagger()
                .AddJwtBearer(configuration)
                .AddAuthorizationPolicies()
-               .AddVersioning();
+               .AddVersioning()
+               .AddCorsPolicies(configuration);
+
+            services
+                .AddReverseProxy()
+                .LoadFromConfig(configuration.GetSection("ReverseProxy"));
 
             return services;
         }

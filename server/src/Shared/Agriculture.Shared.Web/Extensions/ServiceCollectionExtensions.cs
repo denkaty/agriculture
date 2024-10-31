@@ -166,13 +166,33 @@ namespace Agriculture.Shared.Web.Extensions
             return serviceCollection;
         }
 
-        //public static IServiceCollection AddExceptionHandler(this IServiceCollection serviceCollection)
-        //{
-        //    serviceCollection.AddProblemDetails();
-        //    serviceCollection.AddExceptionHandler<AppExceptionHandler>();
+        public static IServiceCollection AddCorsPolicies(this IServiceCollection serviceCollection, IConfiguration configuration)
+        {
+            serviceCollection
+                .AddOptions<CorsOptions>()
+                .BindConfiguration(nameof(CorsOptions))
+                .ValidateDataAnnotations()
+                .ValidateOnStart();
 
-        //    return serviceCollection;
-        //}
+            var corsOptions = configuration
+                .GetSection(nameof(CorsOptions))
+                .Get<CorsOptions>()!;
+
+            serviceCollection.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                    builder.AllowAnyOrigin()
+                           .AllowAnyHeader()
+                           .AllowAnyMethod());
+
+                options.AddPolicy(AppPolicies.CorsPolicy, builder =>
+                    builder.WithOrigins(corsOptions.AllowedOrigins.Split(", "))
+                           .AllowAnyHeader()
+                           .AllowAnyMethod());
+            });
+
+            return serviceCollection;
+        }
 
     }
 }
