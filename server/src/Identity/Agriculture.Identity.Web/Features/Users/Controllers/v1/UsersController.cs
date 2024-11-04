@@ -17,24 +17,27 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
     [EnableRateLimiting(AppPolicies.RateLimiterPolicy)]
     public class UsersController : ControllerBase
     {
-        private readonly IAgricultureSender _sender;
-        private readonly IAgricultureMapper _mapper;
+        private readonly IAgricultureMapper _agricultureMapper;
+        private readonly IAgricultureSender _agricultureSender;
         private readonly ICurrentUserContext _currentUserContext;
 
-        public UsersController(IAgricultureSender sender, IAgricultureMapper mapper, ICurrentUserContext currentUserContext)
+        public UsersController(
+            IAgricultureMapper agricultureMapper,
+            IAgricultureSender agricultureSender,
+            ICurrentUserContext currentUserContext)
         {
-            _sender = sender;
-            _mapper = mapper;
+            _agricultureMapper = agricultureMapper;
+            _agricultureSender = agricultureSender;
             _currentUserContext = currentUserContext;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterCommandRequest request, CancellationToken cancellationToken)
         {
-            RegisterCommand registerCommand = _mapper.Map<RegisterCommand>(request);
-            RegisterCommandResult registerCommandResult = await _sender.SendAsync(registerCommand, cancellationToken);
-            RegisterCommandResponse registerCommandRespone = _mapper.Map<RegisterCommandResponse>(registerCommandResult);
-            return Ok(registerCommandRespone);
+            RegisterCommand registerCommand = _agricultureMapper.Map<RegisterCommand>(request);
+            RegisterCommandResult registerCommandResult = await _agricultureSender.SendAsync(registerCommand, cancellationToken);
+            RegisterCommandResponse registerCommandResponse = _agricultureMapper.Map<RegisterCommandResponse>(registerCommandResult);
+            return Ok(registerCommandResponse);
         }
 
         [HttpGet("login")]

@@ -10,6 +10,7 @@ using Agriculture.Shared.Infrastructure.Implementations.MediatR;
 using Agriculture.Shared.Infrastructure.Implementations.Messaging;
 using Agriculture.Shared.Infrastructure.Models.Options;
 using Agriculture.Shared.Infrastructure.Persistences;
+using Agriculture.Shared.Infrastructure.Persistences.DatabaseInitializer;
 using Agriculture.Shared.Infrastructure.Persistences.Interceptors;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
@@ -132,7 +133,6 @@ namespace Agriculture.Shared.Infrastructure.Extensions
 
             return serviceCollection;
         }
-
 
     }
 }

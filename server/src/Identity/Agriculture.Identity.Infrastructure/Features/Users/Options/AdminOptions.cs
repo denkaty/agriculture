@@ -9,5 +9,8 @@ namespace Agriculture.Identity.Infrastructure.Features.Users.Options
 
         [Required]
         public string Password { get; set; } = string.Empty;
+
+        [Required]
+        public string Username { get; set; } = string.Empty;
     }
 }
