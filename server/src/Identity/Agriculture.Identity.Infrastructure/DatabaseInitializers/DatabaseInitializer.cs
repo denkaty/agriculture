@@ -22,8 +22,8 @@ namespace Agriculture.Identity.Infrastructure.DatabaseInitializers
         public async Task InitializeAsync(CancellationToken cancellationToken)
         {
             await _migrationSeeder.SeedAsync(cancellationToken);
-            await _rolesSeeder.SeedAsync();
-            await _userSeeder.SeedAsync();
+            await _rolesSeeder.SeedAsync(cancellationToken);
+            await _userSeeder.SeedAsync(cancellationToken);
         }
     }
 }

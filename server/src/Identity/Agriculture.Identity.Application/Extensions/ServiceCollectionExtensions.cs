@@ -10,7 +10,6 @@ namespace Agriculture.Identity.Application.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
-
             services
                 .AddMapper(assembly)
                 .AddMediatR(assembly)

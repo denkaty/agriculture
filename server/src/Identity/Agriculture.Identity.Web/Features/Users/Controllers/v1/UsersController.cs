@@ -1,4 +1,5 @@
 ﻿using Agriculture.Identity.Application.Features.Users.Commands.Register;
+using Agriculture.Identity.Application.Features.Users.Queries.Login;
 using Agriculture.Identity.Contracts.Features.Users.Register;
 using Agriculture.Identity.Web.Features.Users.Models.Requests;
 using Agriculture.Shared.Application.Abstractions.CurrentUserContext;
@@ -41,9 +42,12 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
         }
 
         [HttpGet("login")]
-        public async Task<IActionResult> Test(CancellationToken cancellationToken)
+        public async Task<IActionResult> LoginAsync([FromQuery]string Email, CancellationToken cancellationToken)
         {
-            return Ok("bravo");
+            LoginQuery loginQuery = new LoginQuery(Email);
+            LoginQueryResult loginQueryResult = await _agricultureSender.SendAsync(loginQuery,cancellationToken);
+
+            return Ok(loginQueryResult);
         }
     }
 }

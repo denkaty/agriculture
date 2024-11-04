@@ -5,7 +5,7 @@ using ValidationException = Agriculture.Shared.Common.Exceptions.Base.Validation
 namespace Agriculture.Shared.Application.PipelineBehaviors
 {
     public class ValidationPipelineBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : IRequest
+        where TRequest : notnull
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 
@@ -22,6 +22,7 @@ namespace Agriculture.Shared.Application.PipelineBehaviors
 
             var validationResults = await Task.WhenAll(
                 _validators.Select(v => v.ValidateAsync(validationContext)));
+
 
             var validationFailures = validationResults
                 .Where(vr => !vr.IsValid)

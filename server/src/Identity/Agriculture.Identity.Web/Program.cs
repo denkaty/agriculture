@@ -1,8 +1,10 @@
 using Agriculture.Identity.Application.Extensions;
+using Agriculture.Identity.Application.Features.Users.Commands.Register;
 using Agriculture.Identity.Infrastructure.Extensions;
 using Agriculture.Identity.Web.Extensions;
 using Agriculture.Shared.Web.Extensions;
 using Agriculture.Shared.Web.Utilities;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 

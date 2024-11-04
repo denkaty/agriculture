@@ -39,7 +39,10 @@ namespace Agriculture.Identity.Infrastructure.Extensions
         private static IServiceCollection AddDatabaseIdentity(this IServiceCollection serviceCollection)
         {
             serviceCollection
-                .AddIdentity<User, Role>()
+                .AddIdentity<User, Role>(options =>
+                {
+                    options.User.RequireUniqueEmail = true;
+                })
                 .AddRoles<Role>()
                 .AddEntityFrameworkStores<IdentityContext>()
                 .AddDefaultTokenProviders();
