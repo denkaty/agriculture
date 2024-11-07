@@ -1,10 +1,10 @@
-﻿using Agriculture.Identity.Application.Features.Users.Commands.Register;
-using Agriculture.Identity.Contracts.Features.Users.Register;
+﻿using Agriculture.Identity.Contracts.Features.Users.Register;
 using Agriculture.Identity.Domain.Features.Users.Models.Entities;
 using Agriculture.Identity.Web.Features.Users.Models.Requests;
+using Agriculture.Shared.Application.Events.Users;
 using Mapster;
 
-namespace Agriculture.Identity.Application.Features.Users.Mappings
+namespace Agriculture.Identity.Application.Features.Users.Commands.Register
 {
     public class RegisterCommandMapping : IRegister
     {
@@ -22,6 +22,8 @@ namespace Agriculture.Identity.Application.Features.Users.Mappings
 
             config.NewConfig<User, RegisterCommandResult>()
                 .Map(dest => dest.Id, src => src.Id);
+
+            config.NewConfig<User, UserCreatedEvent>();
 
             config.NewConfig<RegisterCommandResult, RegisterCommandResponse>();
         }

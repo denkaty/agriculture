@@ -1,8 +1,10 @@
-﻿using Agriculture.Identity.Domain.Features.Roles.Models;
+﻿using Agriculture.Identity.Application.Features.Users.Abstractions;
+using Agriculture.Identity.Domain.Features.Roles.Models;
 using Agriculture.Identity.Domain.Features.Users.Models.Entities;
 using Agriculture.Identity.Infrastructure.DatabaseInitializers;
 using Agriculture.Identity.Infrastructure.DatabaseInitializers.Abstractions;
 using Agriculture.Identity.Infrastructure.Features.Roles.Options;
+using Agriculture.Identity.Infrastructure.Features.Users.Implementations;
 using Agriculture.Identity.Infrastructure.Features.Users.Options;
 using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Infrastructure.Extensions;
@@ -31,7 +33,9 @@ namespace Agriculture.Identity.Infrastructure.Extensions
                 .AddCurrentUserContext()
                 .AddRoleOptions(configuration)
                 .AddAdminOptions(configuration)
-                .AddDatabaseInitializers();
+                .AddDatabaseInitializers()
+                .AddDateTimeProvider()
+                .AddAccessTokenGenerator();
 
             return services;
         }
@@ -57,7 +61,7 @@ namespace Agriculture.Identity.Infrastructure.Extensions
             return serviceCollection;
         }
 
-        public static IServiceCollection AddDatabaseInitializers(this IServiceCollection serviceCollection)
+        private static IServiceCollection AddDatabaseInitializers(this IServiceCollection serviceCollection)
         {
             serviceCollection
                 .AddScoped<IMigrationSeeder, MigrationSeeder>()
@@ -68,7 +72,7 @@ namespace Agriculture.Identity.Infrastructure.Extensions
             return serviceCollection;
         }
 
-        public static IServiceCollection AddRoleOptions(this IServiceCollection serviceCollection, IConfiguration configuration)
+        private static IServiceCollection AddRoleOptions(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
             serviceCollection
                 .AddOptions<RoleOptions>()
@@ -79,7 +83,7 @@ namespace Agriculture.Identity.Infrastructure.Extensions
             return serviceCollection;
         }
 
-        public static IServiceCollection AddAdminOptions(this IServiceCollection serviceCollection, IConfiguration configuration)
+        private static IServiceCollection AddAdminOptions(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
             serviceCollection
                 .AddOptions<AdminOptions>()
@@ -90,6 +94,12 @@ namespace Agriculture.Identity.Infrastructure.Extensions
             return serviceCollection;
         }
 
+        private static IServiceCollection AddAccessTokenGenerator(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddScoped<IAccessTokenGenerator, AccessTokenGenerator>();
+
+            return serviceCollection;
+        }
 
     }
 }

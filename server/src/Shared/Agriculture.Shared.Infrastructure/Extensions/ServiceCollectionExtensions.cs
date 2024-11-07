@@ -1,16 +1,17 @@
 ﻿using Agriculture.Shared.Application.Abstractions.CurrentUserContext;
+using Agriculture.Shared.Application.Abstractions.DateTimeProvider;
 using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Application.Abstractions.Messaging;
 using Agriculture.Shared.Application.Abstractions.UnitOfWork;
 using Agriculture.Shared.Domain.Models.Options;
 using Agriculture.Shared.Infrastructure.Implementations.CurrentUserContext;
+using Agriculture.Shared.Infrastructure.Implementations.DateTimeProvider;
 using Agriculture.Shared.Infrastructure.Implementations.Mapper;
 using Agriculture.Shared.Infrastructure.Implementations.MediatR;
 using Agriculture.Shared.Infrastructure.Implementations.Messaging;
 using Agriculture.Shared.Infrastructure.Models.Options;
 using Agriculture.Shared.Infrastructure.Persistences;
-using Agriculture.Shared.Infrastructure.Persistences.DatabaseInitializer;
 using Agriculture.Shared.Infrastructure.Persistences.Interceptors;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
@@ -49,8 +50,6 @@ namespace Agriculture.Shared.Infrastructure.Extensions
             {
                 options.AddInterceptors(new AuditableEntityInterceptor());
 
-                //options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-
                 options.UseSqlServer(
                         databaseOptions.ConnectionString,
                         sqlServerOptions => sqlServerOptions.EnableRetryOnFailure());
@@ -68,9 +67,6 @@ namespace Agriculture.Shared.Infrastructure.Extensions
         public static IServiceCollection AddUnitOfWork<TDbContext>(this IServiceCollection serviceCollection)
             where TDbContext : DbContext
         {
-            //serviceCollection.AddScoped<IUnitOfWork<TDbContext>, UnitOfWork<TDbContext>>(sp =>
-            //new UnitOfWork<TDbContext>(sp.GetRequiredService<TDbContext>()));
-
             serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>(sp =>
             new UnitOfWork(sp.GetRequiredService<TDbContext>()));
 
@@ -130,6 +126,13 @@ namespace Agriculture.Shared.Infrastructure.Extensions
             serviceCollection
                 .AddHttpContextAccessor()
                 .AddScoped<ICurrentUserContext, CurrentUserContext>();
+
+            return serviceCollection;
+        }
+
+        public static IServiceCollection AddDateTimeProvider(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddScoped<IDateTimeProvider, DateTimeProvider>();
 
             return serviceCollection;
         }

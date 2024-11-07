@@ -1,4 +1,5 @@
-﻿using Agriculture.Shared.Common.Utilities;
+﻿using Agriculture.Shared.Common.Models.Options;
+using Agriculture.Shared.Common.Utilities;
 using Agriculture.Shared.Web.Extensions;
 using Agriculture.Shared.Web.Models.Options;
 using Agriculture.Shared.Web.Utilities;
@@ -91,7 +92,7 @@ namespace Agriculture.Shared.Web.Extensions
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = jwtOptions.Issuer,
                         ValidAudience = jwtOptions.Audience,
-                        IssuerSigningKey = new SymmetricSecurityKey(jwtOptions.SecretKeyByteArray)
+                        IssuerSigningKey = new SymmetricSecurityKey(jwtOptions.SecurityKeyByteArray)
                     };
 
                     options.Events = new JwtBearerEvents

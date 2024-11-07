@@ -1,5 +1,6 @@
 ﻿using Agriculture.Identity.Application.Features.Users.Commands.Register;
 using Agriculture.Identity.Application.Features.Users.Queries.Login;
+using Agriculture.Identity.Contracts.Features.Users.Login;
 using Agriculture.Identity.Contracts.Features.Users.Register;
 using Agriculture.Identity.Web.Features.Users.Models.Requests;
 using Agriculture.Shared.Application.Abstractions.CurrentUserContext;
@@ -35,19 +36,25 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
         [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterCommandRequest request, CancellationToken cancellationToken)
         {
-            RegisterCommand registerCommand = _agricultureMapper.Map<RegisterCommand>(request);
-            RegisterCommandResult registerCommandResult = await _agricultureSender.SendAsync(registerCommand, cancellationToken);
-            RegisterCommandResponse registerCommandResponse = _agricultureMapper.Map<RegisterCommandResponse>(registerCommandResult);
+            var registerCommand = _agricultureMapper.Map<RegisterCommand>(request);
+
+            var registerCommandResult = await _agricultureSender.SendAsync(registerCommand, cancellationToken);
+
+            var registerCommandResponse = _agricultureMapper.Map<RegisterCommandResponse>(registerCommandResult);
+
             return Ok(registerCommandResponse);
         }
 
-        [HttpGet("login")]
-        public async Task<IActionResult> LoginAsync([FromQuery]string Email, CancellationToken cancellationToken)
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginAsync([FromBody] LoginQueryRequest request, CancellationToken cancellationToken)
         {
-            LoginQuery loginQuery = new LoginQuery(Email);
-            LoginQueryResult loginQueryResult = await _agricultureSender.SendAsync(loginQuery,cancellationToken);
+            var loginQuery = _agricultureMapper.Map<LoginQuery>(request);
 
-            return Ok(loginQueryResult);
+            var loginQueryResult = await _agricultureSender.SendAsync(loginQuery, cancellationToken);
+
+            var loginQueryResponse = _agricultureMapper.Map<LoginQueryResponse>(loginQueryResult);
+
+            return Ok(loginQueryResponse);
         }
     }
 }
