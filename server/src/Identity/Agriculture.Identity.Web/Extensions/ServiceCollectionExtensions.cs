@@ -9,10 +9,10 @@ namespace Agriculture.Identity.Web.Extensions
             services
                .AddApiControllers()
                .AddSwagger()
+               .AddCorsPolicies(configuration)
                .AddJwtBearer(configuration)
                .AddAuthorizationPolicies()
                .AddVersioning()
-               .AddCorsPolicies(configuration)
                .AddRateLimiterPolicies();
 
             return services;

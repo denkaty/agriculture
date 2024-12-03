@@ -1,29 +1,37 @@
-﻿using Agriculture.Identity.Domain.Features.Users.Models.Entities;
-using Agriculture.Shared.Application.Abstractions.Mapper;
+﻿using Agriculture.Identity.Application.Features.Users.Abstractions;
+using Agriculture.Identity.Domain.Features.Users.Models.Entities;
 using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Common.Exceptions.Base;
 using Agriculture.Shared.Common.Exceptions.Users;
 using Microsoft.AspNetCore.Identity;
 
-namespace Agriculture.Identity.Application.Features.Users.Commands.ChangePassword
+namespace Agriculture.Identity.Application.Features.Users.Commands.ResetPassword
 {
-    public class ChangePasswordCommandHandler : ICommandHandler<ChangePasswordCommand>
+    public class ResetPasswordCommandHandler : ICommandHandler<ResetPasswordCommand>
     {
-        private readonly IAgricultureMapper _mapper;
         private readonly UserManager<User> _userManager;
+        private readonly ITokenValidator _tokenValidator;
 
-        public ChangePasswordCommandHandler(IAgricultureMapper mapper, UserManager<User> userManager)
+        public ResetPasswordCommandHandler(UserManager<User> userManager, ITokenValidator tokenValidator)
         {
-            _mapper = mapper;
             _userManager = userManager;
+            _tokenValidator = tokenValidator;
         }
 
-        public async Task Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
+
+        public async Task Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
         {
             User? existingUser = await _userManager.FindByIdAsync(request.UserId);
+
             if (existingUser == null)
             {
                 throw new UserNotFoundException(request.UserId);
+            }
+
+            bool isValid = _tokenValidator.IsValidResetPasswordToken(request.Token);
+            if (!isValid)
+            {
+                throw new UserInvalidResetPasswordTokenException();
             }
 
             bool isPasswordConfirmed = request.NewPassword == request.ConfirmPassword;

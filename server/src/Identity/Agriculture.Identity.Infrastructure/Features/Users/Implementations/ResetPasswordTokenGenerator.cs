@@ -29,6 +29,7 @@ namespace Agriculture.Identity.Infrastructure.Features.Users.Implementations
 
             var claimsIdentity = new ClaimsIdentity(new[]
             {
+                new Claim(JwtRegisteredClaimNames.Sub, id),
                 new Claim(ClaimTypes.NameIdentifier, id),
                 new Claim(ClaimTypes.Email, email),
             });

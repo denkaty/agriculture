@@ -28,11 +28,14 @@ namespace Agriculture.Identity.Infrastructure.Features.Users.Implementations
 
             var claimsIdentity = new ClaimsIdentity(new[]
             {
+                new Claim(JwtRegisteredClaimNames.Sub, createAccessTokenModel.UserId),
                 new Claim(ClaimTypes.NameIdentifier, createAccessTokenModel.UserId),
                 new Claim(ClaimTypes.Email, createAccessTokenModel.Email),
                 new Claim(ClaimTypes.GivenName, createAccessTokenModel.FirstName),
                 new Claim(ClaimTypes.Surname, createAccessTokenModel.LastName),
             });
+
+            claimsIdentity.AddClaims(createAccessTokenModel.Roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {

@@ -2,5 +2,5 @@
 
 namespace Agriculture.Identity.Application.Features.Users.Commands.ChangePassword
 {
-    public record ChangePasswordCommand(string UserId, string Token, string NewPassword, string ConfirmPassword) : ICommand;
+    public record ChangePasswordCommand(string UserId, string NewPassword, string ConfirmPassword) : ICommand;
 }

@@ -38,7 +38,9 @@ namespace Agriculture.Identity.Application.Features.Users.Queries.Login
                 throw new UserInvalidPasswordException(request.Email);
             }
 
-            var createAccessTokenModel = _mapper.Map<CreateAccessTokenModel>(user);
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var createAccessTokenModel = _mapper.Map<CreateAccessTokenModel>((user,roles.ToArray()));
 
             var createAccessTokenResult = _accessTokenGenerator.GenerateAccessToken(createAccessTokenModel);
 

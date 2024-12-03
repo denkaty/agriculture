@@ -43,10 +43,10 @@ namespace Agriculture.Shared.Web.Extensions
                 {
                     In = ParameterLocation.Header,
                     Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey,
+                    Type = SecuritySchemeType.Http,
                     Scheme = JwtBearerDefaults.AuthenticationScheme,
                     BearerFormat = "JWT",
-                    Description = "Enter your token in the text input below."
+                    Description = "Please enter Bearer [JWT token] into field"
                 });
 
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -81,7 +81,11 @@ namespace Agriculture.Shared.Web.Extensions
                 .Get<AccessTokenOptions>();
 
             services
-                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
                 .AddJwtBearer(options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -137,12 +141,13 @@ namespace Agriculture.Shared.Web.Extensions
             serviceCollection
                 .AddAuthorization(options =>
                 {
-                    options.DefaultPolicy = new AuthorizationPolicyBuilder()
+                    options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
                     .RequireAuthenticatedUser()
                     .RequireClaim(ClaimTypes.NameIdentifier)
                     .Build();
 
                     options.AddPolicy(AppPolicies.EmployeePolicy, policy => policy.RequireRole(AppRoles.Employee));
+                    options.AddPolicy(AppPolicies.AdminPolicy, policy => policy.RequireRole(AppRoles.Admin));
                 });
 
             return serviceCollection;
