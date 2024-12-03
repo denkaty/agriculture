@@ -46,9 +46,9 @@ namespace Agriculture.Identity.Application.Features.Users.Commands.RequestResetP
                 throw new UserNotFoundException(request.Email);
             }
 
-            var generateResetPasswordTokenResponse = _resetPasswordTokenGenerator.GenerateResetPasswordToken(user.Id, request.Email);
+            var resetPasswordToken = _resetPasswordTokenGenerator.GenerateResetPasswordToken(user.Id, request.Email);
 
-            var url = _urlHandler.ConfigureResetPasswordUrl(user.Id, generateResetPasswordTokenResponse.Token);
+            var url = _urlHandler.ConfigureResetPasswordUrl(user.Id, resetPasswordToken.Token);
 
             var userResetPasswordTokenCreatedEvent = _agricultureMapper.Map<UserRequestedResetPasswordEvent>((user.Email, url));
 

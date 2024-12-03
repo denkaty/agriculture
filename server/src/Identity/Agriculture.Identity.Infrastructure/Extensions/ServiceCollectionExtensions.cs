@@ -39,7 +39,8 @@ namespace Agriculture.Identity.Infrastructure.Extensions
                 .AddDateTimeProvider()
                 .AddAccessTokenGenerator()
                 .AddResetPasswordRelated()
-                .AddUrlRelated();
+                .AddUrlRelated()
+                .AddTokenValidator();
 
             return services;
         }
@@ -127,6 +128,13 @@ namespace Agriculture.Identity.Infrastructure.Extensions
                 .ValidateOnStart();
 
             serviceCollection.AddScoped<IUrlHandler, UrlHandler>();
+
+            return serviceCollection;
+        }
+
+        private static IServiceCollection AddTokenValidator(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddScoped<ITokenValidator, TokenValidator>();
 
             return serviceCollection;
         }

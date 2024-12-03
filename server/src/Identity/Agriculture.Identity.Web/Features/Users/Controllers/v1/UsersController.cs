@@ -1,4 +1,5 @@
-﻿using Agriculture.Identity.Application.Features.Users.Commands.Register;
+﻿using Agriculture.Identity.Application.Features.Users.Commands.ChangePassword;
+using Agriculture.Identity.Application.Features.Users.Commands.Register;
 using Agriculture.Identity.Application.Features.Users.Commands.RequestResetPassword;
 using Agriculture.Identity.Application.Features.Users.Queries.Login;
 using Agriculture.Identity.Contracts.Features.Users.ChangePassword;
@@ -65,7 +66,7 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
         }
 
         [HttpPost("request-reset-password")]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> ChangePasswordAsync([FromBody] RequestResetPasswordCommandRequest request, CancellationToken cancellationToken)
         {
@@ -76,18 +77,16 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
             return NoContent();
         }
 
-        //[HttpPost("change-password")]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //public async Task<IActionResult> ChangePasswordAsync([FromBody] ChangePasswordCommandRequest request, CancellationToken cancellationToken)
-        //{
-        //    var changePasswordCommand = _agricultureMapper.Map<ChangePasswordCommand>(request);
+        [HttpPatch("change-password")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> ChangePasswordAsync([FromBody] ChangePasswordCommandRequest request, CancellationToken cancellationToken)
+        {
+            var changePasswordCommand = _agricultureMapper.Map<ChangePasswordCommand>(request);
 
-        //    var changePasswordCommandResult = await _agricultureSender.SendAsync(changePasswordCommand, cancellationToken);
+            await _agricultureSender.SendAsync(changePasswordCommand, cancellationToken);
 
-        //    var changePasswordCommandResponse = _agricultureMapper.Map<ChangePasswordCommandResponse>(changePasswordCommandResult);
-
-        //    return Ok(changePasswordCommandResponse);
-        //}
+            return NoContent();
+        }
     }
 }
