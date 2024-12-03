@@ -13,13 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Users\Consumers\" />
-    <Folder Include="Models\Options\" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+    <Folder Include="Features\Users\Consumers\" />
   </ItemGroup>
 
 </Project>
