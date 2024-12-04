@@ -1,17 +1,23 @@
-﻿using Agriculture.Shared.Common.Utilities;
+﻿using Agriculture.Shared.Common.Models.Options;
+using Agriculture.Shared.Common.Utilities;
+using Agriculture.Shared.Web.Binders.FromClaim;
 using Agriculture.Shared.Web.Extensions;
 using Agriculture.Shared.Web.Models.Options;
 using Agriculture.Shared.Web.Utilities;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Claims;
 using System.Text.Json.Serialization;
+using System.Threading.RateLimiting;
 
 namespace Agriculture.Shared.Web.Extensions
 {
@@ -20,12 +26,24 @@ namespace Agriculture.Shared.Web.Extensions
         public static IServiceCollection AddApiControllers(this IServiceCollection serviceCollection)
         {
             serviceCollection
-                .AddControllers()
+                .AddControllers(options =>
+                {
+                    options.ValueProviderFactories.Add(new FromClaimValueProviderFactory());
+                    options.Filters.Add(new AuthorizeFilter());
+                })
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
+
+            return serviceCollection;
+        }
+
+        public static IServiceCollection ConfigureApiBehaviorOptions(this IServiceCollection serviceCollection)
+        {
+            serviceCollection
+                .Configure<ApiBehaviorOptions>(options => options.SuppressInferBindingSourcesForParameters = true);
 
             return serviceCollection;
         }
@@ -40,10 +58,10 @@ namespace Agriculture.Shared.Web.Extensions
                 {
                     In = ParameterLocation.Header,
                     Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey,
+                    Type = SecuritySchemeType.Http,
                     Scheme = JwtBearerDefaults.AuthenticationScheme,
                     BearerFormat = "JWT",
-                    Description = "Enter your token in the text input below."
+                    Description = "Please enter Bearer [JWT token] into field"
                 });
 
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -78,7 +96,11 @@ namespace Agriculture.Shared.Web.Extensions
                 .Get<AccessTokenOptions>();
 
             services
-                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
                 .AddJwtBearer(options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -89,7 +111,7 @@ namespace Agriculture.Shared.Web.Extensions
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = jwtOptions.Issuer,
                         ValidAudience = jwtOptions.Audience,
-                        IssuerSigningKey = new SymmetricSecurityKey(jwtOptions.SecretKeyByteArray)
+                        IssuerSigningKey = new SymmetricSecurityKey(jwtOptions.SecurityKeyByteArray)
                     };
 
                     options.Events = new JwtBearerEvents
@@ -134,12 +156,13 @@ namespace Agriculture.Shared.Web.Extensions
             serviceCollection
                 .AddAuthorization(options =>
                 {
-                    options.DefaultPolicy = new AuthorizationPolicyBuilder()
+                    options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
                     .RequireAuthenticatedUser()
                     .RequireClaim(ClaimTypes.NameIdentifier)
                     .Build();
 
                     options.AddPolicy(AppPolicies.EmployeePolicy, policy => policy.RequireRole(AppRoles.Employee));
+                    options.AddPolicy(AppPolicies.AdminPolicy, policy => policy.RequireRole(AppRoles.Admin));
                 });
 
             return serviceCollection;
@@ -166,13 +189,52 @@ namespace Agriculture.Shared.Web.Extensions
             return serviceCollection;
         }
 
-        //public static IServiceCollection AddExceptionHandler(this IServiceCollection serviceCollection)
-        //{
-        //    serviceCollection.AddProblemDetails();
-        //    serviceCollection.AddExceptionHandler<AppExceptionHandler>();
+        public static IServiceCollection AddCorsPolicies(this IServiceCollection serviceCollection, IConfiguration configuration)
+        {
+            serviceCollection
+                .AddOptions<CorsOptions>()
+                .BindConfiguration(nameof(CorsOptions))
+                .ValidateDataAnnotations()
+                .ValidateOnStart();
 
-        //    return serviceCollection;
-        //}
+            var corsOptions = configuration
+                .GetSection(nameof(CorsOptions))
+                .Get<CorsOptions>()!;
+
+            serviceCollection.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                    builder.AllowAnyOrigin()
+                           .AllowAnyHeader()
+                           .AllowAnyMethod());
+
+                options.AddPolicy(AppPolicies.CorsPolicy, builder =>
+                    builder.WithOrigins(corsOptions.AllowedOrigins.Split(", "))
+                           .AllowAnyHeader()
+                           .AllowAnyMethod());
+            });
+
+            return serviceCollection;
+        }
+
+        public static IServiceCollection AddRateLimiterPolicies(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddRateLimiter(options =>
+            {
+                options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+                options.AddPolicy(AppPolicies.RateLimiterPolicy,
+                    httpContext => RateLimitPartition.GetFixedWindowLimiter(
+                        partitionKey: httpContext.Connection.RemoteIpAddress?.ToString(),
+                        factory: _ => new FixedWindowRateLimiterOptions
+                        {
+                            PermitLimit = 100,
+                            Window = TimeSpan.FromSeconds(10),
+                        }));
+            });
+
+            return serviceCollection;
+        }
 
     }
 }

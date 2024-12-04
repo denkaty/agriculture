@@ -9,16 +9,16 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Agriculture.Shared.Infrastructure\Agriculture.Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\Agriculture.Identity.Application\Agriculture.Identity.Application.csproj" />
+    <ProjectReference Include="..\Agriculture.Identity.Domain\Agriculture.Identity.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Users\Implementations\Repositories\" />
-    <Folder Include="Features\Users\EntityConfigurations\" />
-    <Folder Include="Features\Users\Options\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Users\Consumers\" />
   </ItemGroup>
 
 </Project>
