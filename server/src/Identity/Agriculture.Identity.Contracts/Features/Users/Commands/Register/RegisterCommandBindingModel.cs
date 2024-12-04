@@ -1,4 +1,4 @@
-﻿namespace Agriculture.Identity.Contracts.Features.Users.Register
+﻿namespace Agriculture.Identity.Contracts.Features.Users.Commands.Register
 {
     public class RegisterCommandBindingModel
     {

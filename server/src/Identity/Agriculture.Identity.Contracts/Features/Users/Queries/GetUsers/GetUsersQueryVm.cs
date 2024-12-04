@@ -1,6 +1,6 @@
-﻿namespace Agriculture.Identity.Contracts.Features.Users.GetUsers
+﻿namespace Agriculture.Identity.Contracts.Features.Users.Queries.GetUsers
 {
-    public class GetUsersVm
+    public class GetUsersQueryVm
     {
         public string Id { get; set; }
         public string Email { get; set; }

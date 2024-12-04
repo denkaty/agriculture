@@ -1,5 +1,5 @@
 ﻿using Agriculture.Identity.Application.Features.Users.Models;
-using Agriculture.Identity.Contracts.Features.Users.RequestResetPassword;
+using Agriculture.Identity.Contracts.Features.Users.Commands.RequestResetPassword;
 using Agriculture.Shared.Application.Events.Users;
 using Mapster;
 

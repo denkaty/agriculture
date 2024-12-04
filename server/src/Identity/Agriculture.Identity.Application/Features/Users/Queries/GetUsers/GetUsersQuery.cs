@@ -1,5 +1,4 @@
-﻿using Agriculture.Identity.Contracts.Features.Users.GetUsers;
-using Agriculture.Shared.Application.Abstractions.MediatR;
+﻿using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Application.Models.Pagination;
 
 namespace Agriculture.Identity.Application.Features.Users.Queries.GetUsers

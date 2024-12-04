@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Agriculture.Identity.Contracts.Features.Users.RequestResetPassword
+namespace Agriculture.Identity.Contracts.Features.Users.Commands.RequestResetPassword
 {
     public class RequestResetPasswordCommandRequest
     {

@@ -1,4 +1,4 @@
-﻿namespace Agriculture.Identity.Contracts.Features.Users.ResetPassword
+﻿namespace Agriculture.Identity.Contracts.Features.Users.Commands.ResetPassword
 {
     public class ResetPasswordCommandBindingModel
     {

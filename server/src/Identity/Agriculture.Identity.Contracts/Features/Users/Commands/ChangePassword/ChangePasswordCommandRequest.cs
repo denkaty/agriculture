@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Agriculture.Identity.Contracts.Features.Users.ChangePassword
+namespace Agriculture.Identity.Contracts.Features.Users.Commands.ChangePassword
 {
     public class ChangePasswordCommandRequest
     {

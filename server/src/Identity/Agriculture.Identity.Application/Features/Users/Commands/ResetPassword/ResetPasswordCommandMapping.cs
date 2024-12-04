@@ -1,4 +1,4 @@
-﻿using Agriculture.Identity.Contracts.Features.Users.ResetPassword;
+﻿using Agriculture.Identity.Contracts.Features.Users.Commands.ResetPassword;
 using Mapster;
 
 namespace Agriculture.Identity.Application.Features.Users.Commands.ResetPassword

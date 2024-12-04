@@ -1,13 +1,9 @@
 ﻿using Agriculture.Identity.Application.Features.Users.Queries.GetUsers.Dtos;
-using Agriculture.Identity.Contracts.Features.Users.GetUsers;
 using Agriculture.Identity.Domain.Features.Users.Models.Entities;
 using Agriculture.Shared.Application.Abstractions.Mapper;
-using Agriculture.Shared.Application.Abstractions.UnitOfWork;
-using Agriculture.Shared.Domain.Models.Pagination;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
 using System.Linq.Expressions;
 
 namespace Agriculture.Identity.Application.Features.Users.Queries.GetUsers

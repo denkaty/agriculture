@@ -1,8 +1,8 @@
-﻿namespace Agriculture.Identity.Contracts.Features.Users.ChangePassword
+﻿namespace Agriculture.Identity.Contracts.Features.Users.Commands.ChangePassword
 {
     public class ChangePasswordCommandBindingModel
     {
-        public ChangePasswordCommandBindingModel(string newPassword, string confirmPassword) 
+        public ChangePasswordCommandBindingModel(string newPassword, string confirmPassword)
         {
             NewPassword = newPassword;
             ConfirmPassword = confirmPassword;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Agriculture.Identity.Contracts.Features.Users.Login
+namespace Agriculture.Identity.Contracts.Features.Users.Queries.Login
 {
     public class LoginQueryRequest
     {

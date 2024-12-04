@@ -2,15 +2,16 @@
 using Agriculture.Identity.Application.Features.Users.Commands.Register;
 using Agriculture.Identity.Application.Features.Users.Commands.RequestResetPassword;
 using Agriculture.Identity.Application.Features.Users.Commands.ResetPassword;
+using Agriculture.Identity.Application.Features.Users.Queries.GetUserById;
 using Agriculture.Identity.Application.Features.Users.Queries.GetUsers;
 using Agriculture.Identity.Application.Features.Users.Queries.Login;
-using Agriculture.Identity.Contracts.Features.Users.ChangePassword;
-using Agriculture.Identity.Contracts.Features.Users.GetUsers;
-using Agriculture.Identity.Contracts.Features.Users.Login;
-using Agriculture.Identity.Contracts.Features.Users.Register;
-using Agriculture.Identity.Contracts.Features.Users.RequestResetPassword;
-using Agriculture.Identity.Contracts.Features.Users.ResetPassword;
-using Agriculture.Identity.Web.Features.Users.Models.Requests;
+using Agriculture.Identity.Contracts.Features.Users.Commands.ChangePassword;
+using Agriculture.Identity.Contracts.Features.Users.Commands.Register;
+using Agriculture.Identity.Contracts.Features.Users.Commands.RequestResetPassword;
+using Agriculture.Identity.Contracts.Features.Users.Commands.ResetPassword;
+using Agriculture.Identity.Contracts.Features.Users.Queries.GetUserById;
+using Agriculture.Identity.Contracts.Features.Users.Queries.GetUsers;
+using Agriculture.Identity.Contracts.Features.Users.Queries.Login;
 using Agriculture.Shared.Application.Abstractions.CurrentUserContext;
 using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
@@ -111,13 +112,27 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetUsers(GetUsersRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetUsers(GetUsersQueryRequest request, CancellationToken cancellationToken)
         {
             var query = _agricultureMapper.Map<GetUsersQuery>(request);
 
             var result = await _agricultureSender.SendAsync(query, cancellationToken);
 
-            var response = _agricultureMapper.Map<GetUsersResponse>(result);
+            var response = _agricultureMapper.Map<GetUsersQueryResponse>(result);
+
+            return Ok(response);
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetUserById(GetUserByIdQueryRequest request, CancellationToken cancellationToken)
+        {
+            var query = _agricultureMapper.Map<GetUserByIdQuery>(request);
+
+            var result = await _agricultureSender.SendAsync(query, cancellationToken);
+
+            var response = _agricultureMapper.Map<GetUserByIdQueryResponse>(result);
 
             return Ok(response);
         }

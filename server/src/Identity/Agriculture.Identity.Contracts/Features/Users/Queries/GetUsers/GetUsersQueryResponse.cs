@@ -1,8 +1,8 @@
-﻿namespace Agriculture.Identity.Contracts.Features.Users.GetUsers
+﻿namespace Agriculture.Identity.Contracts.Features.Users.Queries.GetUsers
 {
-    public class GetUsersResponse
+    public class GetUsersQueryResponse
     {
-        public IReadOnlyCollection<GetUsersVm> Items { get; set; }
+        public IReadOnlyCollection<GetUsersQueryVm> Items { get; set; }
         public int Page { get; set; }
         public int PageSize { get; set; }
         public int TotalCount { get; set; }

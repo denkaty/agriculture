@@ -1,6 +1,5 @@
-﻿using Agriculture.Identity.Contracts.Features.Users.Register;
+﻿using Agriculture.Identity.Contracts.Features.Users.Commands.Register;
 using Agriculture.Identity.Domain.Features.Users.Models.Entities;
-using Agriculture.Identity.Web.Features.Users.Models.Requests;
 using Agriculture.Shared.Application.Events.Users;
 using Mapster;
 

@@ -1,5 +1,5 @@
 ﻿using Agriculture.Identity.Application.Features.Users.Models;
-using Agriculture.Identity.Contracts.Features.Users.Login;
+using Agriculture.Identity.Contracts.Features.Users.Queries.Login;
 using Agriculture.Identity.Domain.Features.Users.Models.Entities;
 using Mapster;
 

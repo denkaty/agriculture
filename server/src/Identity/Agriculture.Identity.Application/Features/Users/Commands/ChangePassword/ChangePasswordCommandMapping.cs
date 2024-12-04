@@ -1,4 +1,4 @@
-﻿using Agriculture.Identity.Contracts.Features.Users.ChangePassword;
+﻿using Agriculture.Identity.Contracts.Features.Users.Commands.ChangePassword;
 using Mapster;
 
 namespace Agriculture.Identity.Application.Features.Users.Commands.ChangePassword

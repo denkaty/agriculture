@@ -1,7 +1,6 @@
-﻿using Agriculture.Identity.Contracts.Features.Users.Register;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Agriculture.Identity.Web.Features.Users.Models.Requests
+namespace Agriculture.Identity.Contracts.Features.Users.Commands.Register
 {
     public class RegisterCommandRequest
     {
