@@ -2,8 +2,10 @@
 using Agriculture.Identity.Application.Features.Users.Commands.Register;
 using Agriculture.Identity.Application.Features.Users.Commands.RequestResetPassword;
 using Agriculture.Identity.Application.Features.Users.Commands.ResetPassword;
+using Agriculture.Identity.Application.Features.Users.Queries.GetUsers;
 using Agriculture.Identity.Application.Features.Users.Queries.Login;
 using Agriculture.Identity.Contracts.Features.Users.ChangePassword;
+using Agriculture.Identity.Contracts.Features.Users.GetUsers;
 using Agriculture.Identity.Contracts.Features.Users.Login;
 using Agriculture.Identity.Contracts.Features.Users.Register;
 using Agriculture.Identity.Contracts.Features.Users.ResetPassword;
@@ -41,8 +43,8 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
         }
 
         [HttpPost("register")]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterCommandRequest request, CancellationToken cancellationToken)
         {
             var registerCommand = _agricultureMapper.Map<RegisterCommand>(request);
@@ -55,8 +57,8 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
         }
 
         [HttpPost("login")]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> LoginAsync([FromBody] LoginQueryRequest request, CancellationToken cancellationToken)
         {
             var loginQuery = _agricultureMapper.Map<LoginQuery>(request);
@@ -69,8 +71,8 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
         }
 
         [HttpPost("request-reset-password")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> ChangePasswordAsync([FromBody] RequestResetPasswordCommandRequest request, CancellationToken cancellationToken)
         {
             var resetPasswordCommand = _agricultureMapper.Map<RequestResetPasswordCommand>(request);
@@ -81,8 +83,8 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
         }
 
         [HttpPatch("reset-password")]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> ChangePasswordAsync([FromBody] ResetPasswordCommandRequest request, CancellationToken cancellationToken)
         {
             var changePasswordCommand = _agricultureMapper.Map<ResetPasswordCommand>(request);
@@ -94,8 +96,8 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
 
         [HttpPatch("me/password")]
         [Authorize]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> ChangePasswordAsync([FromBody] ChangePasswordCommandRequest request, CancellationToken cancellationToken)
         {
             string currentUserId = _currentUserContext.GetCurrentUserId();
@@ -105,6 +107,19 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
             await _agricultureSender.SendAsync(changePasswordCommand, cancellationToken);
 
             return NoContent();
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetUsers(GetUsersRequest request, CancellationToken cancellationToken)
+        {
+            var query = _agricultureMapper.Map<GetUsersQuery>(request);
+
+            var result = await _agricultureSender.SendAsync(query, cancellationToken);
+
+            var response = _agricultureMapper.Map<GetUsersResponse>(result);
+
+            return Ok(response);
         }
 
 

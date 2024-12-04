@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Agriculture.Shared.Application\Agriculture.Shared.Application.csproj" />
+    <ProjectReference Include="..\..\Shared\Agriculture.Shared.Domain\Agriculture.Shared.Domain.csproj" />
     <ProjectReference Include="..\Agriculture.Identity.Contracts\Agriculture.Identity.Contracts.csproj" />
     <ProjectReference Include="..\Agriculture.Identity.Domain\Agriculture.Identity.Domain.csproj" />
   </ItemGroup>
