@@ -1,5 +1,6 @@
 ﻿using Agriculture.Shared.Common.Models.Options;
 using Agriculture.Shared.Common.Utilities;
+using Agriculture.Shared.Web.Binders.FromClaim;
 using Agriculture.Shared.Web.Extensions;
 using Agriculture.Shared.Web.Models.Options;
 using Agriculture.Shared.Web.Utilities;
@@ -9,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -25,7 +26,11 @@ namespace Agriculture.Shared.Web.Extensions
         public static IServiceCollection AddApiControllers(this IServiceCollection serviceCollection)
         {
             serviceCollection
-                .AddControllers()
+                .AddControllers(options =>
+                {
+                    options.ValueProviderFactories.Add(new FromClaimValueProviderFactory());
+                    options.Filters.Add(new AuthorizeFilter());
+                })
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;

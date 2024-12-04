@@ -12,7 +12,6 @@ using Agriculture.Identity.Contracts.Features.Users.Commands.ResetPassword;
 using Agriculture.Identity.Contracts.Features.Users.Queries.GetUserById;
 using Agriculture.Identity.Contracts.Features.Users.Queries.GetUsers;
 using Agriculture.Identity.Contracts.Features.Users.Queries.Login;
-using Agriculture.Shared.Application.Abstractions.CurrentUserContext;
 using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Web.Utilities;
@@ -31,19 +30,17 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
     {
         private readonly IAgricultureMapper _agricultureMapper;
         private readonly IAgricultureSender _agricultureSender;
-        private readonly ICurrentUserContext _currentUserContext;
 
         public UsersController(
             IAgricultureMapper agricultureMapper,
-            IAgricultureSender agricultureSender,
-            ICurrentUserContext currentUserContext)
+            IAgricultureSender agricultureSender)
         {
             _agricultureMapper = agricultureMapper;
             _agricultureSender = agricultureSender;
-            _currentUserContext = currentUserContext;
         }
 
         [HttpPost("register")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RegisterAsync(RegisterCommandRequest request, CancellationToken cancellationToken)
@@ -58,6 +55,7 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> LoginAsync(LoginQueryRequest request, CancellationToken cancellationToken)
@@ -96,14 +94,11 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
         }
 
         [HttpPatch("me/password")]
-        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> ChangePasswordAsync(ChangePasswordCommandRequest request, CancellationToken cancellationToken)
         {
-            string currentUserId = _currentUserContext.GetCurrentUserId();
-
-            var changePasswordCommand = _agricultureMapper.Map<ChangePasswordCommand>((request, currentUserId));
+            var changePasswordCommand = _agricultureMapper.Map<ChangePasswordCommand>(request);
 
             await _agricultureSender.SendAsync(changePasswordCommand, cancellationToken);
 

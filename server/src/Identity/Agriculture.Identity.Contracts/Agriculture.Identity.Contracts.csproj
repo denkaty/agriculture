@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Agriculture.Shared.Application\Agriculture.Shared.Application.csproj" />
+    <ProjectReference Include="..\..\Shared\Agriculture.Shared.Web\Agriculture.Shared.Web.csproj" />
   </ItemGroup>
 
 </Project>
