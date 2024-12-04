@@ -7,7 +7,8 @@ namespace Agriculture.Identity.Application.Features.Users.Commands.ResetPassword
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<ResetPasswordCommandRequest, ResetPasswordCommand>();
+            config.NewConfig<ResetPasswordCommandRequest, ResetPasswordCommand>()
+                .ConstructUsing(src => new(src.ResetPasswordCommandBindingModel.UserId, src.ResetPasswordCommandBindingModel.Token, src.ResetPasswordCommandBindingModel.NewPassword, src.ResetPasswordCommandBindingModel.ConfirmPassword));
         }
     }
 }

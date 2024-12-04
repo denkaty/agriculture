@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Agriculture.Identity.Contracts.Features.Users.ResetPassword
+namespace Agriculture.Identity.Contracts.Features.Users.RequestResetPassword
 {
     public class RequestResetPasswordCommandRequest
     {
-        [FromRoute]
-        public string Email { get; set; } = string.Empty;
+        [FromBody]
+        public RequestResetPasswordCommandBindingModel RequestResetPasswordCommandBindingModel { get; set; } = new(string.Empty);
     }
 }

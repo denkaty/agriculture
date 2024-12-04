@@ -9,7 +9,8 @@ namespace Agriculture.Identity.Application.Features.Users.Queries.Login
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<LoginQueryRequest, LoginQuery>();
+            config.NewConfig<LoginQueryRequest, LoginQuery>()
+                .ConstructUsing(src => new(src.LoginQueryBindingModel.Email, src.LoginQueryBindingModel.Password));
 
             config.NewConfig<(User User, string[] Roles), CreateAccessTokenModel>()
                  .Map(dest => dest.UserId, src => src.User.Id)

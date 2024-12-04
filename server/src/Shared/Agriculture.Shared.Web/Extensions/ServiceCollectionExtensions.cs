@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -29,6 +30,14 @@ namespace Agriculture.Shared.Web.Extensions
                     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
+
+            return serviceCollection;
+        }
+
+        public static IServiceCollection ConfigureApiBehaviorOptions(this IServiceCollection serviceCollection)
+        {
+            serviceCollection
+                .Configure<ApiBehaviorOptions>(options => options.SuppressInferBindingSourcesForParameters = true);
 
             return serviceCollection;
         }

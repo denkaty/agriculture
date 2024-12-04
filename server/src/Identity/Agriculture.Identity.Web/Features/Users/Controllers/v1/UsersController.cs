@@ -8,12 +8,12 @@ using Agriculture.Identity.Contracts.Features.Users.ChangePassword;
 using Agriculture.Identity.Contracts.Features.Users.GetUsers;
 using Agriculture.Identity.Contracts.Features.Users.Login;
 using Agriculture.Identity.Contracts.Features.Users.Register;
+using Agriculture.Identity.Contracts.Features.Users.RequestResetPassword;
 using Agriculture.Identity.Contracts.Features.Users.ResetPassword;
 using Agriculture.Identity.Web.Features.Users.Models.Requests;
 using Agriculture.Shared.Application.Abstractions.CurrentUserContext;
 using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
-using Agriculture.Shared.Common.Utilities;
 using Agriculture.Shared.Web.Utilities;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
@@ -45,7 +45,7 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
         [HttpPost("register")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RegisterAsync([FromBody] RegisterCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> RegisterAsync(RegisterCommandRequest request, CancellationToken cancellationToken)
         {
             var registerCommand = _agricultureMapper.Map<RegisterCommand>(request);
 
@@ -59,7 +59,7 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> LoginAsync([FromBody] LoginQueryRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> LoginAsync(LoginQueryRequest request, CancellationToken cancellationToken)
         {
             var loginQuery = _agricultureMapper.Map<LoginQuery>(request);
 
@@ -73,7 +73,7 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
         [HttpPost("request-reset-password")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> ChangePasswordAsync([FromBody] RequestResetPasswordCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> ChangePasswordAsync(RequestResetPasswordCommandRequest request, CancellationToken cancellationToken)
         {
             var resetPasswordCommand = _agricultureMapper.Map<RequestResetPasswordCommand>(request);
 
@@ -85,7 +85,7 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
         [HttpPatch("reset-password")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> ChangePasswordAsync([FromBody] ResetPasswordCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> ChangePasswordAsync(ResetPasswordCommandRequest request, CancellationToken cancellationToken)
         {
             var changePasswordCommand = _agricultureMapper.Map<ResetPasswordCommand>(request);
 
@@ -98,7 +98,7 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
         [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> ChangePasswordAsync([FromBody] ChangePasswordCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> ChangePasswordAsync(ChangePasswordCommandRequest request, CancellationToken cancellationToken)
         {
             string currentUserId = _currentUserContext.GetCurrentUserId();
 

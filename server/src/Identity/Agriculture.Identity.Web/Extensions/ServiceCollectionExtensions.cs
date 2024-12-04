@@ -8,6 +8,7 @@ namespace Agriculture.Identity.Web.Extensions
         {
             services
                .AddApiControllers()
+               .ConfigureApiBehaviorOptions()
                .AddSwagger()
                .AddCorsPolicies(configuration)
                .AddJwtBearer(configuration)

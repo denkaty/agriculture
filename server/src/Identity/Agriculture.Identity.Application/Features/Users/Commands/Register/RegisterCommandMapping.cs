@@ -10,7 +10,8 @@ namespace Agriculture.Identity.Application.Features.Users.Commands.Register
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<RegisterCommandRequest, RegisterCommand>();
+            config.NewConfig<RegisterCommandRequest, RegisterCommand>()
+                .ConstructUsing(src => new(src.RegisterCommandBindingModel.Email, src.RegisterCommandBindingModel.Password, src.RegisterCommandBindingModel.ConfirmPassword, src.RegisterCommandBindingModel.PhoneNumber, src.RegisterCommandBindingModel.FirstName, src.RegisterCommandBindingModel.LastName));
 
             config.NewConfig<RegisterCommand, User>()
                 .Map(dest => dest.Id, src => Guid.NewGuid().ToString())

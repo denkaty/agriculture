@@ -1,17 +1,11 @@
-﻿namespace Agriculture.Identity.Web.Features.Users.Models.Requests
+﻿using Agriculture.Identity.Contracts.Features.Users.Register;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Agriculture.Identity.Web.Features.Users.Models.Requests
 {
     public class RegisterCommandRequest
     {
-        public string Email { get; set; } = string.Empty;
-
-        public string Password { get; set; } = string.Empty;    
-
-        public string ConfirmPassword { get; set; } = string.Empty;
-
-        public string PhoneNumber { get; set; } = string.Empty;
-
-        public string FirstName { get; set; } = string.Empty;
-
-        public string LastName { get; set; } = string.Empty;
+        [FromBody]
+        public RegisterCommandBindingModel RegisterCommandBindingModel { get; set; } = new(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
     }
 }

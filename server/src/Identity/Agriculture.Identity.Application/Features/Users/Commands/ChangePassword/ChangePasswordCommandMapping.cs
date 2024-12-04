@@ -8,9 +8,8 @@ namespace Agriculture.Identity.Application.Features.Users.Commands.ChangePasswor
         public void Register(TypeAdapterConfig config)
         {
             config.NewConfig<(ChangePasswordCommandRequest Request, string CurrentUserId), ChangePasswordCommand>()
-                .Map(dest => dest.NewPassword, src => src.Request.NewPassword)
-                .Map(dest => dest.ConfirmPassword, src => src.Request.ConfirmPassword)
-                .Map(dest => dest.UserId, src => src.CurrentUserId);
+                .ConstructUsing(src => new(src.CurrentUserId, src.Request.ChangePasswordCommandBindingModel.NewPassword, src.Request.ChangePasswordCommandBindingModel.ConfirmPassword));
+                
         }
     }
 }

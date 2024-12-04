@@ -1,5 +1,5 @@
 ﻿using Agriculture.Identity.Application.Features.Users.Models;
-using Agriculture.Identity.Contracts.Features.Users.ResetPassword;
+using Agriculture.Identity.Contracts.Features.Users.RequestResetPassword;
 using Agriculture.Shared.Application.Events.Users;
 using Mapster;
 
@@ -9,7 +9,8 @@ namespace Agriculture.Identity.Application.Features.Users.Commands.RequestResetP
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<RequestResetPasswordCommandRequest, RequestResetPasswordCommand>();
+            config.NewConfig<RequestResetPasswordCommandRequest, RequestResetPasswordCommand>()
+                .ConstructUsing(src => new(src.RequestResetPasswordCommandBindingModel.Email));
 
             config.NewConfig<(RequestResetPasswordCommand Command, string Id), CreateResetPasswordTokenModel>()
                 .Map(dest => dest.Email, src => src.Command.Email)
