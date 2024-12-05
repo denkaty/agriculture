@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Agriculture.Shared.Domain\Agriculture.Shared.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

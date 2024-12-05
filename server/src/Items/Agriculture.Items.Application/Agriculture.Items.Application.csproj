@@ -13,4 +13,10 @@
     <ProjectReference Include="..\Agriculture.Items.Domain\Agriculture.Items.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Items\Abstractions\" />
+    <Folder Include="Items\Commands\" />
+    <Folder Include="Items\Queries\" />
+  </ItemGroup>
+
 </Project>

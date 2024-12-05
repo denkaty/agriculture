@@ -1,23 +1,36 @@
+using Agriculture.Items.Application.Extensions;
+using Agriculture.Items.Infrastructure.Extensions;
+using Agriculture.Items.Web.Extensions;
+using Agriculture.Shared.Web.Extensions;
+using Agriculture.Shared.Web.Utilities;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services
+    .AddWebServices(builder.Configuration)
+    .AddApplicationServices(builder.Configuration)
+    .AddInfrastructureServices(builder.Configuration);
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Host.AddSerilog();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+await app.SetupDatabaseAsync();
+
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerDevelopment();
 }
+
+app.UseCors(AppPolicies.CorsPolicy);
+
+app.UseRateLimiter();
+
+app.UseCustomMiddlewares();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

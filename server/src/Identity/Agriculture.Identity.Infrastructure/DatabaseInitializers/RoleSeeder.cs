@@ -1,4 +1,4 @@
-﻿using Agriculture.Identity.Domain.Features.Roles.Models;
+﻿using Agriculture.Identity.Domain.Features.Roles.Models.Entities;
 using Agriculture.Identity.Infrastructure.DatabaseInitializers.Abstractions;
 using Agriculture.Identity.Infrastructure.Features.Roles.Options;
 using Microsoft.AspNetCore.Identity;

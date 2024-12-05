@@ -1,5 +1,5 @@
 ﻿using Agriculture.Identity.Application.Features.Users.Abstractions;
-using Agriculture.Identity.Domain.Features.Roles.Models;
+using Agriculture.Identity.Domain.Features.Roles.Models.Entities;
 using Agriculture.Identity.Domain.Features.Users.Models.Entities;
 using Agriculture.Identity.Infrastructure.DatabaseInitializers;
 using Agriculture.Identity.Infrastructure.DatabaseInitializers.Abstractions;

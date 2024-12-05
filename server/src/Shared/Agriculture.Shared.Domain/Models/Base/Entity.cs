@@ -2,7 +2,7 @@
 
 namespace Agriculture.Shared.Domain.Models.Base
 {
-    public class Entity : IEntity
+    public abstract class Entity : IEntity
     {
         public Entity()
         {
