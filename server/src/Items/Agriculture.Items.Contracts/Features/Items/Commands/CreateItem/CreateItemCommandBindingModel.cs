@@ -1,4 +1,4 @@
-﻿namespace Agriculture.Items.Contracts.Features.Items.Commands
+﻿namespace Agriculture.Items.Contracts.Features.Items.Commands.CreateItem
 {
     public class CreateItemCommandBindingModel
     {

@@ -1,4 +1,4 @@
-﻿using Agriculture.Items.Contracts.Features.Items.Commands;
+﻿using Agriculture.Items.Contracts.Features.Items.Commands.CreateItem;
 using Mapster;
 
 namespace Agriculture.Items.Application.Items.Commands.CreateItem

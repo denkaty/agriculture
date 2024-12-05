@@ -6,5 +6,6 @@ namespace Agriculture.Items.Domain.Features.Items.Abstractions
     {
         Task AddAsync(Item item, CancellationToken cancellationToken);
         Task<bool> ExistsByCatalogNumberAsync(string catalogNumber, CancellationToken cancellationToken);
+        Task<Item> GetByIdAsync(string id, CancellationToken cancellationToken);
     }
 }

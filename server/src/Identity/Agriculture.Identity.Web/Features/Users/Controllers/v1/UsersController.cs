@@ -72,11 +72,11 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
         [HttpPost("request-reset-password")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> ChangePasswordAsync(RequestResetPasswordCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> RequestResetPasswordAsync(RequestResetPasswordCommandRequest request, CancellationToken cancellationToken)
         {
-            var resetPasswordCommand = _agricultureMapper.Map<RequestResetPasswordCommand>(request);
+            var requestResetPasswordCommand = _agricultureMapper.Map<RequestResetPasswordCommand>(request);
 
-            await _agricultureSender.SendAsync(resetPasswordCommand, cancellationToken);
+            await _agricultureSender.SendAsync(requestResetPasswordCommand, cancellationToken);
 
             return NoContent();
         }
@@ -84,11 +84,11 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
         [HttpPatch("reset-password")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> ChangePasswordAsync(ResetPasswordCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> ResetPasswordAsync(ResetPasswordCommandRequest request, CancellationToken cancellationToken)
         {
-            var changePasswordCommand = _agricultureMapper.Map<ResetPasswordCommand>(request);
+            var resetPasswordCommand = _agricultureMapper.Map<ResetPasswordCommand>(request);
 
-            await _agricultureSender.SendAsync(changePasswordCommand, cancellationToken);
+            await _agricultureSender.SendAsync(resetPasswordCommand, cancellationToken);
 
             return NoContent();
         }
@@ -107,31 +107,30 @@ namespace Agriculture.Identity.Web.Features.Users.Controllers.v1
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetUsers(GetUsersQueryRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetUsersAsync(GetUsersQueryRequest request, CancellationToken cancellationToken)
         {
-            var query = _agricultureMapper.Map<GetUsersQuery>(request);
+            var getUsersQuery = _agricultureMapper.Map<GetUsersQuery>(request);
 
-            var result = await _agricultureSender.SendAsync(query, cancellationToken);
+            var getUsersQueryResult = await _agricultureSender.SendAsync(getUsersQuery, cancellationToken);
 
-            var response = _agricultureMapper.Map<GetUsersQueryResponse>(result);
+            var getUsersQueryResponse = _agricultureMapper.Map<GetUsersQueryResponse>(getUsersQueryResult);
 
-            return Ok(response);
+            return Ok(getUsersQueryResponse);
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetUserById(GetUserByIdQueryRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetUserByIdAsync(GetUserByIdQueryRequest request, CancellationToken cancellationToken)
         {
-            var query = _agricultureMapper.Map<GetUserByIdQuery>(request);
+            var getUserByIdQuery = _agricultureMapper.Map<GetUserByIdQuery>(request);
 
-            var result = await _agricultureSender.SendAsync(query, cancellationToken);
+            var getUserByIdQueryResult = await _agricultureSender.SendAsync(getUserByIdQuery, cancellationToken);
 
-            var response = _agricultureMapper.Map<GetUserByIdQueryResponse>(result);
+            var getUserByIdQueryResponse = _agricultureMapper.Map<GetUserByIdQueryResponse>(getUserByIdQueryResult);
 
-            return Ok(response);
+            return Ok(getUserByIdQueryResponse);
         }
-
 
     }
 }

@@ -26,5 +26,12 @@ namespace Agriculture.Items.Infrastructure.Features.Items.Repositories
 
             return isExisting;
         }
+
+        public async Task<Item?> GetByIdAsync(string id, CancellationToken cancellationToken)
+        {
+            Item? item = await _context.Items.FindAsync(id, cancellationToken);
+
+            return item;
+        }
     }
 }
