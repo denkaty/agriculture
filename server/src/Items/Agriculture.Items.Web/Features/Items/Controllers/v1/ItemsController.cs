@@ -1,4 +1,6 @@
-﻿using Agriculture.Shared.Application.Abstractions.Mapper;
+﻿using Agriculture.Items.Application.Items.Commands.CreateItem;
+using Agriculture.Items.Contracts.Features.Items.Commands;
+using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Web.Utilities;
 using Asp.Versioning;
@@ -29,15 +31,15 @@ namespace Agriculture.Items.Web.Features.Items.Controllers.v1
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RegisterAsync(/*CreateItemCommandRequest request, CancellationToken cancellationToken*/)
+        public async Task<IActionResult> RegisterAsync(CreateItemCommandRequest request, CancellationToken cancellationToken)
         {
-            //var createItemCommand = _agricultureMapper.Map<CreateItemCommand>(request);
+            var createItemCommand = _agricultureMapper.Map<CreateItemCommand>(request);
 
-            //var createItemCommandResult = await _agricultureSender.SendAsync(createItemCommand, cancellationToken);
+            var createItemCommandResult = await _agricultureSender.SendAsync(createItemCommand, cancellationToken);
 
-            //var createItemCommandResponse = _agricultureMapper.Map<CreateItemCommandResponse>(createItemCommandResult);
+            var createItemCommandResponse = _agricultureMapper.Map<CreateItemCommandResponse>(createItemCommandResult);
 
-            return Ok(/*createItemCommandResponse*/);
+            return Ok(createItemCommandResponse);
         }
     }
 }

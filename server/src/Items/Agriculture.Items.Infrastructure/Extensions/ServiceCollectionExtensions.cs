@@ -1,4 +1,6 @@
-﻿using Agriculture.Items.Infrastructure.DatabaseInitializers;
+﻿using Agriculture.Items.Domain.Features.Items.Abstractions;
+using Agriculture.Items.Infrastructure.DatabaseInitializers;
+using Agriculture.Items.Infrastructure.Features.Items.Repositories;
 using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Infrastructure.Extensions;
 using Agriculture.Shared.Infrastructure.Implementations.MediatR;
@@ -23,7 +25,8 @@ namespace Agriculture.Items.Infrastructure.Extensions
                 .AddMessageBroker(configuration, assembly, busConfigurator => busConfigurator.AddTransactionalOutbox<ItemsContext>())
                 .AddCurrentUserContext()
                 .AddDatabaseInitializers()
-                .AddDateTimeProvider();
+                .AddDateTimeProvider()
+                .AddRepositories();
 
             return services;
         }
@@ -40,6 +43,13 @@ namespace Agriculture.Items.Infrastructure.Extensions
             serviceCollection
                 .AddScoped<IMigrationSeeder, MigrationSeeder>()
                 .AddScoped<IDatabaseInitializer, DatabaseInitializer>();
+
+            return serviceCollection;
+        }
+
+        private static IServiceCollection AddRepositories(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddScoped<IItemRepository, ItemRepository>();
 
             return serviceCollection;
         }
