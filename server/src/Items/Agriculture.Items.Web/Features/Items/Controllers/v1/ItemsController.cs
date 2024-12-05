@@ -1,7 +1,9 @@
 ﻿using Agriculture.Items.Application.Items.Commands.CreateItem;
 using Agriculture.Items.Application.Items.Queries.GetItemById;
+using Agriculture.Items.Application.Items.Queries.GetItems;
 using Agriculture.Items.Contracts.Features.Items.Commands.CreateItem;
 using Agriculture.Items.Contracts.Features.Items.Quries.GetItemById;
+using Agriculture.Items.Contracts.Features.Items.Quries.GetItems;
 using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Web.Utilities;
@@ -57,6 +59,20 @@ namespace Agriculture.Items.Web.Features.Items.Controllers.v1
             var getItemByIdQueryResponse = _agricultureMapper.Map<GetItemByIdQueryResponse>(getItemByIdQueryResult);
 
             return Ok(getItemByIdQueryResponse);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetAllAsync(GetItemsQueryRequest request, CancellationToken cancellationToken)
+        {
+            var getItemsQuery = _agricultureMapper.Map<GetItemsQuery>(request);
+
+            var getItemsQueryResult = await _agricultureSender.SendAsync(getItemsQuery, cancellationToken);
+
+            var getItemsQueryResponse = _agricultureMapper.Map<GetItemsQueryResponse>(getItemsQueryResult);
+
+            return Ok(getItemsQueryResponse);
         }
 
     }

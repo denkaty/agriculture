@@ -1,8 +1,8 @@
-﻿namespace Agriculture.Identity.Contracts.Features.Users.Queries.GetUsers
+﻿namespace Agriculture.Items.Contracts.Features.Items.Quries.GetItems
 {
-    public class GetUsersQueryResponse
+    public class GetItemsQueryResponse
     {
-        public IReadOnlyCollection<GetUsersQueryViewModel> Items { get; set; }
+        public IReadOnlyCollection<GetItemsQueryViewModel> Items { get; set; }
         public int Page { get; set; }
         public int PageSize { get; set; }
         public int TotalCount { get; set; }

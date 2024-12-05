@@ -1,6 +1,8 @@
 ﻿using Agriculture.Items.Domain.Features.Items.Abstractions;
 using Agriculture.Items.Domain.Features.Items.Models.Entities;
+using Agriculture.Shared.Domain.Models.Pagination;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Agriculture.Items.Infrastructure.Features.Items.Repositories
 {
@@ -32,6 +34,50 @@ namespace Agriculture.Items.Infrastructure.Features.Items.Repositories
             Item? item = await _context.Items.FindAsync(id, cancellationToken);
 
             return item;
+        }
+
+        public async Task<PaginationList<Item>> GetUsersAsync(CancellationToken cancellationToken, int page = 1, int pageSize = 10, string sortBy = "", string sortOrder = "asc", string searchTerm = "")
+        {
+            var query = _context.Items.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                query = query.Where(item =>
+                item.CatalogNumber.Contains(searchTerm) ||
+                item.Name.Contains(searchTerm) ||
+                item.Description.Contains(searchTerm));
+                
+            }
+
+            Expression<Func<Item, object>> keySelector = sortBy.ToLower() switch
+            {
+                "catalogNumber" => item => item.CatalogNumber,
+                "name" => item => item.Name,
+                "description" => item => item.Description,
+                _ => user => user.CatalogNumber,
+            };
+
+            query = sortOrder.ToLower() == "desc"
+                ? query.OrderByDescending(keySelector)
+                : query.OrderBy(keySelector);
+
+            var totalCount = await query.CountAsync(cancellationToken);
+            var items = await query.Skip((page - 1) * pageSize)
+                                   .Take(pageSize)
+                                   .Select(item => new Item
+                                   {
+                                       Id = item.Id,
+                                       CatalogNumber = item.CatalogNumber,
+                                       Name = item.Name,
+                                       Description = item.Description,
+                                       CreatedAt = item.CreatedAt,
+                                       UpdatedAt = item.UpdatedAt,
+                                   })
+                                   .ToListAsync(cancellationToken);
+
+            var paginationList = new PaginationList<Item>(items, page, pageSize, totalCount);
+
+            return paginationList;
         }
     }
 }
