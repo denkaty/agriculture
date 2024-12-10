@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Agriculture.Shared.Infrastructure\Agriculture.Shared.Infrastructure.csproj" />
+    <ProjectReference Include="..\Agriculture.Inventories.Application\Agriculture.Inventories.Application.csproj" />
+    <ProjectReference Include="..\Agriculture.Inventories.Domain\Agriculture.Inventories.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DatabaseInitializers\Abstractions\" />
+    <Folder Include="Features\Warehouses\" />
+  </ItemGroup>
+
+</Project>

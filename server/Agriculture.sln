@@ -33,17 +33,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Shared.Common",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Identity.Contracts", "src\Identity\Agriculture.Identity.Contracts\Agriculture.Identity.Contracts.csproj", "{61E68490-DB20-45FF-9864-963586767360}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Inventory", "Inventory", "{3807141E-6618-4CC3-8EA6-417EDEDE5F3E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Inventories", "Inventories", "{3807141E-6618-4CC3-8EA6-417EDEDE5F3E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Inventory.Web", "src\Inventory\Agriculture.Inventory.Web\Agriculture.Inventory.Web.csproj", "{41A49F42-6AB8-45BC-AF33-BBC5C9C37E06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Inventories.Web", "src\Inventories\Agriculture.Inventories.Web\Agriculture.Inventories.Web.csproj", "{577C468C-8433-4D72-9A99-72D558ACF740}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Inventory.Infrastructure", "src\Inventory\Agriculture.Inventory.Infrastructure\Agriculture.Inventory.Infrastructure.csproj", "{D6AC3CB3-7FAA-4DA8-9251-A87315F2E0E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Inventories.Infrastructure", "src\Inventories\Agriculture.Inventories.Infrastructure\Agriculture.Inventories.Infrastructure.csproj", "{75F27296-6770-41C3-B10A-DC2E54C39811}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Inventory.Domain", "src\Inventory\Agriculture.Inventory.Domain\Agriculture.Inventory.Domain.csproj", "{4B9DF51E-AB67-49A8-B0E2-311D11A1A2D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Inventories.Domain", "src\Inventories\Agriculture.Inventories.Domain\Agriculture.Inventories.Domain.csproj", "{3EAD80F3-DDC1-4CA5-8AB7-CA6106DF07F5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Inventory.Contracts", "src\Inventory\Agriculture.Inventory.Contracts\Agriculture.Inventory.Contracts.csproj", "{930C87FF-27D7-4241-AFED-4D7297A02C02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Inventories.Contracts", "src\Inventories\Agriculture.Inventories.Contracts\Agriculture.Inventories.Contracts.csproj", "{A134CE6B-006A-433B-BA3E-5652F7F0A7B1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Inventory.Application", "src\Inventory\Agriculture.Inventory.Application\Agriculture.Inventory.Application.csproj", "{B985A91C-22E1-4C49-AA95-D0229F393B20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agriculture.Inventories.Application", "src\Inventories\Agriculture.Inventories.Application\Agriculture.Inventories.Application.csproj", "{86F87184-270B-4724-89B9-559EB2F58860}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,26 +95,26 @@ Global
 		{61E68490-DB20-45FF-9864-963586767360}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61E68490-DB20-45FF-9864-963586767360}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61E68490-DB20-45FF-9864-963586767360}.Release|Any CPU.Build.0 = Release|Any CPU
-		{41A49F42-6AB8-45BC-AF33-BBC5C9C37E06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{41A49F42-6AB8-45BC-AF33-BBC5C9C37E06}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{41A49F42-6AB8-45BC-AF33-BBC5C9C37E06}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{41A49F42-6AB8-45BC-AF33-BBC5C9C37E06}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D6AC3CB3-7FAA-4DA8-9251-A87315F2E0E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D6AC3CB3-7FAA-4DA8-9251-A87315F2E0E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D6AC3CB3-7FAA-4DA8-9251-A87315F2E0E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D6AC3CB3-7FAA-4DA8-9251-A87315F2E0E7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4B9DF51E-AB67-49A8-B0E2-311D11A1A2D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4B9DF51E-AB67-49A8-B0E2-311D11A1A2D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4B9DF51E-AB67-49A8-B0E2-311D11A1A2D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4B9DF51E-AB67-49A8-B0E2-311D11A1A2D8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{930C87FF-27D7-4241-AFED-4D7297A02C02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{930C87FF-27D7-4241-AFED-4D7297A02C02}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{930C87FF-27D7-4241-AFED-4D7297A02C02}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{930C87FF-27D7-4241-AFED-4D7297A02C02}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B985A91C-22E1-4C49-AA95-D0229F393B20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B985A91C-22E1-4C49-AA95-D0229F393B20}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B985A91C-22E1-4C49-AA95-D0229F393B20}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B985A91C-22E1-4C49-AA95-D0229F393B20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{577C468C-8433-4D72-9A99-72D558ACF740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{577C468C-8433-4D72-9A99-72D558ACF740}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{577C468C-8433-4D72-9A99-72D558ACF740}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{577C468C-8433-4D72-9A99-72D558ACF740}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75F27296-6770-41C3-B10A-DC2E54C39811}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75F27296-6770-41C3-B10A-DC2E54C39811}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75F27296-6770-41C3-B10A-DC2E54C39811}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75F27296-6770-41C3-B10A-DC2E54C39811}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EAD80F3-DDC1-4CA5-8AB7-CA6106DF07F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EAD80F3-DDC1-4CA5-8AB7-CA6106DF07F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EAD80F3-DDC1-4CA5-8AB7-CA6106DF07F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EAD80F3-DDC1-4CA5-8AB7-CA6106DF07F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A134CE6B-006A-433B-BA3E-5652F7F0A7B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A134CE6B-006A-433B-BA3E-5652F7F0A7B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A134CE6B-006A-433B-BA3E-5652F7F0A7B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A134CE6B-006A-433B-BA3E-5652F7F0A7B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86F87184-270B-4724-89B9-559EB2F58860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86F87184-270B-4724-89B9-559EB2F58860}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86F87184-270B-4724-89B9-559EB2F58860}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86F87184-270B-4724-89B9-559EB2F58860}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,11 +135,11 @@ Global
 		{A5C33D33-4969-4F42-A604-9F9A9B8D85C7} = {17F888C8-BA82-4787-9451-016DE21640E8}
 		{61E68490-DB20-45FF-9864-963586767360} = {CD44828E-87D1-4E1E-A552-9CA3BE53FEAD}
 		{3807141E-6618-4CC3-8EA6-417EDEDE5F3E} = {E4D8648A-E5AD-4D77-A35B-AF93A1180BB1}
-		{41A49F42-6AB8-45BC-AF33-BBC5C9C37E06} = {3807141E-6618-4CC3-8EA6-417EDEDE5F3E}
-		{D6AC3CB3-7FAA-4DA8-9251-A87315F2E0E7} = {3807141E-6618-4CC3-8EA6-417EDEDE5F3E}
-		{4B9DF51E-AB67-49A8-B0E2-311D11A1A2D8} = {3807141E-6618-4CC3-8EA6-417EDEDE5F3E}
-		{930C87FF-27D7-4241-AFED-4D7297A02C02} = {3807141E-6618-4CC3-8EA6-417EDEDE5F3E}
-		{B985A91C-22E1-4C49-AA95-D0229F393B20} = {3807141E-6618-4CC3-8EA6-417EDEDE5F3E}
+		{577C468C-8433-4D72-9A99-72D558ACF740} = {3807141E-6618-4CC3-8EA6-417EDEDE5F3E}
+		{75F27296-6770-41C3-B10A-DC2E54C39811} = {3807141E-6618-4CC3-8EA6-417EDEDE5F3E}
+		{3EAD80F3-DDC1-4CA5-8AB7-CA6106DF07F5} = {3807141E-6618-4CC3-8EA6-417EDEDE5F3E}
+		{A134CE6B-006A-433B-BA3E-5652F7F0A7B1} = {3807141E-6618-4CC3-8EA6-417EDEDE5F3E}
+		{86F87184-270B-4724-89B9-559EB2F58860} = {3807141E-6618-4CC3-8EA6-417EDEDE5F3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2AF23295-C69C-4EE6-835E-001C1A7CA4C7}

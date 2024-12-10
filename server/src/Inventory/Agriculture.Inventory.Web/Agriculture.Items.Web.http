@@ -1,6 +1,0 @@
-@Agriculture.Inventory.Web_HostAddress = http://localhost:5052
-
-GET {{Agriculture.Inventory.Web_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
