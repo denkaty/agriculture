@@ -2,6 +2,7 @@
 using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Common.Exceptions.Items;
 using MediatR;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Agriculture.Items.Application.Items.Queries.GetItems
 {
@@ -20,7 +21,7 @@ namespace Agriculture.Items.Application.Items.Queries.GetItems
         {
             var paginationList = await _itemRepository.GetUsersAsync(cancellationToken, request.Page, request.PageSize, request.SortBy, request.SortOrder, request.SearchTerm);
 
-            if(paginationList.Items == null) 
+            if(paginationList.Items.IsNullOrEmpty()) 
             {
                 throw new ItemEmptyCollectionException();
             }

@@ -20,6 +20,11 @@ namespace Agriculture.Items.Infrastructure.Features.Items.Repositories
             await _context.Items.AddAsync(item, cancellationToken);
         }
 
+        public void Delete(Item item)
+        {
+            _context.Items.Remove(item);
+        }
+
         public async Task<bool> ExistsByCatalogNumberAsync(string catalogNumber, CancellationToken cancellationToken)
         {
             bool isExisting = await _context.Items

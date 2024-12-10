@@ -1,7 +1,9 @@
 ﻿using Agriculture.Items.Application.Items.Commands.CreateItem;
+using Agriculture.Items.Application.Items.Commands.DeleteItemById;
 using Agriculture.Items.Application.Items.Queries.GetItemById;
 using Agriculture.Items.Application.Items.Queries.GetItems;
 using Agriculture.Items.Contracts.Features.Items.Commands.CreateItem;
+using Agriculture.Items.Contracts.Features.Items.Commands.DeleteItemById;
 using Agriculture.Items.Contracts.Features.Items.Quries.GetItemById;
 using Agriculture.Items.Contracts.Features.Items.Quries.GetItems;
 using Agriculture.Shared.Application.Abstractions.Mapper;
@@ -74,6 +76,19 @@ namespace Agriculture.Items.Web.Features.Items.Controllers.v1
 
             return Ok(getItemsQueryResponse);
         }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteByIdAsync(DeleteItemByIdCommandRequest request, CancellationToken cancellationToken)
+        {
+            var deleteItemByIdCommand = _agricultureMapper.Map<DeleteItemByIdCommand>(request);
+
+            await _agricultureSender.SendAsync(deleteItemByIdCommand, cancellationToken);
+
+            return NoContent();
+        }
+
 
     }
 }
