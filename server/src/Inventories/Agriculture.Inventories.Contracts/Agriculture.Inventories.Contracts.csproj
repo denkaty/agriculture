@@ -11,8 +11,4 @@
     <ProjectReference Include="..\..\Shared\Agriculture.Shared.Web\Agriculture.Shared.Web.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Warehouses\Queries\" />
-  </ItemGroup>
-
 </Project>

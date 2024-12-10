@@ -1,7 +1,11 @@
 ﻿using Agriculture.Inventories.Application.Features.Items.Commands.CreateItem;
+using Agriculture.Inventories.Application.Features.Items.Queries.GetItems;
 using Agriculture.Inventories.Application.Features.Warehouses.Commands.CreateWarehouse;
+using Agriculture.Inventories.Application.Features.Warehouses.Queries.GetWarehouses;
 using Agriculture.Inventories.Contracts.Features.Items.Commands.CreateItem;
+using Agriculture.Inventories.Contracts.Features.Items.Quries.GetItems;
 using Agriculture.Inventories.Contracts.Features.Warehouses.Commands.CreateWarehouse;
+using Agriculture.Inventories.Contracts.Features.Warehouses.Queries.GetInventories;
 using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Web.Utilities;
@@ -42,6 +46,20 @@ namespace Agriculture.Inventories.Web.Features.Warehouses.Controllers.v1
             var createWarehouseCommandResponse = _agricultureMapper.Map<CreateWarehouseCommandResponse>(createWarehouseCommandResult);
 
             return Ok(createWarehouseCommandResponse);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetAllAsync(GetWarehousesQueryRequest request, CancellationToken cancellationToken)
+        {
+            var getWarehousesQuery = _agricultureMapper.Map<GetWarehousesQuery>(request);
+
+            var getWarehousesQueryResult = await _agricultureSender.SendAsync(getWarehousesQuery, cancellationToken);
+
+            var getWarehousesQueryResponse = _agricultureMapper.Map<GetWarehousesQueryResponse>(getWarehousesQueryResult);
+
+            return Ok(getWarehousesQueryResponse);
         }
     }
 }
