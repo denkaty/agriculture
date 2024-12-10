@@ -8,9 +8,9 @@ namespace Agriculture.Inventories.Infrastructure.Features.Items.Repositories
 {
     public class ItemRepository : IItemRepository
     {
-        private readonly ItemsContext _context;
+        private readonly InventoriesContext _context;
 
-        public ItemRepository(ItemsContext context)
+        public ItemRepository(InventoriesContext context)
         {
             _context = context;
         }

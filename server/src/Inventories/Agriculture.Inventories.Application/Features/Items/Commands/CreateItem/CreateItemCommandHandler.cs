@@ -4,7 +4,7 @@ using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Application.Abstractions.Messaging;
 using Agriculture.Shared.Application.Abstractions.UnitOfWork;
-using Agriculture.Shared.Common.Exceptions.Items;
+using Agriculture.Shared.Common.Exceptions.Inventories.Items;
 
 namespace Agriculture.Inventories.Application.Features.Items.Commands.CreateItem
 {

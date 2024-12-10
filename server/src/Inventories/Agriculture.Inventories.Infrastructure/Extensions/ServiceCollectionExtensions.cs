@@ -1,6 +1,8 @@
 ﻿using Agriculture.Inventories.Domain.Features.Items.Abstractions;
+using Agriculture.Inventories.Domain.Features.Warehouses.Abstractions;
 using Agriculture.Inventories.Infrastructure.DatabaseInitializers;
 using Agriculture.Inventories.Infrastructure.Features.Items.Repositories;
+using Agriculture.Inventories.Infrastructure.Features.Warehouses.Repositories;
 using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Infrastructure.Extensions;
 using Agriculture.Shared.Infrastructure.Implementations.MediatR;
@@ -19,10 +21,10 @@ namespace Agriculture.Inventories.Infrastructure.Extensions
 
             services
                 .AddMapper()
-                .AddDatabaseContext<ItemsContext>(configuration)
-                .AddUnitOfWork<ItemsContext>()
+                .AddDatabaseContext<InventoriesContext>(configuration)
+                .AddUnitOfWork<InventoriesContext>()
                 .AddMediatR()
-                .AddMessageBroker(configuration, assembly, busConfigurator => busConfigurator.AddTransactionalOutbox<ItemsContext>())
+                .AddMessageBroker(configuration, assembly, busConfigurator => busConfigurator.AddTransactionalOutbox<InventoriesContext>())
                 .AddCurrentUserContext()
                 .AddDatabaseInitializers()
                 .AddDateTimeProvider()
@@ -50,6 +52,7 @@ namespace Agriculture.Inventories.Infrastructure.Extensions
         private static IServiceCollection AddRepositories(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IItemRepository, ItemRepository>();
+            serviceCollection.AddScoped<IWarehouseRepository, WarehouseRepository>();
 
             return serviceCollection;
         }

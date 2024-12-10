@@ -1,7 +1,7 @@
 ﻿using Agriculture.Inventories.Domain.Features.Items.Abstractions;
 using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
-using Agriculture.Shared.Common.Exceptions.Items;
+using Agriculture.Shared.Common.Exceptions.Inventories.Items;
 
 namespace Agriculture.Inventories.Application.Features.Items.Queries.GetItemById
 {

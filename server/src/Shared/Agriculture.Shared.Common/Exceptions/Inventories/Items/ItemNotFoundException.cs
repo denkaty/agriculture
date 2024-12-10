@@ -1,6 +1,6 @@
 ﻿using Agriculture.Shared.Common.Exceptions.Base;
 
-namespace Agriculture.Shared.Common.Exceptions.Items
+namespace Agriculture.Shared.Common.Exceptions.Inventories.Items
 {
     public class ItemNotFoundException : NotFoundException
     {

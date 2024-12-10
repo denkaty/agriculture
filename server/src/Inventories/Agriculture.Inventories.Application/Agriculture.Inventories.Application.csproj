@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="Features\Items\Abstractions\" />
+    <Folder Include="Features\Warehouses\Queries\GetWarehouseById\" />
   </ItemGroup>
 
 </Project>

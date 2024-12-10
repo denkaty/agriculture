@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <Folder Include="DatabaseInitializers\Abstractions\" />
-    <Folder Include="Features\Warehouses\" />
   </ItemGroup>
 
 </Project>
