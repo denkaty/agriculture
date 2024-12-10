@@ -35,14 +35,10 @@ namespace Agriculture.Shared.Infrastructure.Persistences
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteAsync(string id, CancellationToken cancellationToken)
+        public async Task DeleteAsync(T entity, CancellationToken cancellationToken)
         {
-            var entity = await GetByIdAsync(id, cancellationToken);
-            if (entity != null)
-            {
-                _context.Set<T>().Remove(entity);
-                await _context.SaveChangesAsync(cancellationToken);
-            }
+            _context.Set<T>().Remove(entity);
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
         public async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)

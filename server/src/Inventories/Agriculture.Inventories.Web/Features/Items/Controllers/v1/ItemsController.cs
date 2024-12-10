@@ -89,6 +89,5 @@ namespace Agriculture.Inventories.Web.Features.Items.Controllers.v1
             return NoContent();
         }
 
-
     }
 }

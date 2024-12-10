@@ -1,5 +1,4 @@
 ﻿using Agriculture.Inventories.Domain.Features.Items.Abstractions;
-using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Application.Abstractions.UnitOfWork;
 using Agriculture.Shared.Common.Exceptions.Inventories.Items;
@@ -8,13 +7,11 @@ namespace Agriculture.Inventories.Application.Features.Items.Commands.DeleteItem
 {
     public class DeleteItemByIdCommandHandler : ICommandHandler<DeleteItemByIdCommand>
     {
-        private readonly IAgricultureMapper _mapper;
         private readonly IItemRepository _itemRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public DeleteItemByIdCommandHandler(IAgricultureMapper mapper, IItemRepository itemRepository, IUnitOfWork unitOfWork)
+        public DeleteItemByIdCommandHandler(IItemRepository itemRepository, IUnitOfWork unitOfWork)
         {
-            _mapper = mapper;
             _itemRepository = itemRepository;
             _unitOfWork = unitOfWork;
         }
@@ -27,7 +24,7 @@ namespace Agriculture.Inventories.Application.Features.Items.Commands.DeleteItem
                 throw new ItemNotFoundException(request.Id);
             }
 
-            _itemRepository.Delete(existingItem);
+            await _itemRepository.DeleteAsync(existingItem, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
     }

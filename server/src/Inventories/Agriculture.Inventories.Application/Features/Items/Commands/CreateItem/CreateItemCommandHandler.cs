@@ -25,7 +25,7 @@ namespace Agriculture.Inventories.Application.Features.Items.Commands.CreateItem
 
         public async Task<CreateItemCommandResult> Handle(CreateItemCommand command, CancellationToken cancellationToken)
         {
-            var isItemExisting = await _itemRepository.ExistsByCatalogNumberAsync(command.CatalogNumber, cancellationToken);
+            var isItemExisting = await _itemRepository.AnyAsync(x => x.CatalogNumber == command.CatalogNumber, cancellationToken);
             if (isItemExisting)
             {
                 throw new ItemAlreadyExistsException(command.CatalogNumber);

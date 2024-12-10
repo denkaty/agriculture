@@ -1,5 +1,4 @@
-﻿using Agriculture.Inventories.Application.Features.Items.Queries.GetItems;
-using Agriculture.Inventories.Domain.Features.Warehouses.Abstractions;
+﻿using Agriculture.Inventories.Domain.Features.Warehouses.Abstractions;
 using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Common.Exceptions.Inventories.Warehouses;
 using MediatR;

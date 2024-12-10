@@ -1,5 +1,4 @@
-﻿using Agriculture.Inventories.Domain.Features.Items.Models.Entities;
-using Agriculture.Inventories.Domain.Features.Warehouses.Abstractions;
+﻿using Agriculture.Inventories.Domain.Features.Warehouses.Abstractions;
 using Agriculture.Inventories.Domain.Features.Warehouses.Models.Entities;
 using Agriculture.Shared.Domain.Models.Pagination;
 using Agriculture.Shared.Infrastructure.Persistences;

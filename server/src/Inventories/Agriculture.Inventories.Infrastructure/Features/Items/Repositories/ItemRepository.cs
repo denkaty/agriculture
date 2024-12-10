@@ -1,49 +1,21 @@
 ﻿using Agriculture.Inventories.Domain.Features.Items.Abstractions;
 using Agriculture.Inventories.Domain.Features.Items.Models.Entities;
 using Agriculture.Shared.Domain.Models.Pagination;
+using Agriculture.Shared.Infrastructure.Persistences;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace Agriculture.Inventories.Infrastructure.Features.Items.Repositories
 {
-    public class ItemRepository : IItemRepository
+    public class ItemRepository : Repository<Item>, IItemRepository
     {
-        private readonly InventoriesContext _context;
-
-        public ItemRepository(InventoriesContext context)
+        public ItemRepository(InventoriesContext dbContext) : base(dbContext)
         {
-            _context = context;
         }
 
-        public async Task AddAsync(Item item, CancellationToken cancellationToken)
+        public override async Task<PaginationList<Item>> GetAllAsync(CancellationToken cancellationToken, int page = 1, int pageSize = 10, string sortBy = "", string sortOrder = "asc", string searchTerm = "")
         {
-            await _context.Items.AddAsync(item, cancellationToken);
-        }
-
-        public void Delete(Item item)
-        {
-            _context.Items.Remove(item);
-        }
-
-        public async Task<bool> ExistsByCatalogNumberAsync(string catalogNumber, CancellationToken cancellationToken)
-        {
-            bool isExisting = await _context.Items
-                .AsNoTracking()
-                .AnyAsync(x => x.CatalogNumber == catalogNumber, cancellationToken);
-
-            return isExisting;
-        }
-
-        public async Task<Item?> GetByIdAsync(string id, CancellationToken cancellationToken)
-        {
-            Item? item = await _context.Items.FindAsync(id, cancellationToken);
-
-            return item;
-        }
-
-        public async Task<PaginationList<Item>> GetUsersAsync(CancellationToken cancellationToken, int page = 1, int pageSize = 10, string sortBy = "", string sortOrder = "asc", string searchTerm = "")
-        {
-            var query = _context.Items.AsQueryable();
+            var query = _context.Set<Item>().AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
@@ -51,7 +23,6 @@ namespace Agriculture.Inventories.Infrastructure.Features.Items.Repositories
                 item.CatalogNumber.Contains(searchTerm) ||
                 item.Name.Contains(searchTerm) ||
                 item.Description.Contains(searchTerm));
-                
             }
 
             Expression<Func<Item, object>> keySelector = sortBy.ToLower() switch
