@@ -1,6 +1,6 @@
-﻿namespace Agriculture.Inventories.Contracts.Features.Inventories.Queries.GetInventoryByItemId
+﻿namespace Agriculture.Inventories.Contracts.Features.Inventories.Queries.GetInventoryByWarehouseId
 {
-    public class GetInventoriesByItemIdQueryViewModel
+    public class GetInventoriesByWarehouseIdQueryViewModel
     {
         public string Id { get; set; }
         public string ItemId { get; set; }

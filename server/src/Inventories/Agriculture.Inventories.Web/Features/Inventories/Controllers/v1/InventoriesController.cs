@@ -1,5 +1,9 @@
-﻿using Agriculture.Inventories.Application.Features.Inventories.Queries.GetInventoryByItemId;
+﻿using Agriculture.Inventories.Application.Features.Inventories.Queries.GetInventoriesByWarehouseId;
+using Agriculture.Inventories.Application.Features.Inventories.Queries.GetInventoryByItemId;
+using Agriculture.Inventories.Application.Features.Warehouses.Queries.GetWarehouses;
 using Agriculture.Inventories.Contracts.Features.Inventories.Queries.GetInventoryByItemId;
+using Agriculture.Inventories.Contracts.Features.Inventories.Queries.GetInventoryByWarehouseId;
+using Agriculture.Inventories.Contracts.Features.Warehouses.Queries.GetInventories;
 using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Web.Utilities;
@@ -26,8 +30,23 @@ namespace Agriculture.Inventories.Web.Features.Inventories.Controllers.v1
             _agricultureSender = agricultureSender;
         }
 
+        //[HttpGet]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //public async Task<IActionResult> GetAllAsync(GetInventoriesQueryRequest request, CancellationToken cancellationToken)
+        //{
+        //    var getInventoriesQuery = _agricultureMapper.Map<GetInventoriesQuery>(request);
+
+        //    var getInventoriesQueryResult = await _agricultureSender.SendAsync(getInventoriesQuery, cancellationToken);
+
+        //    var getInventoriesQueryResponse = _agricultureMapper.Map<GetInventoriesQueryResponse>(getInventoriesQueryResult);
+
+        //    return Ok(getInventoriesQueryResponse);
+        //}
 
         [HttpGet("item/{itemId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetByItemIdAsync(GetInventoriesByItemIdQueryRequest request, CancellationToken cancellationToken)
         {
             var getInventoryByItemId = _agricultureMapper.Map<GetInventoriesByItemIdQuery>(request);
@@ -39,16 +58,19 @@ namespace Agriculture.Inventories.Web.Features.Inventories.Controllers.v1
             return Ok(getInventoryByItemIdQueryResponse);
         }
 
-        //[HttpGet("warehouse/{warehouseId}")]
-        //public async Task<IActionResult> GetInventoryByWarehouse(GetInventoryByWarehouseIdQueryRequest warehouseId, CancellationToken cancellationToken)
-        //{
-        //    var getInventoryByWarehouseId = _agricultureMapper.Map<GetInventoryByWarehouseIdQuery>(request);
+        [HttpGet("warehouse/{warehouseId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetByWarehouseIdAsync(GetInventoriesByWarehouseIdQueryRequest request, CancellationToken cancellationToken)
+        {
+            var getInventoryByWarehouseId = _agricultureMapper.Map<GetInventoriesByWarehouseIdQuery>(request);
 
-        //    var getInventoryByWarehouseIdResult = await _agricultureSender.SendAsync(getInventoryByWarehouseId, cancellationToken);
+            var getInventoryByWarehouseIdQueryResult = await _agricultureSender.SendAsync(getInventoryByWarehouseId, cancellationToken);
 
-        //    var getInventoryByWarehouseIdResponse = _agricultureMapper.Map<GetInventoryByWarehouseIdQueryResponse>(getInventoryByWarehouseIdResult);
+            var getInventoryByWarehouseIdQueryResponse = _agricultureMapper.Map<GetInventoriesByWarehouseIdQueryResponse>(getInventoryByWarehouseIdQueryResult);
 
-        //    return Ok(getInventoryByWarehouseIdResponse);
-        //}
+            return Ok(getInventoryByWarehouseIdQueryResponse);
+        }
+       
     }
 }

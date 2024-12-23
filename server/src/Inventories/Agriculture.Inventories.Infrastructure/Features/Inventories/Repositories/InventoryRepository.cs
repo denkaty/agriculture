@@ -96,5 +96,48 @@ namespace Agriculture.Inventories.Infrastructure.Features.Inventories.Repositori
 
             return paginationList;
         }
+
+        public async Task<PaginationList<Inventory>> GetByWarehouseIdAsync(string itemId, CancellationToken cancellationToken, int page = 1, int pageSize = 10, string sortBy = "", string sortOrder = "asc", string searchTerm = "")
+        {
+            var query = _context.Set<Inventory>().AsQueryable();
+
+            query = query.Where(inventory => inventory.WarehouseId == itemId);
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                query = query.Where(inventory =>
+                inventory.ItemId.Contains(searchTerm) ||
+                inventory.WarehouseId.Contains(searchTerm));
+            }
+
+            Expression<Func<Inventory, object>> keySelector = sortBy.ToLower() switch
+            {
+                "itemId" => inventory => inventory.ItemId,
+                "warehouseId" => inventory => inventory.WarehouseId,
+                _ => inventory => inventory.ItemId,
+            };
+
+            query = sortOrder.ToLower() == "desc"
+                ? query.OrderByDescending(keySelector)
+                : query.OrderBy(keySelector);
+
+            var totalCount = await query.CountAsync(cancellationToken);
+            var data = await query.Skip((page - 1) * pageSize)
+                                   .Take(pageSize)
+                                   .Select(inventory => new Inventory
+                                   {
+                                       Id = inventory.Id,
+                                       ItemId = inventory.ItemId,
+                                       WarehouseId = inventory.WarehouseId,
+                                       Quantity = inventory.Quantity,
+                                       CreatedAt = inventory.CreatedAt,
+                                       UpdatedAt = inventory.UpdatedAt,
+                                   })
+                                   .ToListAsync(cancellationToken);
+
+            var paginationList = new PaginationList<Inventory>(data, page, pageSize, totalCount);
+
+            return paginationList;
+        }
     }
 }
