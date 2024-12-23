@@ -1,15 +1,7 @@
-﻿using Agriculture.Inventories.Application.Features.Items.Commands.CreateItem;
-using Agriculture.Inventories.Application.Features.Items.Commands.DeleteItemById;
-using Agriculture.Inventories.Application.Features.Items.Queries.GetItemById;
-using Agriculture.Inventories.Application.Features.Items.Queries.GetItems;
-using Agriculture.Inventories.Application.Features.Warehouses.Commands.CreateWarehouse;
+﻿using Agriculture.Inventories.Application.Features.Warehouses.Commands.CreateWarehouse;
 using Agriculture.Inventories.Application.Features.Warehouses.Commands.DeleteWarehouseById;
 using Agriculture.Inventories.Application.Features.Warehouses.Queries.GetWarehouseById;
 using Agriculture.Inventories.Application.Features.Warehouses.Queries.GetWarehouses;
-using Agriculture.Inventories.Contracts.Features.Items.Commands.CreateItem;
-using Agriculture.Inventories.Contracts.Features.Items.Commands.DeleteItemById;
-using Agriculture.Inventories.Contracts.Features.Items.Quries.GetItemById;
-using Agriculture.Inventories.Contracts.Features.Items.Quries.GetItems;
 using Agriculture.Inventories.Contracts.Features.Warehouses.Commands.CreateWarehouse;
 using Agriculture.Inventories.Contracts.Features.Warehouses.Commands.DeleteWarehouseById;
 using Agriculture.Inventories.Contracts.Features.Warehouses.Queries.GetInventories;

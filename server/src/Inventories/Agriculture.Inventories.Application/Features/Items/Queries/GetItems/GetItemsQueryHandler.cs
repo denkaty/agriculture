@@ -21,7 +21,7 @@ namespace Agriculture.Inventories.Application.Features.Items.Queries.GetItems
         {
             var paginationList = await _itemRepository.GetAllAsync(cancellationToken, request.Page, request.PageSize, request.SortBy, request.SortOrder, request.SearchTerm);
 
-            if (paginationList.Items.IsNullOrEmpty())
+            if (paginationList.Data.IsNullOrEmpty())
             {
                 throw new ItemEmptyCollectionException();
             }

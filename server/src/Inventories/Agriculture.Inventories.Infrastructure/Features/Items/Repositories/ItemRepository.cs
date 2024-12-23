@@ -38,7 +38,7 @@ namespace Agriculture.Inventories.Infrastructure.Features.Items.Repositories
                 : query.OrderBy(keySelector);
 
             var totalCount = await query.CountAsync(cancellationToken);
-            var items = await query.Skip((page - 1) * pageSize)
+            var data = await query.Skip((page - 1) * pageSize)
                                    .Take(pageSize)
                                    .Select(item => new Item
                                    {
@@ -51,7 +51,7 @@ namespace Agriculture.Inventories.Infrastructure.Features.Items.Repositories
                                    })
                                    .ToListAsync(cancellationToken);
 
-            var paginationList = new PaginationList<Item>(items, page, pageSize, totalCount);
+            var paginationList = new PaginationList<Item>(data, page, pageSize, totalCount);
 
             return paginationList;
         }

@@ -3,7 +3,7 @@ namespace Agriculture.Inventories.Contracts.Features.Warehouses.Queries.GetInven
 {
     public class GetWarehousesQueryResponse
     {
-        public IReadOnlyCollection<GetWarehousesQueryViewModel> Items { get; set; }
+        public IReadOnlyCollection<GetWarehousesQueryViewModel> Data { get; set; }
         public int Page { get; set; }
         public int PageSize { get; set; }
         public int TotalCount { get; set; }

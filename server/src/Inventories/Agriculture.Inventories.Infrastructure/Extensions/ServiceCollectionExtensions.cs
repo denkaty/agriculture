@@ -1,6 +1,8 @@
-﻿using Agriculture.Inventories.Domain.Features.Items.Abstractions;
+﻿using Agriculture.Inventories.Domain.Features.Inventories.Abstractions;
+using Agriculture.Inventories.Domain.Features.Items.Abstractions;
 using Agriculture.Inventories.Domain.Features.Warehouses.Abstractions;
 using Agriculture.Inventories.Infrastructure.DatabaseInitializers;
+using Agriculture.Inventories.Infrastructure.Features.Inventories.Repositories;
 using Agriculture.Inventories.Infrastructure.Features.Items.Repositories;
 using Agriculture.Inventories.Infrastructure.Features.Warehouses.Repositories;
 using Agriculture.Shared.Application.Abstractions.MediatR;
@@ -53,6 +55,7 @@ namespace Agriculture.Inventories.Infrastructure.Extensions
         {
             serviceCollection.AddScoped<IItemRepository, ItemRepository>();
             serviceCollection.AddScoped<IWarehouseRepository, WarehouseRepository>();
+            serviceCollection.AddScoped<IInventoryRepository, InventoryRepository>();
 
             return serviceCollection;
         }
