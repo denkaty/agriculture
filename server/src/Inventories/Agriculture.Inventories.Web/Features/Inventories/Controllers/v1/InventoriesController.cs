@@ -58,7 +58,7 @@ namespace Agriculture.Inventories.Web.Features.Inventories.Controllers.v1
             return Ok(getInventoryByWarehouseIdQueryResponse);
         }
 
-        [HttpPost("transfers")]
+        [HttpPatch("transfers")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> TransferAsync(TransferCommandRequest request, CancellationToken cancellationToken)
