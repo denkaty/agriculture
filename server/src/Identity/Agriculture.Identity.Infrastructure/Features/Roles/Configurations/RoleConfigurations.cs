@@ -1,4 +1,4 @@
-﻿using Agriculture.Identity.Domain.Features.Roles.Models;
+﻿using Agriculture.Identity.Domain.Features.Roles.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

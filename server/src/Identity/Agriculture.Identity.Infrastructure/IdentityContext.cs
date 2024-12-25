@@ -1,4 +1,4 @@
-﻿using Agriculture.Identity.Domain.Features.Roles.Models;
+﻿using Agriculture.Identity.Domain.Features.Roles.Models.Entities;
 using Agriculture.Identity.Domain.Features.Users.Models.Entities;
 using Agriculture.Shared.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

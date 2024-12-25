@@ -15,7 +15,7 @@ namespace Agriculture.Identity.Application.Features.Users.Queries.GetUsers
                 .Map(dest => dest.Page, src => src.request.Page)
                 .Map(dest => dest.PageSize, src => src.request.PageSize)
                 .Map(dest => dest.TotalCount, src => src.totalCount)
-                .Map(dest => dest.Items, src => src.users.Adapt<IReadOnlyCollection<GetUsersQueryVm>>());
+                .Map(dest => dest.Items, src => src.users.Adapt<IReadOnlyCollection<GetUsersQueryViewModel>>());
 
             config.NewConfig<User, UserDto>()
                 .Map(dest => dest.Id, src => src.Id)
@@ -24,7 +24,7 @@ namespace Agriculture.Identity.Application.Features.Users.Queries.GetUsers
                 .Map(dest => dest.LastName, src => src.LastName)
                 .Map(dest => dest.PhoneNumber, src => src.PhoneNumber);
 
-            config.NewConfig<UserDto, GetUsersQueryVm>()
+            config.NewConfig<UserDto, GetUsersQueryViewModel>()
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Email, src => src.Email)
                 .Map(dest => dest.PhoneNumber, src => src.PhoneNumber)
