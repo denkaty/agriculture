@@ -12,8 +12,4 @@
     <ProjectReference Include="..\Agriculture.Inventories.Domain\Agriculture.Inventories.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DatabaseInitializers\Abstractions\" />
-  </ItemGroup>
-
 </Project>

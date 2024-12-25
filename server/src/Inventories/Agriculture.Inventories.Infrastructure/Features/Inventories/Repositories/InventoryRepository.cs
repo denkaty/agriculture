@@ -9,11 +9,20 @@ namespace Agriculture.Inventories.Infrastructure.Features.Inventories.Repositori
 {
     public class InventoryRepository : Repository<Inventory>, IInventoryRepository
     {
+        private readonly InventoriesContext _context;
         public InventoryRepository(InventoriesContext dbContext) : base(dbContext)
         {
+            _context = dbContext;
         }
 
-        public async override Task<PaginationList<Inventory>> GetAllAsync(CancellationToken cancellationToken, int page = 1, int pageSize = 10, string sortBy = "", string sortOrder = "asc", string searchTerm = "")
+        public async Task<ICollection<Inventory>> GetInventoriesByWarehouseIdAndItemIdsAsync(string warehouseId, ICollection<string> itemIds, CancellationToken cancellationToken)
+        {
+            return await _context.Inventories
+                .Where(x => x.WarehouseId == warehouseId && itemIds.Contains(x.ItemId))
+                .ToListAsync(cancellationToken);
+        }
+
+        public async override Task<PaginationList<Inventory>> GetPaginatedAsync(CancellationToken cancellationToken, int page = 1, int pageSize = 10, string sortBy = "", string sortOrder = "asc", string searchTerm = "")
         {
             var query = _context.Set<Inventory>().AsQueryable();
 
@@ -54,7 +63,7 @@ namespace Agriculture.Inventories.Infrastructure.Features.Inventories.Repositori
             return paginationList;
         }
 
-        public async Task<PaginationList<Inventory>> GetByItemIdAsync(string itemId, CancellationToken cancellationToken, int page = 1, int pageSize = 10, string sortBy = "", string sortOrder = "asc", string searchTerm = "")
+        public async Task<PaginationList<Inventory>> GetPaginatedByItemIdAsync(string itemId, CancellationToken cancellationToken, int page = 1, int pageSize = 10, string sortBy = "", string sortOrder = "asc", string searchTerm = "")
         {
             var query = _context.Set<Inventory>().AsQueryable();
 
@@ -97,7 +106,7 @@ namespace Agriculture.Inventories.Infrastructure.Features.Inventories.Repositori
             return paginationList;
         }
 
-        public async Task<PaginationList<Inventory>> GetByWarehouseIdAsync(string itemId, CancellationToken cancellationToken, int page = 1, int pageSize = 10, string sortBy = "", string sortOrder = "asc", string searchTerm = "")
+        public async Task<PaginationList<Inventory>> GetPaginatedByWarehouseIdAsync(string itemId, CancellationToken cancellationToken, int page = 1, int pageSize = 10, string sortBy = "", string sortOrder = "asc", string searchTerm = "")
         {
             var query = _context.Set<Inventory>().AsQueryable();
 

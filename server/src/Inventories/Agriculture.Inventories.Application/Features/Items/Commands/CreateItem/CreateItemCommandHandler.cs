@@ -4,6 +4,7 @@ using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Application.Abstractions.Messaging;
 using Agriculture.Shared.Application.Abstractions.UnitOfWork;
+using Agriculture.Shared.Application.Events.Inventories.Items;
 using Agriculture.Shared.Common.Exceptions.Inventories.Items;
 
 namespace Agriculture.Inventories.Application.Features.Items.Commands.CreateItem
@@ -34,6 +35,10 @@ namespace Agriculture.Inventories.Application.Features.Items.Commands.CreateItem
             var item = _mapper.Map<Item>(command);
 
             await _itemRepository.AddAsync(item, cancellationToken);
+
+            var itemCreatedEvent = _mapper.Map<ItemCreatedEvent>(item);
+
+            await _eventPublisher.PublishAsync(itemCreatedEvent, cancellationToken);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 

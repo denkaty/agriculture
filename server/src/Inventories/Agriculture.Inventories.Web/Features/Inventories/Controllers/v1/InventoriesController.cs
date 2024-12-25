@@ -1,9 +1,9 @@
-﻿using Agriculture.Inventories.Application.Features.Inventories.Queries.GetInventoriesByWarehouseId;
+﻿using Agriculture.Inventories.Application.Features.Inventories.Commands.Transfer;
+using Agriculture.Inventories.Application.Features.Inventories.Queries.GetInventoriesByWarehouseId;
 using Agriculture.Inventories.Application.Features.Inventories.Queries.GetInventoryByItemId;
-using Agriculture.Inventories.Application.Features.Warehouses.Queries.GetWarehouses;
+using Agriculture.Inventories.Contracts.Features.Inventories.Commands.Transfer;
 using Agriculture.Inventories.Contracts.Features.Inventories.Queries.GetInventoryByItemId;
 using Agriculture.Inventories.Contracts.Features.Inventories.Queries.GetInventoryByWarehouseId;
-using Agriculture.Inventories.Contracts.Features.Warehouses.Queries.GetInventories;
 using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Web.Utilities;
@@ -30,28 +30,14 @@ namespace Agriculture.Inventories.Web.Features.Inventories.Controllers.v1
             _agricultureSender = agricultureSender;
         }
 
-        //[HttpGet]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //public async Task<IActionResult> GetAllAsync(GetInventoriesQueryRequest request, CancellationToken cancellationToken)
-        //{
-        //    var getInventoriesQuery = _agricultureMapper.Map<GetInventoriesQuery>(request);
-
-        //    var getInventoriesQueryResult = await _agricultureSender.SendAsync(getInventoriesQuery, cancellationToken);
-
-        //    var getInventoriesQueryResponse = _agricultureMapper.Map<GetInventoriesQueryResponse>(getInventoriesQueryResult);
-
-        //    return Ok(getInventoriesQueryResponse);
-        //}
-
         [HttpGet("item/{itemId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetByItemIdAsync(GetInventoriesByItemIdQueryRequest request, CancellationToken cancellationToken)
         {
-            var getInventoryByItemId = _agricultureMapper.Map<GetInventoriesByItemIdQuery>(request);
+            var getInventoryByItemIdQuery = _agricultureMapper.Map<GetInventoriesByItemIdQuery>(request);
 
-            var getInventoryByItemIdQueryResult = await _agricultureSender.SendAsync(getInventoryByItemId, cancellationToken);
+            var getInventoryByItemIdQueryResult = await _agricultureSender.SendAsync(getInventoryByItemIdQuery, cancellationToken);
 
             var getInventoryByItemIdQueryResponse = _agricultureMapper.Map<GetInventoriesByItemIdQueryResponse>(getInventoryByItemIdQueryResult);
 
@@ -63,14 +49,26 @@ namespace Agriculture.Inventories.Web.Features.Inventories.Controllers.v1
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetByWarehouseIdAsync(GetInventoriesByWarehouseIdQueryRequest request, CancellationToken cancellationToken)
         {
-            var getInventoryByWarehouseId = _agricultureMapper.Map<GetInventoriesByWarehouseIdQuery>(request);
+            var getInventoryByWarehouseIdQuery = _agricultureMapper.Map<GetInventoriesByWarehouseIdQuery>(request);
 
-            var getInventoryByWarehouseIdQueryResult = await _agricultureSender.SendAsync(getInventoryByWarehouseId, cancellationToken);
+            var getInventoryByWarehouseIdQueryResult = await _agricultureSender.SendAsync(getInventoryByWarehouseIdQuery, cancellationToken);
 
             var getInventoryByWarehouseIdQueryResponse = _agricultureMapper.Map<GetInventoriesByWarehouseIdQueryResponse>(getInventoryByWarehouseIdQueryResult);
 
             return Ok(getInventoryByWarehouseIdQueryResponse);
         }
-       
+
+        [HttpPost("transfers")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> TransferAsync(TransferCommandRequest request, CancellationToken cancellationToken)
+        {
+            var transferCommand = _agricultureMapper.Map<TransferCommand>(request);
+
+            await _agricultureSender.SendAsync(transferCommand, cancellationToken);
+
+            return NoContent();
+        }
+
     }
 }

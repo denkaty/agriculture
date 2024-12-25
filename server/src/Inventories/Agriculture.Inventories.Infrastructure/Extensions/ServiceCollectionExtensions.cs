@@ -2,6 +2,7 @@
 using Agriculture.Inventories.Domain.Features.Items.Abstractions;
 using Agriculture.Inventories.Domain.Features.Warehouses.Abstractions;
 using Agriculture.Inventories.Infrastructure.DatabaseInitializers;
+using Agriculture.Inventories.Infrastructure.DatabaseInitializers.Abstractions;
 using Agriculture.Inventories.Infrastructure.Features.Inventories.Repositories;
 using Agriculture.Inventories.Infrastructure.Features.Items.Repositories;
 using Agriculture.Inventories.Infrastructure.Features.Warehouses.Repositories;
@@ -46,7 +47,10 @@ namespace Agriculture.Inventories.Infrastructure.Extensions
         {
             serviceCollection
                 .AddScoped<IMigrationSeeder, MigrationSeeder>()
-                .AddScoped<IDatabaseInitializer, DatabaseInitializer>();
+                .AddScoped<IDatabaseInitializer, DatabaseInitializer>()
+                .AddScoped<IWarehouseSeeder, WarehouseSeeder>()
+                .AddScoped<IItemSeeder, ItemSeeder>()
+                .AddScoped<IInventorySeeder, InventorySeeder>();
 
             return serviceCollection;
         }

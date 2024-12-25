@@ -19,7 +19,7 @@ namespace Agriculture.Inventories.Application.Features.Items.Queries.GetItems
 
         public async Task<GetItemsQueryResult> Handle(GetItemsQuery request, CancellationToken cancellationToken)
         {
-            var paginationList = await _itemRepository.GetAllAsync(cancellationToken, request.Page, request.PageSize, request.SortBy, request.SortOrder, request.SearchTerm);
+            var paginationList = await _itemRepository.GetPaginatedAsync(cancellationToken, request.Page, request.PageSize, request.SortBy, request.SortOrder, request.SearchTerm);
 
             if (paginationList.Data.IsNullOrEmpty())
             {

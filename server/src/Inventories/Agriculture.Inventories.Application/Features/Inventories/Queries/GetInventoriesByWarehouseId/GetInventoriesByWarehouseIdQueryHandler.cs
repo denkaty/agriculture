@@ -18,7 +18,7 @@ namespace Agriculture.Inventories.Application.Features.Inventories.Queries.GetIn
         }
         public async Task<GetInventoriesByWarehouseIdQueryResult> Handle(GetInventoriesByWarehouseIdQuery request, CancellationToken cancellationToken)
         {
-            var paginationList = await _inventoryRepository.GetByWarehouseIdAsync(request.WarehouseId, cancellationToken, request.Page, request.PageSize, request.SortBy, request.SortOrder, request.SearchTerm);
+            var paginationList = await _inventoryRepository.GetPaginatedByWarehouseIdAsync(request.WarehouseId, cancellationToken, request.Page, request.PageSize, request.SortBy, request.SortOrder, request.SearchTerm);
 
             if (paginationList.Data.IsNullOrEmpty())
             {

@@ -13,7 +13,7 @@ namespace Agriculture.Inventories.Infrastructure.Features.Items.Repositories
         {
         }
 
-        public override async Task<PaginationList<Item>> GetAllAsync(CancellationToken cancellationToken, int page = 1, int pageSize = 10, string sortBy = "", string sortOrder = "asc", string searchTerm = "")
+        public override async Task<PaginationList<Item>> GetPaginatedAsync(CancellationToken cancellationToken, int page = 1, int pageSize = 10, string sortBy = "", string sortOrder = "asc", string searchTerm = "")
         {
             var query = _context.Set<Item>().AsQueryable();
 

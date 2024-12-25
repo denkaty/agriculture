@@ -19,7 +19,7 @@ namespace Agriculture.Inventories.Application.Features.Warehouses.Queries.GetWar
 
         public async Task<GetWarehousesQueryResult> Handle(GetWarehousesQuery request, CancellationToken cancellationToken)
         {
-            var paginationList = await _warehouseRepository.GetAllAsync(cancellationToken, request.Page, request.PageSize, request.SortBy, request.SortOrder);
+            var paginationList = await _warehouseRepository.GetPaginatedAsync(cancellationToken, request.Page, request.PageSize, request.SortBy, request.SortOrder);
             if (paginationList.Data.IsNullOrEmpty())
             {
                 throw new WarehouseEmptyCollectionException();
