@@ -1,4 +1,5 @@
 ﻿using Agriculture.Shared.Infrastructure.Extensions;
+using Agriculture.Transactions.Domain.Features.Suppliers.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -9,6 +10,8 @@ namespace Agriculture.Transactions.Infrastructure
         public TransactionsContext(DbContextOptions<TransactionsContext> options) : base(options)
         {
         }
+
+        public DbSet<Supplier> Suppliers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
