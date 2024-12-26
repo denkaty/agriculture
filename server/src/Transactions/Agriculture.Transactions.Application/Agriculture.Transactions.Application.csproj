@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Agriculture.Shared.Application\Agriculture.Shared.Application.csproj" />
+    <ProjectReference Include="..\..\Shared\Agriculture.Shared.Domain\Agriculture.Shared.Domain.csproj" />
+    <ProjectReference Include="..\Agriculture.Transactions.Contracts\Agriculture.Transactions.Contracts.csproj" />
+    <ProjectReference Include="..\Agriculture.Transactions.Domain\Agriculture.Transactions.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Suppliers\Commands\" />
+    <Folder Include="Features\Suppliers\Queries\" />
+  </ItemGroup>
+
+</Project>
