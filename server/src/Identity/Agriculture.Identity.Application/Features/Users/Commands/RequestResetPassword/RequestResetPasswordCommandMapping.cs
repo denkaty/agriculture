@@ -16,7 +16,7 @@ namespace Agriculture.Identity.Application.Features.Users.Commands.RequestResetP
                 .Map(dest => dest.Email, src => src.Command.Email)
                 .Map(dest => dest.UserId, src => src.Id);
 
-            config.NewConfig<(string Email, string Url), UserRequestedResetPasswordEvent>()
+            config.NewConfig<(string Email, string Url), UserRequestResetPasswordEvent>()
                 .Map(dest => dest.Email, src => src.Email)
                 .Map(dest => dest.RedirectUrl, src => src.Url);
 

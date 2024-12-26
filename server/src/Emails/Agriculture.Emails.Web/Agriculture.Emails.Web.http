@@ -1,0 +1,6 @@
+@Agriculture.Emails.Web_HostAddress = http://localhost:5033
+
+GET {{Agriculture.Emails.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
