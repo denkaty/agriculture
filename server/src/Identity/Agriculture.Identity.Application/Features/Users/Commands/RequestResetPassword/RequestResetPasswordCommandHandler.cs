@@ -50,7 +50,7 @@ namespace Agriculture.Identity.Application.Features.Users.Commands.RequestResetP
 
             var url = _urlHandler.ConfigureResetPasswordUrl(user.Id, resetPasswordToken.Token);
 
-            var userResetPasswordTokenCreatedEvent = _agricultureMapper.Map<UserRequestedResetPasswordEvent>((user.Email, url));
+            var userResetPasswordTokenCreatedEvent = _agricultureMapper.Map<UserRequestResetPasswordEvent>((user.Email, url));
 
             await _eventPublisher.PublishAsync(userResetPasswordTokenCreatedEvent, cancellationToken);
 
