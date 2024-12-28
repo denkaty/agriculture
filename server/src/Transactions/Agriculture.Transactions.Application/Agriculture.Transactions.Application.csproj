@@ -13,8 +13,4 @@
     <ProjectReference Include="..\Agriculture.Transactions.Domain\Agriculture.Transactions.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Suppliers\Queries\" />
-  </ItemGroup>
-
 </Project>

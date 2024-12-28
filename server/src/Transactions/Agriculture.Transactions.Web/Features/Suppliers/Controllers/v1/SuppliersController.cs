@@ -2,7 +2,13 @@
 using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Web.Utilities;
 using Agriculture.Transactions.Application.Features.Suppliers.Commands.CreateSupplier;
+using Agriculture.Transactions.Application.Features.Suppliers.Commands.DeleteSupplierById;
+using Agriculture.Transactions.Application.Features.Suppliers.Queries.GetSupplierById;
+using Agriculture.Transactions.Application.Features.Suppliers.Queries.GetSuppliers;
 using Agriculture.Transactions.Contracts.Features.Suppliers.Commands.CreateSupplier;
+using Agriculture.Transactions.Contracts.Features.Suppliers.Commands.DeleteSupplierById;
+using Agriculture.Transactions.Contracts.Features.Suppliers.Queries.GetSupplierById;
+using Agriculture.Transactions.Contracts.Features.Suppliers.Queries.GetSuppliers;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -40,7 +46,7 @@ namespace Agriculture.Transactions.Web.Features.Suppliers.Controllers.v1
 
             return Ok(createSupplierCommandResponse);
         }
-        /*
+       
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -80,6 +86,5 @@ namespace Agriculture.Transactions.Web.Features.Suppliers.Controllers.v1
 
             return NoContent();
         }
-        */
     }
 }
