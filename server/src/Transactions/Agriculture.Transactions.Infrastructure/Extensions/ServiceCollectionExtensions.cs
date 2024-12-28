@@ -3,6 +3,7 @@ using Agriculture.Shared.Infrastructure.Extensions;
 using Agriculture.Shared.Infrastructure.Implementations.MediatR;
 using Agriculture.Shared.Infrastructure.Persistences.DatabaseInitializer;
 using Agriculture.Transactions.Infrastructure.DatabaseInitializers;
+using Agriculture.Transactions.Infrastructure.Features.Clients.Extensions;
 using Agriculture.Transactions.Infrastructure.Features.Suppliers.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,7 +26,8 @@ namespace Agriculture.Transactions.Infrastructure.Extensions
                 .AddCurrentUserContext()
                 .AddDatabaseInitializers()
                 .AddDateTimeProvider()
-                .AddSupplierServices(configuration);
+                .AddSupplierServices(configuration)
+                .AddClientsServices(configuration);
 
             return services;
         }
