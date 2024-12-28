@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Agriculture.Transactions.Application.Features.Clients.Commands
+namespace Agriculture.Transactions.Application.Features.Clients.Commands.CreateClient
 {
     public class CreateClientCommandValidator : AbstractValidator<CreateClientCommand>
     {

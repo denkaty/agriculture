@@ -1,8 +1,14 @@
 ﻿using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Web.Utilities;
-using Agriculture.Transactions.Application.Features.Clients.Commands;
-using Agriculture.Transactions.Contracts.Features.Clients.Commands;
+using Agriculture.Transactions.Application.Features.Clients.Commands.CreateClient;
+using Agriculture.Transactions.Application.Features.Clients.Commands.DeleteClientById;
+using Agriculture.Transactions.Application.Features.Clients.Queries.GetClientById;
+using Agriculture.Transactions.Application.Features.Clients.Queries.GetClients;
+using Agriculture.Transactions.Contracts.Features.Clients.Commands.CreateClient;
+using Agriculture.Transactions.Contracts.Features.Clients.Commands.DeleteClientById;
+using Agriculture.Transactions.Contracts.Features.Clients.Queries.GetClientById;
+using Agriculture.Transactions.Contracts.Features.Clients.Queries.GetClients;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -40,7 +46,7 @@ namespace Agriculture.Transactions.Web.Features.Clients.Controllers.v1
 
             return Ok(createClientCommandResponse);
         }
-        /*
+        
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -54,7 +60,7 @@ namespace Agriculture.Transactions.Web.Features.Clients.Controllers.v1
 
             return Ok(getClientByIdQueryResponse);
         }
-
+        
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -80,6 +86,6 @@ namespace Agriculture.Transactions.Web.Features.Clients.Controllers.v1
 
             return NoContent();
         }
-        */
+
     }
 }

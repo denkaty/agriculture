@@ -1,4 +1,4 @@
-﻿namespace Agriculture.Transactions.Contracts.Features.Clients.Commands
+﻿namespace Agriculture.Transactions.Contracts.Features.Clients.Commands.CreateClient
 {
     public class CreateClientCommandBindingModel
     {

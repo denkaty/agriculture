@@ -5,7 +5,7 @@ using Agriculture.Transactions.Domain.Features.Clients.Abstractions;
 using Agriculture.Transactions.Domain.Features.Clients.Models.Entities;
 using MediatR;
 
-namespace Agriculture.Transactions.Application.Features.Clients.Commands
+namespace Agriculture.Transactions.Application.Features.Clients.Commands.CreateClient
 {
     public class CreateClientCommandHandler : IRequestHandler<CreateClientCommand, CreateClientCommandResult>
     {

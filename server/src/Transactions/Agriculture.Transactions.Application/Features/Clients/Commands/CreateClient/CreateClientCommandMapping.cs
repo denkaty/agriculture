@@ -1,8 +1,7 @@
-﻿using Agriculture.Transactions.Contracts.Features.Clients.Commands;
-
+﻿using Agriculture.Transactions.Contracts.Features.Clients.Commands.CreateClient;
 using Mapster;
 
-namespace Agriculture.Transactions.Application.Features.Clients.Commands
+namespace Agriculture.Transactions.Application.Features.Clients.Commands.CreateClient
 {
     public class CreateClientCommandMapping : IRegister
     {
