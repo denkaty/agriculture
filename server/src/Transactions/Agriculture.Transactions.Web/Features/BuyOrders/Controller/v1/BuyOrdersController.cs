@@ -2,11 +2,13 @@
 using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Web.Utilities;
 using Agriculture.Transactions.Application.Features.BuyOrders.Commands.CreateBuyOrder;
+using Agriculture.Transactions.Application.Features.BuyOrders.Queries.GetBuyOrderById;
 using Agriculture.Transactions.Application.Features.Clients.Commands.CreateClient;
 using Agriculture.Transactions.Application.Features.Clients.Commands.DeleteClientById;
 using Agriculture.Transactions.Application.Features.Clients.Queries.GetClientById;
 using Agriculture.Transactions.Application.Features.Clients.Queries.GetClients;
 using Agriculture.Transactions.Contracts.Features.BuyOrders.Commands.CreateBuyOrder;
+using Agriculture.Transactions.Contracts.Features.BuyOrders.Queries.GetBuyOrderById;
 using Agriculture.Transactions.Contracts.Features.Clients.Commands.CreateClient;
 using Agriculture.Transactions.Contracts.Features.Clients.Commands.DeleteClientById;
 using Agriculture.Transactions.Contracts.Features.Clients.Queries.GetClientById;
@@ -48,7 +50,7 @@ namespace Agriculture.Transactions.Web.Features.BuyOrders.Controller.v1
 
             return Ok(createBuyOrderCommandResponse);
         }
-        /*
+
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -62,32 +64,32 @@ namespace Agriculture.Transactions.Web.Features.BuyOrders.Controller.v1
 
             return Ok(getBuyOrderByIdQueryResponse);
         }
+        /*
+       [HttpGet]
+       [ProducesResponseType(StatusCodes.Status200OK)]
+       [ProducesResponseType(StatusCodes.Status404NotFound)]
+       public async Task<IActionResult> GetAllAsync(GetBuyOrdersQueryRequest request, CancellationToken cancellationToken)
+       {
+           var getBuyOrdersQuery = _agricultureMapper.Map<GetBuyOrdersQuery>(request);
 
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetAllAsync(GetBuyOrdersQueryRequest request, CancellationToken cancellationToken)
-        {
-            var getBuyOrdersQuery = _agricultureMapper.Map<GetBuyOrdersQuery>(request);
+           var getBuyOrdersQueryResult = await _agricultureSender.SendAsync(getBuyOrdersQuery, cancellationToken);
 
-            var getBuyOrdersQueryResult = await _agricultureSender.SendAsync(getBuyOrdersQuery, cancellationToken);
+           var getBuyOrdersQueryResponse = _agricultureMapper.Map<GetBuyOrdersQueryResponse>(getBuyOrdersQueryResult);
 
-            var getBuyOrdersQueryResponse = _agricultureMapper.Map<GetBuyOrdersQueryResponse>(getBuyOrdersQueryResult);
+           return Ok(getBuyOrdersQueryResponse);
+       }
 
-            return Ok(getBuyOrdersQueryResponse);
-        }
+       [HttpDelete("{id}")]
+       [ProducesResponseType(StatusCodes.Status204NoContent)]
+       [ProducesResponseType(StatusCodes.Status404NotFound)]
+       public async Task<IActionResult> DeleteByIdAsync(DeleteBuyOrderByIdCommandRequest request, CancellationToken cancellationToken)
+       {
+           var deleteBuyOrderByIdCommand = _agricultureMapper.Map<DeleteBuyOrderByIdCommand>(request);
 
-        [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeleteByIdAsync(DeleteBuyOrderByIdCommandRequest request, CancellationToken cancellationToken)
-        {
-            var deleteBuyOrderByIdCommand = _agricultureMapper.Map<DeleteBuyOrderByIdCommand>(request);
+           await _agricultureSender.SendAsync(deleteBuyOrderByIdCommand, cancellationToken);
 
-            await _agricultureSender.SendAsync(deleteBuyOrderByIdCommand, cancellationToken);
-
-            return NoContent();
-        }
-        */
+           return NoContent();
+       }
+       */
     }
 }

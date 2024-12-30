@@ -16,6 +16,14 @@ namespace Agriculture.Transactions.Infrastructure.Features.BuyOrders.Repositorie
             _context = dbContext;
         }
 
+        public override async Task<BuyOrder?> GetByIdAsync(string id, CancellationToken cancellationToken)
+        {
+            return await _context.BuyOrders
+                .Include(b => b.Supplier)
+                .Include(b => b.Items)
+                .FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
+        }
+
         public override async Task<PaginationList<BuyOrder>> GetPaginatedAsync(CancellationToken cancellationToken, int page = 1, int pageSize = 10, string sortBy = "", string sortOrder = "asc", string searchTerm = "")
         {
             var query = _context.Set<BuyOrder>()
