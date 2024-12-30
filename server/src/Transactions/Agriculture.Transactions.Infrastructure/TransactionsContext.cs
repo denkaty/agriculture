@@ -1,4 +1,5 @@
 ﻿using Agriculture.Shared.Infrastructure.Extensions;
+using Agriculture.Transactions.Domain.Features.BuyOrders.Models.Entities;
 using Agriculture.Transactions.Domain.Features.Clients.Models.Entities;
 using Agriculture.Transactions.Domain.Features.Suppliers.Models.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,8 @@ namespace Agriculture.Transactions.Infrastructure
 
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Client> Clients { get; set; }
+        public DbSet<BuyOrder> BuyOrders { get; set; }
+        public DbSet<BuyOrderItem> BuyOrderItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

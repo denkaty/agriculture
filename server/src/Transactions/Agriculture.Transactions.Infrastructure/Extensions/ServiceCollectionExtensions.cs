@@ -1,10 +1,14 @@
 ﻿using Agriculture.Shared.Application.Abstractions.MediatR;
+using Agriculture.Shared.Common.Models.Options;
 using Agriculture.Shared.Infrastructure.Extensions;
 using Agriculture.Shared.Infrastructure.Implementations.MediatR;
 using Agriculture.Shared.Infrastructure.Persistences.DatabaseInitializer;
+using Agriculture.Transactions.Application.HttpClients;
 using Agriculture.Transactions.Infrastructure.DatabaseInitializers;
+using Agriculture.Transactions.Infrastructure.Features.BuyOrders.Extensions;
 using Agriculture.Transactions.Infrastructure.Features.Clients.Extensions;
 using Agriculture.Transactions.Infrastructure.Features.Suppliers.Extensions;
+using Agriculture.Transactions.Infrastructure.HttpClients;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -26,8 +30,10 @@ namespace Agriculture.Transactions.Infrastructure.Extensions
                 .AddCurrentUserContext()
                 .AddDatabaseInitializers()
                 .AddDateTimeProvider()
+                .AddHttpClients(configuration)
                 .AddSupplierServices(configuration)
-                .AddClientsServices(configuration);
+                .AddClientsServices(configuration)
+                .AddBuyOrderServices(configuration);
 
             return services;
         }
@@ -47,6 +53,26 @@ namespace Agriculture.Transactions.Infrastructure.Extensions
 
             return serviceCollection;
         }
+        private static IServiceCollection AddHttpClients(this IServiceCollection serviceCollection, IConfiguration configuration)
+        {
+            serviceCollection
+                .AddOptions<InventoryHttpClientOptions>()
+                .BindConfiguration(nameof(InventoryHttpClientOptions))
+                .ValidateDataAnnotations()
+                .ValidateOnStart();
 
+            var inventoryHttpClientOptions = configuration
+               .GetSection(nameof(InventoryHttpClientOptions))
+               .Get<InventoryHttpClientOptions>();
+
+            serviceCollection.AddHttpClient(inventoryHttpClientOptions.ClientName, client =>
+            {
+                client.BaseAddress = new Uri(inventoryHttpClientOptions.BaseAddress);
+            });
+
+            serviceCollection.AddTransient<IInventoryHttpClient, InventoryHttpClient>();
+
+            return serviceCollection;
+        }
     }
 }

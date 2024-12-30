@@ -2,6 +2,7 @@
 using Agriculture.Inventories.Domain.Features.Inventories.Models.Entities;
 using Agriculture.Shared.Domain.Models.Pagination;
 using Agriculture.Shared.Infrastructure.Persistences;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -13,6 +14,23 @@ namespace Agriculture.Inventories.Infrastructure.Features.Inventories.Repositori
         public InventoryRepository(InventoriesContext dbContext) : base(dbContext)
         {
             _context = dbContext;
+        }
+
+        public async Task<ICollection<(string ItemId, string WarehouseId)>> GetInvalidInventoriesAsync(ICollection<(string ItemId, string WarehouseId)> compositeKeys, CancellationToken cancellationToken)
+        {
+            var validInventories = await _context.Inventories
+                .Where(x => compositeKeys.Select(k => k.ItemId).Contains(x.ItemId) &&
+                            compositeKeys.Select(k => k.WarehouseId).Contains(x.WarehouseId))
+                .Select(x => new { x.ItemId, x.WarehouseId })
+                .ToListAsync(cancellationToken);
+
+            var validInventoryKeys = new HashSet<(string ItemId, string WarehouseId)>(validInventories.Select(x => (ItemId: x.ItemId, WarehouseId: x.WarehouseId)));
+
+            var invalidInventories = compositeKeys
+                .Where(x => !validInventoryKeys.Contains((x.ItemId, x.WarehouseId)))
+                .ToList();
+
+            return invalidInventories;
         }
 
         public async Task<ICollection<Inventory>> GetInventoriesByWarehouseIdAndItemIdsAsync(string warehouseId, ICollection<string> itemIds, CancellationToken cancellationToken)

@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.RateLimiting;
 
@@ -34,6 +35,7 @@ namespace Agriculture.Shared.Web.Extensions
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
 
@@ -173,7 +175,7 @@ namespace Agriculture.Shared.Web.Extensions
             serviceCollection
                 .AddApiVersioning(options =>
                 {
-                    options.DefaultApiVersion = new ApiVersion(1);
+                    options.DefaultApiVersion = new ApiVersion(1,0);
                     options.ReportApiVersions = true;
                     options.ApiVersionReader = new UrlSegmentApiVersionReader();
                 })

@@ -1,11 +1,14 @@
 ﻿using Agriculture.Inventories.Application.Features.Inventories.Commands.Transfer;
 using Agriculture.Inventories.Application.Features.Inventories.Queries.GetInventoriesByWarehouseId;
 using Agriculture.Inventories.Application.Features.Inventories.Queries.GetInventoryByItemId;
+using Agriculture.Inventories.Application.Features.Inventories.Queries.ValidateBuyOrder;
 using Agriculture.Inventories.Contracts.Features.Inventories.Commands.Transfer;
 using Agriculture.Inventories.Contracts.Features.Inventories.Queries.GetInventoryByItemId;
 using Agriculture.Inventories.Contracts.Features.Inventories.Queries.GetInventoryByWarehouseId;
+using Agriculture.Inventories.Contracts.Features.Inventories.Queries.ValidateBuyOrder;
 using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
+using Agriculture.Shared.Common.Features.Transactions.Queries.ValidateBuyOrder;
 using Agriculture.Shared.Web.Utilities;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
@@ -68,6 +71,19 @@ namespace Agriculture.Inventories.Web.Features.Inventories.Controllers.v1
             await _agricultureSender.SendAsync(transferCommand, cancellationToken);
 
             return NoContent();
+        }
+
+        [HttpPost("validate-buy-order")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> ValidateAsync(ValidateBuyOrderQueryRequest request, CancellationToken cancellationToken)
+        {
+            var validateBuyOrderQuery = _agricultureMapper.Map<ValidateBuyOrderQuery>(request);
+
+            var validateBuyOrderResult = await _agricultureSender.SendAsync(validateBuyOrderQuery, cancellationToken);
+
+            var validateBuyOrderResponse = _agricultureMapper.Map<ValidateBuyOrderQueryResponse>(validateBuyOrderResult);
+
+            return Ok(validateBuyOrderResponse);
         }
 
     }
