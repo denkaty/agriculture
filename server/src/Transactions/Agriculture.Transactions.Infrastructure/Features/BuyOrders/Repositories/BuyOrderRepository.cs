@@ -59,6 +59,7 @@ namespace Agriculture.Transactions.Infrastructure.Features.BuyOrders.Repositorie
                                        Supplier = buyOrder.Supplier,
                                        OrderDate = buyOrder.OrderDate,
                                        Items = buyOrder.Items,
+                                       TotalAmount = buyOrder.TotalAmount,
                                        CreatedAt = buyOrder.CreatedAt,
                                        UpdatedAt = buyOrder.UpdatedAt,
                                    })
