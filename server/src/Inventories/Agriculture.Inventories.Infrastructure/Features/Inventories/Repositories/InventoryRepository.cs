@@ -166,5 +166,20 @@ namespace Agriculture.Inventories.Infrastructure.Features.Inventories.Repositori
 
             return paginationList;
         }
+
+        public async Task<ICollection<Inventory>> GetInventoriesByCompositeKeysAsync(ICollection<(string ItemId, string WarehouseId)> compositeKeys, CancellationToken cancellationToken)
+        {
+            if (compositeKeys == null || !compositeKeys.Any())
+            {
+                return new List<Inventory>();
+            }
+
+            var itemIds = compositeKeys.Select(key => key.ItemId).ToHashSet();
+            var warehouseIds = compositeKeys.Select(key => key.WarehouseId).ToHashSet();
+
+            return await _context.Inventories
+                .Where(inventory => itemIds.Contains(inventory.ItemId) && warehouseIds.Contains(inventory.WarehouseId))
+                .ToListAsync(cancellationToken);
+        }
     }
 }

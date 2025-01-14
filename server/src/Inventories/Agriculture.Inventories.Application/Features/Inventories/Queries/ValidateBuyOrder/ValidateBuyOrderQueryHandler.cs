@@ -1,5 +1,4 @@
-﻿using Agriculture.Inventories.Contracts.Features.Inventories.Queries.ValidateBuyOrder;
-using Agriculture.Inventories.Domain.Features.Inventories.Abstractions;
+﻿using Agriculture.Inventories.Domain.Features.Inventories.Abstractions;
 using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
 
@@ -18,7 +17,7 @@ namespace Agriculture.Inventories.Application.Features.Inventories.Queries.Valid
 
         public async Task<ValidateBuyOrderQueryResult> Handle(ValidateBuyOrderQuery request, CancellationToken cancellationToken)
         {
-            var compositeKeys = request.CompositeKeys.Select(x => (ItemId: x.ItemId, WarehouseId: x.WarehouseId)).ToList();
+            var compositeKeys = request.InventoryBuyItemOrders.Select(x => (ItemId: x.ItemId, WarehouseId: x.WarehouseId)).ToList();
 
             ICollection<(string ItemId, string WarehouseId)> invalidInventories = await _inventoryRepository.GetInvalidInventoriesAsync(compositeKeys, cancellationToken);
             var result = _mapper.Map<ValidateBuyOrderQueryResult>(invalidInventories);

@@ -4,11 +4,11 @@ namespace Agriculture.Shared.Common.Features.Transactions.Queries.ValidateBuyOrd
 {
     public class ValidateBuyOrderQueryBindingModel
     {
-        public ValidateBuyOrderQueryBindingModel(ICollection<InventoryCompositeKey> compositeKeys)
+        public ValidateBuyOrderQueryBindingModel(ICollection<InventoryBuyItemOrder> inventoryBuyItemOrders)
         {
-            CompositeKeys = compositeKeys;
+            InventoryBuyItemOrders = inventoryBuyItemOrders;
         }
 
-        public ICollection<InventoryCompositeKey> CompositeKeys { get; set; }
+        public ICollection<InventoryBuyItemOrder> InventoryBuyItemOrders { get; set; }
     }
 }

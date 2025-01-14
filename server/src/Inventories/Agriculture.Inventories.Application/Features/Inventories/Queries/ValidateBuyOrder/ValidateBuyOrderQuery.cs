@@ -3,5 +3,5 @@ using Agriculture.Shared.Application.Abstractions.MediatR;
 
 namespace Agriculture.Inventories.Application.Features.Inventories.Queries.ValidateBuyOrder
 {
-    public record ValidateBuyOrderQuery(ICollection<InventoryCompositeKey> CompositeKeys) : IQuery<ValidateBuyOrderQueryResult>;
+    public record ValidateBuyOrderQuery(ICollection<InventoryBuyItemOrder> InventoryBuyItemOrders) : IQuery<ValidateBuyOrderQueryResult>;
 }

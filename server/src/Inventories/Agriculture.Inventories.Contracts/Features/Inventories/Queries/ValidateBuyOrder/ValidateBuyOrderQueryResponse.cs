@@ -3,6 +3,6 @@
     public class ValidateBuyOrderQueryResponse
     {
         public bool IsValid { get; set; }
-        public ICollection<InventoryCompositeKey> InvalidCompositeKeys { get; set; }
+        public ICollection<InventoryBuyItemOrder> InvalidInventoryBuyItemOrders { get; set; }
     }
 }

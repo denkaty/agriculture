@@ -9,16 +9,16 @@ namespace Agriculture.Inventories.Application.Features.Inventories.Queries.Valid
         public void Register(TypeAdapterConfig config)
         {
             config.NewConfig<ValidateBuyOrderQueryRequest, ValidateBuyOrderQuery>()
-                  .ConstructUsing(src => new(src.ValidateBuyOrderQueryBindingModel.CompositeKeys));
+                  .ConstructUsing(src => new(src.ValidateBuyOrderQueryBindingModel.InventoryBuyItemOrders));
 
             config.NewConfig<ICollection<(string ItemId, string WarehouseId)>, ValidateBuyOrderQueryResult>()
                 .Map(dest => dest.IsValid, src => !src.Any())
-                .Map(dest => dest.InvalidCompositeKeys, src => src);
+                .Map(dest => dest.InvalidInventoryBuyItemOrders, src => src);
 
             config.NewConfig<ValidateBuyOrderQueryResult, ValidateBuyOrderQueryResponse>()
                 .Map(dest => dest.IsValid, src => src.IsValid)
-                .Map(dest => dest.InvalidCompositeKeys, src =>
-                src.InvalidCompositeKeys.Select(k => new InventoryCompositeKey
+                .Map(dest => dest.InvalidInventoryBuyItemOrders, src =>
+                src.InvalidInventoryBuyItemOrders.Select(k => new InventoryBuyItemOrder
                 {
                     ItemId = k.ItemId,
                     WarehouseId = k.WarehouseId

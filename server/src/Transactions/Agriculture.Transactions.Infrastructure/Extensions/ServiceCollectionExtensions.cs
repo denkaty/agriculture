@@ -7,6 +7,7 @@ using Agriculture.Transactions.Application.HttpClients;
 using Agriculture.Transactions.Infrastructure.DatabaseInitializers;
 using Agriculture.Transactions.Infrastructure.Features.BuyOrders.Extensions;
 using Agriculture.Transactions.Infrastructure.Features.Clients.Extensions;
+using Agriculture.Transactions.Infrastructure.Features.SellOrders.Extensions;
 using Agriculture.Transactions.Infrastructure.Features.Suppliers.Extensions;
 using Agriculture.Transactions.Infrastructure.HttpClients;
 using Microsoft.Extensions.Configuration;
@@ -33,7 +34,8 @@ namespace Agriculture.Transactions.Infrastructure.Extensions
                 .AddHttpClients(configuration)
                 .AddSupplierServices(configuration)
                 .AddClientsServices(configuration)
-                .AddBuyOrderServices(configuration);
+                .AddBuyOrderServices(configuration)
+                .AddSellOrderServices(configuration);
 
             return services;
         }
