@@ -2,17 +2,17 @@
 {
     public class CreateSellOrderItemBindingModel
     {
-        public CreateSellOrderItemBindingModel(string itemId, string warehouseId, int quantity, decimal unitPrice)
+        public CreateSellOrderItemBindingModel(string itemId, string warehouseId, int requestedQuantity, decimal unitPrice)
         {
             ItemId = itemId;
             WarehouseId = warehouseId;
-            Quantity = quantity;
+            RequestedQuantity = requestedQuantity;
             UnitPrice = unitPrice;
         }
 
         public string ItemId { get; set; } = string.Empty;
         public string WarehouseId { get; set; } = string.Empty;
-        public int Quantity { get; set; }
+        public int RequestedQuantity { get; set; }
         public decimal UnitPrice { get; set; }
     }
 }

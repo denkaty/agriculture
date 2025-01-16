@@ -1,6 +1,8 @@
-﻿using Agriculture.Transactions.Contracts.Features.SellOrders.Commands.CreateSellOrder;
+﻿using Agriculture.Transactions.Contracts.ExternalMicroservices.Features.Inventories.Inventories.Queries.ValidateSellOrder;
+using Agriculture.Transactions.Contracts.Features.SellOrders.Commands.CreateSellOrder;
 using Agriculture.Transactions.Domain.Features.SellOrders.Models;
 using Mapster;
+using static Agriculture.Transactions.Contracts.ExternalMicroservices.Features.Inventories.Inventories.Queries.ValidateSellOrder.ValidateSellOrderQueryResponse;
 
 namespace Agriculture.Transactions.Application.Features.SellOrders.Commands.CreateSellOrder
 {
@@ -18,14 +20,14 @@ namespace Agriculture.Transactions.Application.Features.SellOrders.Commands.Crea
             config.NewConfig<CreateSellOrderCommand, SellOrder>()
                 .Map(dest => dest.ClientId, src => src.ClientId)
                 .Map(dest => dest.OrderDate, src => src.OrderDate)
-                .Map(dest => dest.TotalAmount, src => src.Items.Sum(item => item.Quantity * item.UnitPrice))
+                .Map(dest => dest.TotalAmount, src => src.Items.Sum(item => item.RequestedQuantity * item.UnitPrice))
                 .Map(dest => dest.Items, src => src.Items.Select(item => new SellOrderItem
                 {
                     ItemId = item.ItemId,
                     WarehouseId = item.WarehouseId,
-                    Quantity = item.Quantity,
+                    Quantity = item.RequestedQuantity,
                     UnitPrice = item.UnitPrice,
-                    SubTotal = item.Quantity * item.UnitPrice
+                    SubTotal = item.RequestedQuantity * item.UnitPrice
                 }).ToList())
                 .AfterMapping((src, dest) =>
                 {
@@ -35,12 +37,13 @@ namespace Agriculture.Transactions.Application.Features.SellOrders.Commands.Crea
                     }
                 });
 
-            //config.NewConfig<CreateSellOrderCommand, ValidateSellOrderQueryRequest>()
-            //    .Map(dest => dest.CompositeKeys, src => src.Items.Select(x => new InventoryCompositeKey
-            //    {
-            //        ItemId = x.ItemId,
-            //        WarehouseId = x.WarehouseId
-            //    }).ToList());
+            config.NewConfig<CreateSellOrderCommand, ValidateSellOrderQueryRequest>()
+                .Map(dest => dest.InventorySellItemOrders, src => src.Items.Select(x => new InventoryCompositeKey
+                {
+                    ItemId = x.ItemId,
+                    WarehouseId = x.WarehouseId
+                })
+                .ToList());
         }
     }
 }

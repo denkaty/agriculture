@@ -50,8 +50,14 @@ namespace Agriculture.Inventories.Application.Features.Inventories.Queries.Valid
                     }
                 }
             }
-
-            var result = _mapper.Map<ValidateSellOrderQueryResult>((notFoundCompositeKeyInventories, insufficientQuantityInventories));  
+            // TODO: Not mapping correctly
+            //var result = _mapper.Map<ValidateSellOrderQueryResult>((notFoundCompositeKeyInventories, insufficientQuantityInventories));  
+            var result = new ValidateSellOrderQueryResult
+            {
+                NotFoundCompositeKeyInventories = notFoundCompositeKeyInventories,
+                InsufficientQuantityInventories = insufficientQuantityInventories,
+                IsValid = !notFoundCompositeKeyInventories.Any() && !insufficientQuantityInventories.Any()
+            };
 
             return result;
         }
