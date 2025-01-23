@@ -1,0 +1,158 @@
+.container {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    padding: 2rem;
+}
+
+.content {
+    width: 100%;
+    max-width: 520px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    padding: 2.5rem;
+    margin: 4rem 0;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.title {
+    color: #505c6d;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    color: #a7adb6;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Large Screens (1200px and up) */
+@media (min-width: 1200px) {
+    .content {
+        max-width: 580px;
+        padding: 3rem;
+    }
+
+    .title {
+        font-size: 28px;
+    }
+}
+
+/* Tablets and smaller laptops */
+@media (max-width: 768px) {
+    .container {
+        padding: 2rem;
+    }
+
+    .content {
+        max-width: 480px;
+        margin: 3.5rem 2rem; /* Increased side margins */
+        padding: 2.5rem;
+    }
+}
+
+/* Laptops and Desktops */
+@media (min-height: 800px) {
+    .container {
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .content {
+        margin: 5rem 0; /* Significantly increased from 3rem */
+    }
+}
+
+/* Smaller screens and mobile */
+@media (max-height: 799px) {
+    .container {
+        min-height: 100vh;
+        height: auto;
+        padding: 3rem 1rem;
+    }
+
+    .content {
+        margin: 3.5rem 0; /* Significantly increased from 2rem */
+    }
+}
+
+/* iPhone 12 Pro and similar devices */
+@media (min-width: 390px) and (max-width: 428px) and (min-height: 800px) {
+    .container {
+        height: 100vh;
+        padding: 1rem;
+        overflow: hidden;
+    }
+
+    .content {
+        margin: 0;
+        padding: 1.75rem;
+        border-radius: 8px;
+        max-height: calc(100vh - 2rem); /* Account for container padding */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .header {
+        margin-bottom: 1.5rem;
+    }
+
+    .title {
+        font-size: 22px;
+    }
+}
+
+/* General Mobile Phones */
+@media (max-width: 480px) {
+    .container {
+        padding: 1.5rem;
+    }
+
+    .content {
+        margin: 2.5rem 1rem;
+        padding: 2rem;
+        border-radius: 8px;
+    }
+
+    .title {
+        font-size: 22px;
+    }
+
+    .subtitle {
+        font-size: 13px;
+    }
+}
+
+/* Very Small Phones */
+@media (max-width: 360px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .content {
+        margin: 2rem 0.75rem;
+        padding: 1.5rem;
+    }
+}
