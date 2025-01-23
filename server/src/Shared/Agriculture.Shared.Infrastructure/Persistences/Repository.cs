@@ -15,7 +15,7 @@ namespace Agriculture.Shared.Infrastructure.Persistences
             _context = dbContext;
         }
 
-        public async Task<T?> GetByIdAsync(string id, CancellationToken cancellationToken)
+        public virtual async Task<T?> GetByIdAsync(string id, CancellationToken cancellationToken)
         {
             return await _context.Set<T>().FindAsync(id, cancellationToken);
         }
