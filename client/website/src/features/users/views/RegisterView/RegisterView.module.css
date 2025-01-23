@@ -156,3 +156,19 @@
         padding: 1.5rem;
     }
 }
+
+.linkContainer {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.link {
+    color: #00b7c3;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+.link:hover {
+    color: #009ba5;
+}

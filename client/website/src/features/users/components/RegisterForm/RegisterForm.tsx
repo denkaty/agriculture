@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { RegisterDto } from "../../types/users.types";
+import { RegisterRequest } from "../../types/users.types";
 import { usersService } from "../../services/users.service";
 import styles from "./RegisterForm.module.css";
 import { useState } from "react";
@@ -28,11 +28,11 @@ export const RegisterForm = () => {
         handleSubmit,
         formState: { errors, isSubmitting },
         setError,
-    } = useForm<RegisterDto>({
+    } = useForm<RegisterRequest>({
         resolver: yupResolver(schema),
     });
 
-    const onSubmit = async (data: RegisterDto) => {
+    const onSubmit = async (data: RegisterRequest) => {
         try {
             setApiError(null); // Clear previous error
             const response = await usersService.register(data);

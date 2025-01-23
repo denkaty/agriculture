@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { RegisterForm } from "../../components/RegisterForm/RegisterForm";
 import styles from "./RegisterView.module.css";
 
@@ -12,6 +13,11 @@ export const RegisterView = () => {
                     </p>
                 </div>
                 <RegisterForm />
+                <div className={styles.linkContainer}>
+                    <Link to="/login" className={styles.link}>
+                        Already have an account? Login here
+                    </Link>
+                </div>
             </div>
         </div>
     );
