@@ -1,0 +1,58 @@
+.tableContainer {
+    background-color: transparent;
+    width: 100%;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    text-align: left;
+    padding: 12px 16px;
+    background-color: #f8f9fa;
+    color: #87909c;
+    font-weight: 500;
+    font-size: 13px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 13px;
+    color: #333;
+}
+
+.tableRow {
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.tableRow:hover {
+    background-color: #f8f9fa;
+}
+
+.selectedRow {
+    background-color: #e5f1f2 !important;
+}
+
+.selectedRow td {
+    color: #333; /* Explicitly set text color for selected row */
+}
+
+.numberColumn {
+    width: 100px;
+}
+
+.catalogNumber {
+    color: #4a9ea4; /* Default lighter teal */
+    display: inline-block;
+}
+
+/* Style catalog number only when row is selected */
+.selectedRow .catalogNumber {
+    color: #3a8e94; /* Darker teal when selected */
+    text-decoration: underline;
+}

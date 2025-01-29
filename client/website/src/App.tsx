@@ -4,6 +4,7 @@ import { AuthLayout } from "./layouts/AuthLayout";
 import { AppLayout } from "./layouts/AppLayout";
 import { LoginView } from "./features/users/views/LoginView/LoginView";
 import { RegisterView } from "./features/users/views/RegisterView/RegisterView";
+import { ItemsView } from "./features/inventory/views/ItemsView/ItemsView";
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
                 path: "register",
                 element: <RegisterView />,
             },
+            {
+                path: "items",
+                element: <ItemsView />,
+            },
         ],
     },
     {
@@ -30,10 +35,7 @@ const router = createBrowserRouter([
                 index: true,
                 element: <div>Dashboard</div>,
             },
-            {
-                path: "products",
-                element: <div>Products</div>,
-            },
+
             // ... other protected routes
         ],
     },

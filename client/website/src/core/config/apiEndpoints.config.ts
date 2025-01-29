@@ -11,11 +11,13 @@ export const API_CONFIG = {
         inventory: {
             items: {
                 base: "/api/v1/items",
-                // specific item endpoints here
             },
             warehouses: {
-                base: "/api/v1/warehouses",
-                // specific warehouse endpoints here
+                base: "/api/v1/inventories/warehouses",
+            },
+            inventories: {
+                base: "/api/v1/inventories",
+                byItemId: "/api/v1/inventories/item", // Will append /{itemId} in the service
             },
         },
         transactions: {

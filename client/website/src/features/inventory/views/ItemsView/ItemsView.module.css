@@ -1,0 +1,301 @@
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa; /* Light gray background for the page */
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    gap: 20px;
+    padding: 40px;
+}
+
+.mainContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #fff; /* White background for the table container */
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Contains the scrolling */
+}
+
+.tableContainer {
+    overflow: auto;
+    flex: 1;
+    margin-top: 20px;
+    border: none;
+    border-radius: 2px;
+    background-color: #fff;
+}
+
+.tableWrapper {
+    flex: 1;
+    overflow: auto; /* Enables scrolling for table content */
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.table thead {
+    position: sticky;
+    top: 0;
+    background-color: #f8f9fa;
+    z-index: 1;
+}
+
+.table th {
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 500;
+    color: #87909c;
+    border: none;
+    white-space: nowrap;
+}
+
+.table td {
+    padding: 8px 12px;
+    border: none;
+    color: #333;
+}
+
+.numberColumn {
+    width: 140px;
+    min-width: 140px;
+}
+
+.catalogNumber {
+    color: #4a9ea4;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.15s ease;
+}
+
+.tableRow {
+    cursor: pointer;
+    height: 36px;
+    transition: background-color 0.15s ease;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.tableRow:last-child {
+    border-bottom: none;
+}
+
+.tableRow:hover {
+    background-color: #f8f9fa;
+}
+
+/* Alternating row colors like in the image */
+.tableRow:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.tableRow:nth-child(even):hover {
+    background-color: #f8f9fa;
+}
+
+/* Selected row style */
+.selectedRow {
+    background-color: #b2e9ed !important;
+}
+
+.selectedRow:hover {
+    background-color: #b2e9ed !important;
+}
+
+.selectedRow .catalogNumber {
+    color: #3a7f84;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.pagination {
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    border-top: 1px solid #e0e0e0;
+    background-color: #fff;
+}
+
+.pageButton {
+    padding: 6px 12px;
+    border: 1px solid #e0e0e0;
+    background-color: #fff;
+    color: #333;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pageButton:hover:not(:disabled) {
+    background-color: #f5f5f5;
+    border-color: #d0d0d0;
+}
+
+.pageButton:disabled {
+    color: #999;
+    cursor: not-allowed;
+    background-color: #f5f5f5;
+}
+
+.pageInfo {
+    color: #666;
+    font-size: 14px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.title {
+    color: #505c6d;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    color: #a7adb6;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.loading {
+    padding: 16px;
+    text-align: center;
+    color: #666;
+}
+
+.error {
+    padding: 16px;
+    text-align: center;
+    color: #eb6965;
+}
+
+/* Added responsive padding for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .content {
+        padding: 1.5rem;
+        margin: 1rem 0;
+    }
+
+    .tableHeader,
+    .itemRow {
+        font-size: 12px;
+    }
+}
+
+.detailsPanel {
+    width: 300px;
+    background-color: #fff;
+    border-left: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px;
+}
+
+.detailsHeader {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detailsHeader h2 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+}
+
+.detailsContent {
+    margin-bottom: 20px;
+}
+
+.detailsList {
+    margin-top: 8px;
+}
+
+.headerRow {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+    font-weight: 500;
+    color: #87909c;
+    font-size: 13px;
+}
+
+.headerRow span {
+    color: #87909c;
+    font-size: 13px;
+}
+
+.detailsRow {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 8px;
+    padding: 8px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #333;
+    font-size: 13px;
+}
+
+/* Target specifically the quantity value (second column) */
+.detailsRow span:nth-child(2) {
+    color: #4a9ea4; /* The blue color for quantity values */
+}
+
+/* Keep the location value (third column) in the same color as warehouse */
+.detailsRow span:nth-child(3) {
+    color: #4a9ea4;
+}
+
+.detailsRow:last-child {
+    border-bottom: none;
+}
+
+.noData {
+    padding: 16px;
+    text-align: center;
+    color: #666;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #666;
+    cursor: pointer;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.closeButton:hover {
+    color: #333;
+}
+
+.closeButton:focus {
+    outline: none;
+}
