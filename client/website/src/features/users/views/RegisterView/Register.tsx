@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { RegisterForm } from "../../components/RegisterForm/RegisterForm";
-import styles from "./RegisterView.module.css";
+import styles from "./Register.module.css";
 
-export const RegisterView = () => {
+export const Register = () => {
     return (
         <div className={styles.container}>
             <div className={styles.content}>

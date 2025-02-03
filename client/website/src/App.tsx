@@ -1,52 +1,34 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { AuthProvider } from "./features/users/context/AuthContext";
-import { AuthLayout } from "./layouts/AuthLayout";
-import { AppLayout } from "./layouts/AppLayout";
-import { LoginView } from "./features/users/views/LoginView/LoginView";
-import { RegisterView } from "./features/users/views/RegisterView/RegisterView";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { ProtectedLayout } from "./layouts/ProtectedLayout/ProtectedLayout";
+import { PublicLayout } from "./layouts/PublicLayout";
+import { Login } from "./features/users/views/Login/Login";
+import { Register } from "./features/users/views/RegisterView/Register";
 import { ItemsView } from "./features/inventory/views/ItemsView/ItemsView";
+import { AuthProvider } from "./features/users/context/AuthContext";
 
-const router = createBrowserRouter([
-    {
-        // Auth routes (login, register, forgot password)
-        path: "/",
-        element: <AuthLayout />,
-        children: [
-            {
-                path: "login",
-                element: <LoginView />,
-            },
-            {
-                path: "register",
-                element: <RegisterView />,
-            },
-            {
-                path: "items",
-                element: <ItemsView />,
-            },
-        ],
-    },
-    {
-        // Protected app routes
-        path: "/",
-        element: <AppLayout />,
-        children: [
-            {
-                index: true,
-                element: <div>Dashboard</div>,
-            },
-
-            // ... other protected routes
-        ],
-    },
-]);
-
-function App() {
+export const App = () => {
     return (
         <AuthProvider>
-            <RouterProvider router={router} />
+            <BrowserRouter>
+                <Routes>
+                    {/* Public routes */}
+                    <Route element={<PublicLayout />}>
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
+                    </Route>
+
+                    {/* Protected routes */}
+                    <Route element={<ProtectedLayout />}>
+                        <Route path="/items" element={<ItemsView />} />
+                        {/* Add other protected routes here */}
+                    </Route>
+
+                    {/* Redirect root to items */}
+                    <Route path="/" element={<Navigate to="/items" />} />
+                </Routes>
+            </BrowserRouter>
         </AuthProvider>
     );
-}
+};
 
 export default App;

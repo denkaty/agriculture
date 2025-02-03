@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { LoginForm } from "../../components/LoginForm/LoginForm";
-import styles from "./LoginView.module.css";
+import styles from "./Login.module.css";
 
-export const LoginView = () => {
+export const Login = () => {
     return (
         <div className={styles.container}>
             <div className={styles.content}>

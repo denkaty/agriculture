@@ -1,17 +1,13 @@
-import { Outlet, Navigate } from "react-router-dom";
-import { useAuth } from "../features/users/context/AuthContext";
+import { Outlet } from "react-router-dom";
+import { AppHeader } from "../shared/components/AppHeader/AppHeader";
 
 export const AppLayout = () => {
-    const { isAuthenticated } = useAuth();
-
-    if (!isAuthenticated) {
-        return <Navigate to="/login" replace />;
-    }
-
     return (
-        <div className="app-layout">
-            {/* Add your navigation, sidebar, etc. here */}
-            <Outlet />
+        <div>
+            <AppHeader />
+            <main>
+                <Outlet />
+            </main>
         </div>
     );
 };
