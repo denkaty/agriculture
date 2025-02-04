@@ -11,6 +11,7 @@ export const API_CONFIG = {
         inventory: {
             items: {
                 base: "/api/v1/items",
+                byItemsIds: "/api/v1/items/ids",
             },
             warehouses: {
                 base: "/api/v1/inventories/warehouses",
@@ -31,6 +32,7 @@ export const API_CONFIG = {
             },
             buyOrders: {
                 base: "/api/v1/buy-orders",
+                byBuyOrderId: "/api/v1/buy-orders/id",
                 // specific buy order endpoints here
             },
             sellOrders: {

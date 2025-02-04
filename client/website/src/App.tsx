@@ -6,6 +6,7 @@ import { Register } from "./features/users/pages/RegisterView/Register";
 import { Items } from "./features/inventory/pages/Items/Items";
 import { Suppliers } from "./features/transactions/pages/Suppliers/Suppliers";
 import { Clients } from "./features/transactions/pages/Clients/Clients";
+import { BuyOrders } from "./features/transactions/pages/BuyOrders/BuyOrders";
 import { AuthProvider } from "./features/users/context/AuthContext";
 
 export const App = () => {
@@ -24,6 +25,10 @@ export const App = () => {
                         <Route path="/items" element={<Items />} />
                         <Route path="/suppliers" element={<Suppliers />} />
                         <Route path="/clients" element={<Clients />} />
+                        <Route
+                            path="/purchases/buy-orders"
+                            element={<BuyOrders />}
+                        />
                         {/* Add other protected routes here */}
                     </Route>
 

@@ -2,10 +2,12 @@
 using Agriculture.Inventories.Application.Features.Items.Commands.DeleteItemById;
 using Agriculture.Inventories.Application.Features.Items.Queries.GetItemById;
 using Agriculture.Inventories.Application.Features.Items.Queries.GetItems;
+using Agriculture.Inventories.Application.Features.Items.Queries.GetItemsByIds;
 using Agriculture.Inventories.Contracts.Features.Items.Commands.CreateItem;
 using Agriculture.Inventories.Contracts.Features.Items.Commands.DeleteItemById;
 using Agriculture.Inventories.Contracts.Features.Items.Quries.GetItemById;
 using Agriculture.Inventories.Contracts.Features.Items.Quries.GetItems;
+using Agriculture.Inventories.Contracts.Features.Items.Quries.GetItemsById;
 using Agriculture.Shared.Application.Abstractions.Mapper;
 using Agriculture.Shared.Application.Abstractions.MediatR;
 using Agriculture.Shared.Web.Utilities;
@@ -61,6 +63,20 @@ namespace Agriculture.Inventories.Web.Features.Items.Controllers.v1
             var getItemByIdQueryResponse = _agricultureMapper.Map<GetItemByIdQueryResponse>(getItemByIdQueryResult);
 
             return Ok(getItemByIdQueryResponse);
+        }
+
+        [HttpPost("ids")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetByIdsAsync(GetItemsByIdsQueryRequest request, CancellationToken cancellationToken)
+        {
+            var getItemsByIdsQuery = _agricultureMapper.Map<GetItemsByIdsQuery>(request);
+
+            var getItemsByIdsQueryResult = await _agricultureSender.SendAsync(getItemsByIdsQuery, cancellationToken);
+
+            var getItemsByIdsQueryResponse = _agricultureMapper.Map<GetItemsByIdsQueryResponse>(getItemsByIdsQueryResult);
+
+            return Ok(getItemsByIdsQueryResponse);
         }
 
         [HttpGet]
