@@ -1,5 +1,4 @@
 .tableContainer {
-    background-color: transparent;
     width: 100%;
     overflow-x: auto;
 }
@@ -36,33 +35,18 @@
 
 .selectedRow {
     background-color: #f0f7f8 !important;
-    color: #333;
 }
 
-.codeColumn {
-    width: 100px;
-}
-
-.supplierCode {
-    color: #4a9ea4;
-    display: inline-block;
-}
-
-.selectedRow .supplierCode {
-    color: #3a8e94;
-    text-decoration: underline;
-}
-
-.supplierName {
+.clientName {
     color: #4a9ea4;
     cursor: pointer;
 }
 
-.supplierName:hover {
+.clientName:hover {
     text-decoration: underline;
 }
 
-.selectedRow .supplierName {
+.selectedRow .clientName {
     color: #3a8e94;
     text-decoration: underline;
 }
