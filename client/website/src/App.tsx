@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ProtectedLayout } from "./layouts/ProtectedLayout/ProtectedLayout";
 import { PublicLayout } from "./layouts/PublicLayout";
-import { Login } from "./features/users/views/Login/Login";
-import { Register } from "./features/users/views/RegisterView/Register";
-import { ItemsView } from "./features/inventory/views/ItemsView/ItemsView";
+import { Login } from "./features/users/pages/Login/Login";
+import { Register } from "./features/users/pages/RegisterView/Register";
+import { Items } from "./features/inventory/pages/Items/Items";
+import { Suppliers } from "./features/transactions/pages/Suppliers/Suppliers";
 import { AuthProvider } from "./features/users/context/AuthContext";
 
 export const App = () => {
@@ -19,7 +20,8 @@ export const App = () => {
 
                     {/* Protected routes */}
                     <Route element={<ProtectedLayout />}>
-                        <Route path="/items" element={<ItemsView />} />
+                        <Route path="/items" element={<Items />} />
+                        <Route path="/suppliers" element={<Suppliers />} />
                         {/* Add other protected routes here */}
                     </Route>
 

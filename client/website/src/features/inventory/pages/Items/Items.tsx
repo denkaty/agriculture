@@ -6,9 +6,9 @@ import { Spinner } from "../../../../shared/components/Spinner/Spinner";
 import { ItemsTable } from "../../components/ItemsTable/ItemsTable";
 import { ItemsListPagination } from "../../components/ItemsListPagination/ItemsListPagination";
 import { ItemWarehousesPanel } from "../../components/ItemWarehousesPanel/ItemWarehousesPanel";
-import styles from "./ItemsView.module.css";
+import styles from "./Items.module.css";
 
-export const ItemsView = () => {
+export const Items = () => {
     const [items, setItems] = useState<Item[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);

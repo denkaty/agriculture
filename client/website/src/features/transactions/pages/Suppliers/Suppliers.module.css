@@ -1,0 +1,33 @@
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    gap: 20px;
+    padding: 40px;
+}
+
+.mainContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.tableWrapper {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    flex: 1;
+}
+
+.error {
+    text-align: center;
+    color: #eb6965;
+    padding: 20px;
+}

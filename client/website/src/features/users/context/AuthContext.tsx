@@ -28,16 +28,37 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const logout = () => {
         tokenService.removeToken();
         setIsAuthenticated(false);
+        window.location.href = "/login";
     };
 
     useEffect(() => {
-        // Revalidate token whenever the component mounts
-        const interval = setInterval(() => {
-            setIsAuthenticated(tokenService.isTokenValid());
-        }, 60 * 1000); // Check every 1 minute
+        const checkAuth = () => {
+            const isValid = tokenService.isTokenValid();
+            if (!isValid && isAuthenticated) {
+                logout();
+            }
+        };
 
-        return () => clearInterval(interval);
-    }, []);
+        // Check immediately
+        checkAuth();
+
+        // Check more frequently (every 30 seconds)
+        const interval = setInterval(checkAuth, 30 * 1000);
+
+        // Add event listener for storage changes
+        const handleStorageChange = (e: StorageEvent) => {
+            if (e.key === "auth_token") {
+                checkAuth();
+            }
+        };
+
+        window.addEventListener("storage", handleStorageChange);
+
+        return () => {
+            clearInterval(interval);
+            window.removeEventListener("storage", handleStorageChange);
+        };
+    }, [isAuthenticated]);
 
     return (
         <AuthContext.Provider value={{ isAuthenticated, login, logout }}>

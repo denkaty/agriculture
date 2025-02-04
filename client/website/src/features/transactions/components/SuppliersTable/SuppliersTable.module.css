@@ -1,0 +1,66 @@
+.tableContainer {
+    background-color: transparent;
+    width: 100%;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    text-align: left;
+    padding: 12px 16px;
+    background-color: #f8f9fa;
+    color: #87909c;
+    font-weight: 500;
+    font-size: 13px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.table td {
+    padding: 12px 16px;
+    color: #333;
+    font-size: 13px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.table tr {
+    cursor: pointer;
+}
+
+.table tr:hover {
+    background-color: #f8f9fa;
+}
+
+.selectedRow {
+    background-color: #f0f7f8 !important;
+    color: #333;
+}
+
+.codeColumn {
+    width: 100px;
+}
+
+.supplierCode {
+    color: #4a9ea4;
+    display: inline-block;
+}
+
+.selectedRow .supplierCode {
+    color: #3a8e94;
+    text-decoration: underline;
+}
+
+.supplierName {
+    color: #4a9ea4;
+    cursor: pointer;
+}
+
+.supplierName:hover {
+    text-decoration: underline;
+}
+
+.selectedRow .supplierName {
+    color: #3a8e94;
+}

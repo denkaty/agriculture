@@ -19,6 +19,7 @@ export const ItemsTable = ({
     const handleCatalogNumberClick = (e: React.MouseEvent, item: Item) => {
         e.stopPropagation(); // Prevent row selection
         setModalItem(item);
+        onRowClick(item);
     };
 
     return (
