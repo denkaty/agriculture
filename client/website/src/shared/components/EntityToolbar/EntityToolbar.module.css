@@ -1,0 +1,173 @@
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    height: 40px;
+}
+
+.toolbarLeft {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.toolbarRight {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.entityLabel {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+.searchContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.searchWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #4a9ea4;
+    border-radius: 3px;
+    padding: 0 4px;
+    margin-right: 8px;
+}
+
+.searchIcon {
+    color: #4a9ea4;
+    margin: 0 4px;
+}
+
+.searchInput {
+    width: 140px;
+    padding: 4px 24px 4px 4px;
+    border: none;
+    font-size: 13px;
+    background: transparent;
+    color: #333;
+}
+
+.searchInput:focus {
+    outline: none;
+}
+
+.searchInput::placeholder {
+    color: #666;
+}
+
+.clearButton {
+    position: absolute;
+    right: 4px;
+    background: none;
+    border: none;
+    padding: 2px 6px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+}
+
+.clearButton:hover {
+    color: #333;
+}
+
+.clearButton:focus {
+    outline: none;
+}
+
+.searchButton {
+    background: none;
+    border: none;
+    padding: 6px;
+    cursor: pointer;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchButton:hover {
+    color: #333;
+}
+
+.searchButton:focus {
+    outline: none;
+}
+
+.plusIcon {
+    color: #4a9ea4;
+}
+
+.createButton {
+    padding: 6px 12px;
+    background: none;
+    border: none;
+    font-size: 13px;
+    color: #666;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+    height: 100%;
+}
+
+.createButton::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 16px;
+    width: 1px;
+    background-color: #e0e0e0;
+}
+
+.createButton::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 16px;
+    width: 1px;
+    background-color: #e0e0e0;
+}
+
+.createButton:hover {
+    background-color: #f0f0f0;
+}
+
+.createButton:focus {
+    outline: none;
+}
+
+.toolbarActions {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+@media (max-width: 768px) {
+    .toolbarContent {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .toolbarActions {
+        flex-direction: column;
+    }
+
+    .searchWrapper {
+        width: 100%;
+    }
+}

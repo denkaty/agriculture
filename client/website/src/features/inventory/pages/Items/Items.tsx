@@ -6,13 +6,16 @@ import { Spinner } from "../../../../shared/components/Spinner/Spinner";
 import { ItemsTable } from "../../components/ItemsTable/ItemsTable";
 import { ItemsListPagination } from "../../components/ItemsListPagination/ItemsListPagination";
 import { ItemWarehousesPanel } from "../../components/ItemWarehousesPanel/ItemWarehousesPanel";
+import { EntityToolbar } from "../../../../shared/components/EntityToolbar/EntityToolbar";
 import styles from "./Items.module.css";
+import axios from "axios";
 
 export const Items = () => {
     const [items, setItems] = useState<Item[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
+    const [searchTerm, setSearchTerm] = useState("");
     const [inventoryDetails, setInventoryDetails] = useState<InventoryDetail[]>(
         []
     );
@@ -24,31 +27,44 @@ export const Items = () => {
         hasNextPage: false,
         hasPreviousPage: false,
     });
+    const [searchTimeout, setSearchTimeout] = useState<number>();
+
+    const loadItems = async (term?: string) => {
+        try {
+            setLoading(true);
+            setError(null);
+            const response = await itemsService.getItems(
+                pagination.page,
+                pagination.pageSize,
+                term
+            );
+            setItems(response.data);
+            setPagination((prev) => ({
+                ...prev,
+                totalCount: response.totalCount,
+                hasNextPage: response.hasNextPage,
+                hasPreviousPage: response.hasPreviousPage,
+            }));
+        } catch (err) {
+            if (axios.isAxiosError(err) && err.response?.status === 404) {
+                setItems([]);
+            } else {
+                setError("Failed to load items");
+                console.error("Error loading items:", err);
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        const fetchItems = async () => {
-            try {
-                setLoading(true);
-                const response = await itemsService.getItems(
-                    pagination.page,
-                    pagination.pageSize
-                );
-                setItems(response.data);
-                setPagination((prev) => ({
-                    ...prev,
-                    totalCount: response.totalCount,
-                    hasNextPage: response.hasNextPage,
-                    hasPreviousPage: response.hasPreviousPage,
-                }));
-            } catch (error) {
-                setError("Failed to fetch items. Please try again later.");
-            } finally {
-                setLoading(false);
+        loadItems(searchTerm);
+        return () => {
+            if (searchTimeout) {
+                clearTimeout(searchTimeout);
             }
         };
-
-        fetchItems();
-    }, [pagination.page]);
+    }, []);
 
     const handleRowClick = async (item: Item) => {
         try {
@@ -65,6 +81,28 @@ export const Items = () => {
         }
     };
 
+    const handleSearch = (term: string) => {
+        setSearchTerm(term);
+
+        if (searchTimeout) {
+            clearTimeout(searchTimeout);
+        }
+
+        if (term && term.length < 2) {
+            return;
+        }
+
+        const timeout = window.setTimeout(() => {
+            loadItems(term);
+        }, 500);
+
+        setSearchTimeout(timeout);
+    };
+
+    const handleCreateNew = () => {
+        console.log("Creating new item");
+    };
+
     if (loading) return <Spinner />;
     if (error) return <div className={styles.error}>{error}</div>;
 
@@ -74,6 +112,13 @@ export const Items = () => {
         <div className={styles.container}>
             <div className={styles.content}>
                 <div className={styles.mainContent}>
+                    <EntityToolbar
+                        entityName="Items"
+                        onSearch={handleSearch}
+                        onCreateNew={handleCreateNew}
+                        searchValue={searchTerm}
+                        isSearchVisible={Boolean(searchTerm)}
+                    />
                     <div className={styles.tableWrapper}>
                         <ItemsTable
                             items={items}

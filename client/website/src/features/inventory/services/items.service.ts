@@ -7,10 +7,20 @@ import axios from "axios";
 export const itemsService = {
     getItems: async (
         page: number = 1,
-        pageSize: number = 10
+        pageSize: number = 10,
+        searchTerm?: string
     ): Promise<ItemsResponse> => {
+        const params = new URLSearchParams({
+            page: page.toString(),
+            pageSize: pageSize.toString(),
+        });
+
+        if (searchTerm) {
+            params.append("searchTerm", searchTerm);
+        }
+
         const response = await api.get<ItemsResponse>(
-            `${API_CONFIG.endpoints.inventory.items.base}?page=${page}&pageSize=${pageSize}`
+            `${API_CONFIG.endpoints.inventory.items.base}?${params.toString()}`
         );
         return response.data;
     },
