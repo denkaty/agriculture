@@ -7,6 +7,8 @@ interface ConfirmDialogProps {
     onCancel: () => void;
     title: string;
     message: string;
+    confirmText?: string;
+    cancelText?: string;
 }
 
 export const ConfirmDialog = ({
@@ -15,6 +17,8 @@ export const ConfirmDialog = ({
     onCancel,
     title,
     message,
+    confirmText = "Discard changes",
+    cancelText = "Keep editing",
 }: ConfirmDialogProps) => {
     if (!isOpen) return null;
 
@@ -29,13 +33,13 @@ export const ConfirmDialog = ({
                         onClick={onCancel}
                         autoFocus
                     >
-                        Keep editing
+                        {cancelText}
                     </button>
                     <button
                         className={styles.confirmButton}
                         onClick={onConfirm}
                     >
-                        Discard changes
+                        {confirmText}
                     </button>
                 </div>
             </div>

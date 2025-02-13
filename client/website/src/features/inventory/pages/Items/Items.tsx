@@ -9,6 +9,8 @@ import { ItemWarehousesPanel } from "../../components/ItemWarehousesPanel/ItemWa
 import { EntityToolbar } from "../../../../shared/components/EntityToolbar/EntityToolbar";
 import styles from "./Items.module.css";
 import axios from "axios";
+import { CreateItemModal } from "../../components/CreateItemModal/CreateItemModal";
+import { ItemDetailsModal } from "../../components/ItemDetailsModal/ItemDetailsModal";
 
 export const Items = () => {
     const [items, setItems] = useState<Item[]>([]);
@@ -28,6 +30,7 @@ export const Items = () => {
         hasPreviousPage: false,
     });
     const [searchTimeout, setSearchTimeout] = useState<number>();
+    const [showCreateModal, setShowCreateModal] = useState(false);
 
     const loadItems = async (term?: string) => {
         try {
@@ -100,7 +103,32 @@ export const Items = () => {
     };
 
     const handleCreateNew = () => {
-        console.log("Creating new item");
+        setShowCreateModal(true);
+    };
+
+    const handleCreateSubmit = async (itemData: Partial<Item>) => {
+        try {
+            await itemsService.createItem(itemData);
+            setShowCreateModal(false);
+            loadItems(searchTerm); // Refresh the list
+        } catch (error) {
+            throw error; // Let the modal handle the error display
+        }
+    };
+
+    const handleDeleteItem = () => {
+        if (selectedItemId) {
+            // Remove from local state immediately
+            setItems((prevItems) =>
+                prevItems.filter((item) => item.id !== selectedItemId)
+            );
+            // Close the modal and clear selection
+            setSelectedItemId(null);
+            // Clear details panel
+            setInventoryDetails([]);
+            // Refresh the list
+            loadItems(searchTerm);
+        }
     };
 
     if (loading) return <Spinner />;
@@ -149,7 +177,20 @@ export const Items = () => {
                         }}
                     />
                 )}
+                {selectedItem && (
+                    <ItemDetailsModal
+                        item={selectedItem}
+                        onClose={() => setSelectedItemId(null)}
+                        onDelete={handleDeleteItem}
+                    />
+                )}
             </div>
+            {showCreateModal && (
+                <CreateItemModal
+                    onClose={() => setShowCreateModal(false)}
+                    onSubmit={handleCreateSubmit}
+                />
+            )}
         </div>
     );
 };

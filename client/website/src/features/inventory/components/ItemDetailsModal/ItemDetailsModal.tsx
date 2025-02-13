@@ -8,9 +8,14 @@ import { ConfirmDialog } from "../../../../shared/components/ConfirmDialog/Confi
 interface ItemDetailsModalProps {
     item: Item;
     onClose: () => void;
+    onDelete?: () => void;
 }
 
-export const ItemDetailsModal = ({ item, onClose }: ItemDetailsModalProps) => {
+export const ItemDetailsModal = ({
+    item,
+    onClose,
+    onDelete,
+}: ItemDetailsModalProps) => {
     const [inventoryDetails, setInventoryDetails] = useState<InventoryDetail[]>(
         []
     );
@@ -20,6 +25,9 @@ export const ItemDetailsModal = ({ item, onClose }: ItemDetailsModalProps) => {
     const [editedItem, setEditedItem] = useState(item);
     const [isDirty, setIsDirty] = useState(false);
     const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+    const [deleteError, setDeleteError] = useState<string | null>(null);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     useEffect(() => {
         const fetchInventoryDetails = async () => {
@@ -59,10 +67,34 @@ export const ItemDetailsModal = ({ item, onClose }: ItemDetailsModalProps) => {
         onClose();
     };
 
+    const handleDeleteClick = () => {
+        setShowDeleteDialog(true);
+    };
+
+    const handleConfirmDelete = async () => {
+        try {
+            setIsDeleting(true);
+            setDeleteError(null);
+            await itemsService.deleteItem(item.id);
+            setShowDeleteDialog(false);
+            onDelete?.();
+            onClose();
+        } catch (err) {
+            setDeleteError(
+                err instanceof Error ? err.message : "Failed to delete item"
+            );
+        } finally {
+            setIsDeleting(false);
+        }
+    };
+
     return (
         <>
             <div className={styles.modalOverlay}>
                 <div className={styles.modal}>
+                    {deleteError && (
+                        <div className={styles.errorMessage}>{deleteError}</div>
+                    )}
                     <div className={styles.header}>
                         <div className={styles.headerLeft}>
                             <button
@@ -86,7 +118,13 @@ export const ItemDetailsModal = ({ item, onClose }: ItemDetailsModalProps) => {
                             >
                                 ✎
                             </button>
-                            <button className={styles.deleteButton}>🗑️</button>
+                            <button
+                                className={styles.deleteButton}
+                                onClick={handleDeleteClick}
+                                disabled={isDeleting}
+                            >
+                                🗑️
+                            </button>
                         </div>
                         <div className={styles.headerRight}>
                             <div className={styles.saveWrapper}>
@@ -201,7 +239,19 @@ export const ItemDetailsModal = ({ item, onClose }: ItemDetailsModalProps) => {
                 onConfirm={handleConfirmBack}
                 onCancel={() => setShowConfirmDialog(false)}
                 title="Unsaved changes"
-                message="You have unsaved changes. Are you sure you want to leave this page? Your changes will be lost."
+                message="You have unsaved changes. Are you sure you want to discard them?"
+                confirmText="Discard changes"
+                cancelText="Keep editing"
+            />
+
+            <ConfirmDialog
+                isOpen={showDeleteDialog}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setShowDeleteDialog(false)}
+                title="Delete Item"
+                message={`Are you sure you want to delete item "${item.name}" (${item.catalogNumber})?`}
+                confirmText={isDeleting ? "Deleting..." : "Delete"}
+                cancelText="Cancel"
             />
         </>
     );
