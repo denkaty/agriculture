@@ -4,6 +4,7 @@ import styles from "./ItemDetailsModal.module.css";
 import { useEffect, useState } from "react";
 import { itemsService } from "../../services/items.service";
 import { ConfirmDialog } from "../../../../shared/components/ConfirmDialog/ConfirmDialog";
+import { Spinner } from "../../../../shared/components/Spinner/Spinner";
 
 interface ItemDetailsModalProps {
     item: Item;
@@ -55,6 +56,7 @@ export const ItemDetailsModal = ({
     };
 
     const handleBackClick = () => {
+        console.log("isDirty:", isDirty);
         if (isDirty) {
             setShowConfirmDialog(true);
         } else {
@@ -92,145 +94,178 @@ export const ItemDetailsModal = ({
         <>
             <div className={styles.modalOverlay}>
                 <div className={styles.modal}>
-                    {deleteError && (
+                    {loading ? (
+                        <Spinner variant="inline" />
+                    ) : deleteError ? (
                         <div className={styles.errorMessage}>{deleteError}</div>
-                    )}
-                    <div className={styles.header}>
-                        <div className={styles.headerLeft}>
-                            <button
-                                className={styles.backButton}
-                                onClick={handleBackClick}
-                            >
-                                ←
-                            </button>
-                            <div className={styles.titleContainer}>
-                                <h2 className={styles.title}>
-                                    {item.catalogNumber} - {item.name}
-                                </h2>
-                            </div>
-                        </div>
-                        <div className={styles.headerCenter}>
-                            <button
-                                className={`${styles.editButton} ${
-                                    isEditing ? styles.active : ""
-                                }`}
-                                onClick={() => setIsEditing(!isEditing)}
-                            >
-                                ✎
-                            </button>
-                            <button
-                                className={styles.deleteButton}
-                                onClick={handleDeleteClick}
-                                disabled={isDeleting}
-                            >
-                                🗑️
-                            </button>
-                        </div>
-                        <div className={styles.headerRight}>
-                            <div className={styles.saveWrapper}>
-                                <button
-                                    className={`${styles.saveButton} ${
-                                        isDirty ? styles.modified : ""
-                                    }`}
-                                    disabled={!isEditing || !isDirty}
-                                >
-                                    {isDirty ? (
-                                        "Save"
-                                    ) : (
-                                        <span className={styles.savedIndicator}>
-                                            ✓ Saved
-                                        </span>
-                                    )}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={styles.content}>
-                        <section className={styles.section}>
-                            <h3 className={styles.sectionTitle}>Item</h3>
-                            <div className={styles.itemDetails}>
-                                <div className={styles.detailRow}>
-                                    <span className={styles.label}>No</span>
-                                    <input
-                                        type="text"
-                                        className={styles.input}
-                                        value={editedItem.catalogNumber}
-                                        onChange={(e) =>
-                                            handleInputChange(
-                                                "catalogNumber",
-                                                e.target.value
-                                            )
-                                        }
-                                        disabled={!isEditing}
-                                    />
-                                </div>
-                                <div className={styles.detailRow}>
-                                    <span className={styles.label}>Name</span>
-                                    <input
-                                        type="text"
-                                        className={styles.input}
-                                        value={editedItem.name}
-                                        onChange={(e) =>
-                                            handleInputChange(
-                                                "name",
-                                                e.target.value
-                                            )
-                                        }
-                                        disabled={!isEditing}
-                                    />
-                                </div>
-                                <div className={styles.detailRow}>
-                                    <span className={styles.label}>
-                                        Description
-                                    </span>
-                                    <input
-                                        type="text"
-                                        className={styles.input}
-                                        value={editedItem.description}
-                                        onChange={(e) =>
-                                            handleInputChange(
-                                                "description",
-                                                e.target.value
-                                            )
-                                        }
-                                        disabled={!isEditing}
-                                    />
-                                </div>
-                            </div>
-                        </section>
-
-                        <section className={styles.section}>
-                            <h3 className={styles.sectionTitle}>Warehouse</h3>
-                            {loading ? (
-                                <div className={styles.loading}>Loading...</div>
-                            ) : error ? (
-                                <div className={styles.error}>{error}</div>
-                            ) : (
-                                <div className={styles.warehouseList}>
-                                    <div className={styles.warehouseHeader}>
-                                        <span>Warehouse</span>
-                                        <span>Quantity</span>
+                    ) : (
+                        <>
+                            <div className={styles.header}>
+                                <div className={styles.headerLeft}>
+                                    <button
+                                        className={styles.backButton}
+                                        onClick={handleBackClick}
+                                    >
+                                        ←
+                                    </button>
+                                    <div className={styles.titleContainer}>
+                                        <h2 className={styles.title}>
+                                            {item.catalogNumber} - {item.name}
+                                        </h2>
                                     </div>
-                                    {inventoryDetails.map((detail) => (
-                                        <div
-                                            key={detail.id}
-                                            className={styles.warehouseRow}
-                                        >
-                                            <span
-                                                className={styles.warehouseName}
-                                            >
-                                                {detail.warehouseName}
-                                            </span>
-                                            <span className={styles.quantity}>
-                                                {detail.quantity}
-                                            </span>
-                                        </div>
-                                    ))}
                                 </div>
-                            )}
-                        </section>
-                    </div>
+                                <div className={styles.headerCenter}>
+                                    <button
+                                        className={`${styles.editButton} ${
+                                            isEditing ? styles.active : ""
+                                        }`}
+                                        onClick={() => setIsEditing(!isEditing)}
+                                    >
+                                        ✎
+                                    </button>
+                                    <button
+                                        className={styles.deleteButton}
+                                        onClick={handleDeleteClick}
+                                        disabled={isDeleting}
+                                    >
+                                        🗑️
+                                    </button>
+                                </div>
+                                <div className={styles.headerRight}>
+                                    <div className={styles.saveWrapper}>
+                                        <button
+                                            className={`${styles.saveButton} ${
+                                                isDirty ? styles.modified : ""
+                                            }`}
+                                            disabled={!isEditing || !isDirty}
+                                        >
+                                            {isDirty ? (
+                                                "Save"
+                                            ) : (
+                                                <span
+                                                    className={
+                                                        styles.savedIndicator
+                                                    }
+                                                >
+                                                    ✓ Saved
+                                                </span>
+                                            )}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className={styles.content}>
+                                <section className={styles.section}>
+                                    <h3 className={styles.sectionTitle}>
+                                        Item
+                                    </h3>
+                                    <div className={styles.itemDetails}>
+                                        <div className={styles.detailRow}>
+                                            <span className={styles.label}>
+                                                No
+                                            </span>
+                                            <input
+                                                type="text"
+                                                className={styles.input}
+                                                value={editedItem.catalogNumber}
+                                                onChange={(e) =>
+                                                    handleInputChange(
+                                                        "catalogNumber",
+                                                        e.target.value
+                                                    )
+                                                }
+                                                disabled={!isEditing}
+                                            />
+                                        </div>
+                                        <div className={styles.detailRow}>
+                                            <span className={styles.label}>
+                                                Name
+                                            </span>
+                                            <input
+                                                type="text"
+                                                className={styles.input}
+                                                value={editedItem.name}
+                                                onChange={(e) =>
+                                                    handleInputChange(
+                                                        "name",
+                                                        e.target.value
+                                                    )
+                                                }
+                                                disabled={!isEditing}
+                                            />
+                                        </div>
+                                        <div className={styles.detailRow}>
+                                            <span className={styles.label}>
+                                                Description
+                                            </span>
+                                            <input
+                                                type="text"
+                                                className={styles.input}
+                                                value={editedItem.description}
+                                                onChange={(e) =>
+                                                    handleInputChange(
+                                                        "description",
+                                                        e.target.value
+                                                    )
+                                                }
+                                                disabled={!isEditing}
+                                            />
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <section className={styles.section}>
+                                    <h3 className={styles.sectionTitle}>
+                                        Warehouse
+                                    </h3>
+                                    {loading ? (
+                                        <div className={styles.loading}>
+                                            Loading...
+                                        </div>
+                                    ) : error ? (
+                                        <div className={styles.error}>
+                                            {error}
+                                        </div>
+                                    ) : (
+                                        <div className={styles.warehouseList}>
+                                            <div
+                                                className={
+                                                    styles.warehouseHeader
+                                                }
+                                            >
+                                                <span>Warehouse</span>
+                                                <span>Quantity</span>
+                                            </div>
+                                            {inventoryDetails.map((detail) => (
+                                                <div
+                                                    key={detail.id}
+                                                    className={
+                                                        styles.warehouseRow
+                                                    }
+                                                >
+                                                    <span
+                                                        className={
+                                                            styles.warehouseName
+                                                        }
+                                                    >
+                                                        {detail.warehouseName}
+                                                    </span>
+                                                    <span
+                                                        className={
+                                                            styles.quantity
+                                                        }
+                                                    >
+                                                        {detail.quantity}
+                                                    </span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </section>
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
 

@@ -1,0 +1,171 @@
+.container {
+    padding: 24px;
+}
+
+.titleSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    gap: 48px;
+}
+
+.welcomeSection {
+    flex: 1;
+}
+
+.welcomeTitle {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.subtitle {
+    font-size: 18px;
+    color: #666;
+    font-weight: 400;
+}
+
+.title {
+    font-size: 16px;
+    color: #666;
+}
+
+.activities {
+    min-width: 300px;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.activitiesTitle {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 16px;
+}
+
+.activityColumns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.activityColumn {
+    min-width: 150px;
+}
+
+.columnTitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.activityGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.activityLink {
+    color: #4a9ea4;
+    text-decoration: none;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.activityLink:hover {
+    color: #3d8589;
+    text-decoration: underline;
+}
+
+.orderButtons {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.orderButton {
+    padding: 8px 16px;
+    background-color: #4a9ea4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.orderButton:hover {
+    background-color: #3d8589;
+}
+
+.divider {
+    height: 1px;
+    background-color: #000;
+    margin: 24px 0;
+}
+
+.monthlyStats {
+    margin-bottom: 32px;
+}
+
+.statsTitle {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: normal;
+}
+
+.amount {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.smallDivider {
+    width: 100px;
+    height: 1px;
+    background-color: #ccc;
+    margin-top: 4px;
+}
+
+.statsGrid {
+    display: flex;
+    justify-content: flex-start;
+    margin: 0 -2px;
+    max-width: 800px;
+}
+
+.statsSection {
+    flex: 0 1 auto;
+    margin: 0 2px;
+    background-color: #f8f9fa;
+    padding: 16px;
+    border-radius: 8px;
+    width: 250px;
+}
+
+.sectionTitle {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.boxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: flex-start;
+}
+
+.statBox {
+    aspect-ratio: 1;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #4a9ea4;
+    border-radius: 8px;
+}

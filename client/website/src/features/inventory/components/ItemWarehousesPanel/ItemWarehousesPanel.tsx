@@ -1,6 +1,7 @@
 import { InventoryDetail } from "../../types/inventory.types";
 import { Item } from "../../types/items.types";
 import styles from "./ItemWarehousesPanel.module.css";
+import { Spinner } from "../../../../shared/components/Spinner/Spinner";
 
 interface ItemWarehousesPanelProps {
     selectedItem: Item;
@@ -27,7 +28,7 @@ export const ItemWarehousesPanel = ({
             </div>
             <div className={styles.warehousesContent}>
                 {loadingDetails ? (
-                    <div className={styles.loading}>Loading details...</div>
+                    <Spinner variant="inline" />
                 ) : error ? (
                     <div className={styles.error}>{error}</div>
                 ) : (

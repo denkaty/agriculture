@@ -73,3 +73,21 @@ button:focus-visible {
         background-color: #f9f9f9;
     }
 }
+
+/* Remove autocomplete background color and match text color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: #333 !important; /* Match your input text color */
+}
+
+/* Optional: If you want to remove the yellow background in Firefox */
+input:autofill,
+input:autofill:hover,
+input:autofill:focus,
+input:autofill:active {
+    box-shadow: 0 0 0 30px white inset !important;
+    color: #333 !important; /* Match your input text color */
+}

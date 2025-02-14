@@ -49,7 +49,7 @@ export const Clients = () => {
         setSelectedClientId(client.id);
     };
 
-    if (loading) return <Spinner />;
+    if (loading) return <Spinner variant="inline" />;
     if (error) return <div className={styles.error}>{error}</div>;
 
     return (

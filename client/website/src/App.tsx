@@ -8,6 +8,7 @@ import { Suppliers } from "./features/transactions/pages/Suppliers/Suppliers";
 import { Clients } from "./features/transactions/pages/Clients/Clients";
 import { BuyOrders } from "./features/transactions/pages/BuyOrders/BuyOrders";
 import { AuthProvider } from "./features/users/context/AuthContext";
+import { Home } from "./features/home/pages/Home/Home";
 
 export const App = () => {
     return (
@@ -22,6 +23,7 @@ export const App = () => {
 
                     {/* Protected routes */}
                     <Route element={<ProtectedLayout />}>
+                        <Route path="/" element={<Home />} />
                         <Route path="/items" element={<Items />} />
                         <Route path="/suppliers" element={<Suppliers />} />
                         <Route path="/clients" element={<Clients />} />
@@ -32,8 +34,8 @@ export const App = () => {
                         {/* Add other protected routes here */}
                     </Route>
 
-                    {/* Redirect root to items */}
-                    <Route path="/" element={<Navigate to="/items" />} />
+                    {/* Redirect root to home */}
+                    <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </BrowserRouter>
         </AuthProvider>

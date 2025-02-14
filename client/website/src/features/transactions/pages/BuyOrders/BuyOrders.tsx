@@ -49,34 +49,38 @@ export const BuyOrders = () => {
         setSelectedBuyOrderId(buyOrder.id);
     };
 
-    if (loading) return <Spinner />;
+    if (loading) return <Spinner variant="inline" />;
     if (error) return <div className={styles.error}>{error}</div>;
 
     return (
         <div className={styles.container}>
-            <div className={styles.content}>
-                <div className={styles.mainContent}>
-                    <div className={styles.tableWrapper}>
-                        <BuyOrdersTable
-                            buyOrders={buyOrders}
-                            selectedBuyOrderId={selectedBuyOrderId}
-                            onRowClick={handleRowClick}
-                        />
-                    </div>
-                    <div className={styles.paginationWrapper}>
-                        <ItemsListPagination
-                            currentPage={pagination.page}
-                            totalCount={pagination.totalCount}
-                            pageSize={pagination.pageSize}
-                            hasNextPage={pagination.hasNextPage}
-                            hasPreviousPage={pagination.hasPreviousPage}
-                            onPageChange={(page) =>
-                                setPagination((prev) => ({ ...prev, page }))
-                            }
-                        />
+            {loading ? (
+                <Spinner variant="inline" />
+            ) : (
+                <div className={styles.content}>
+                    <div className={styles.mainContent}>
+                        <div className={styles.tableWrapper}>
+                            <BuyOrdersTable
+                                buyOrders={buyOrders}
+                                selectedBuyOrderId={selectedBuyOrderId}
+                                onRowClick={handleRowClick}
+                            />
+                        </div>
+                        <div className={styles.paginationWrapper}>
+                            <ItemsListPagination
+                                currentPage={pagination.page}
+                                totalCount={pagination.totalCount}
+                                pageSize={pagination.pageSize}
+                                hasNextPage={pagination.hasNextPage}
+                                hasPreviousPage={pagination.hasPreviousPage}
+                                onPageChange={(page) =>
+                                    setPagination((prev) => ({ ...prev, page }))
+                                }
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 };

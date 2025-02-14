@@ -31,6 +31,7 @@ export const Items = () => {
     });
     const [searchTimeout, setSearchTimeout] = useState<number>();
     const [showCreateModal, setShowCreateModal] = useState(false);
+    const [showDetailsModal, setShowDetailsModal] = useState(false);
 
     const loadItems = async (term?: string) => {
         try {
@@ -70,18 +71,23 @@ export const Items = () => {
     }, []);
 
     const handleRowClick = async (item: Item) => {
-        try {
+        if (selectedItemId !== item.id) {
             setSelectedItemId(item.id);
-            setLoadingDetails(true);
-            const response = await itemsService.getInventoryDetailsByItemId(
-                item.id
-            );
-            setInventoryDetails(response.data);
-        } catch (err) {
-            setError("Failed to load inventory details");
-        } finally {
-            setLoadingDetails(false);
+            try {
+                const response = await itemsService.getInventoryDetailsByItemId(
+                    item.id
+                );
+                setInventoryDetails(response.data);
+            } catch (err) {
+                setError("Failed to load inventory details");
+            } finally {
+            }
         }
+    };
+
+    const handleCatalogNumberClick = (item: Item) => {
+        setSelectedItemId(item.id);
+        setShowDetailsModal(true);
     };
 
     const handleSearch = (term: string) => {
@@ -131,7 +137,7 @@ export const Items = () => {
         }
     };
 
-    if (loading) return <Spinner />;
+    if (loading) return <Spinner variant="inline" />;
     if (error) return <div className={styles.error}>{error}</div>;
 
     const selectedItem = items.find((item) => item.id === selectedItemId);
@@ -152,6 +158,7 @@ export const Items = () => {
                             items={items}
                             selectedItemId={selectedItemId}
                             onRowClick={handleRowClick}
+                            onCatalogNumberClick={handleCatalogNumberClick}
                         />
                     </div>
                     <ItemsListPagination
@@ -177,18 +184,21 @@ export const Items = () => {
                         }}
                     />
                 )}
-                {selectedItem && (
-                    <ItemDetailsModal
-                        item={selectedItem}
-                        onClose={() => setSelectedItemId(null)}
-                        onDelete={handleDeleteItem}
-                    />
-                )}
             </div>
             {showCreateModal && (
                 <CreateItemModal
                     onClose={() => setShowCreateModal(false)}
                     onSubmit={handleCreateSubmit}
+                />
+            )}
+            {selectedItem && showDetailsModal && (
+                <ItemDetailsModal
+                    item={selectedItem}
+                    onClose={() => {
+                        setShowDetailsModal(false);
+                        setSelectedItemId(null);
+                    }}
+                    onDelete={handleDeleteItem}
                 />
             )}
         </div>

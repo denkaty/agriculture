@@ -73,7 +73,7 @@ export const BuyOrderDetailsModal = ({
         onClose();
     };
 
-    if (loading) return <Spinner />;
+    if (loading) return <Spinner variant="inline" />;
 
     return (
         <>
