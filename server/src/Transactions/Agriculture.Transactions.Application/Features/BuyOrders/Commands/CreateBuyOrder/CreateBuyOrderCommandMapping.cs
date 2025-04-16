@@ -37,7 +37,7 @@ namespace Agriculture.Transactions.Application.Features.BuyOrders.Commands.Creat
                 });
 
             config.NewConfig<CreateBuyOrderCommand, ValidateBuyOrderQueryRequest>()
-                .Map(dest => dest.CompositeKeys, src => src.Items.Select(x => new InventoryCompositeKey
+                .Map(dest => dest.InventoryBuyItemOrders, src => src.Items.Select(x => new InventoryCompositeKey
                 {
                     ItemId = x.ItemId,
                     WarehouseId = x.WarehouseId

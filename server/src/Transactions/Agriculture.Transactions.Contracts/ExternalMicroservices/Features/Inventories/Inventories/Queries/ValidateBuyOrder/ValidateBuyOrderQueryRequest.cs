@@ -2,6 +2,6 @@
 {
     public class ValidateBuyOrderQueryRequest
     {
-        public ICollection<InventoryCompositeKey> CompositeKeys { get; set; }
+        public ICollection<InventoryCompositeKey> InventoryBuyItemOrders { get; set; }
     }
 }

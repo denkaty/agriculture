@@ -83,7 +83,9 @@ namespace Agriculture.Inventories.Infrastructure.Features.Inventories.Repositori
 
         public async Task<PaginationList<Inventory>> GetPaginatedByItemIdAsync(string itemId, CancellationToken cancellationToken, int page = 1, int pageSize = 10, string sortBy = "", string sortOrder = "asc", string searchTerm = "")
         {
-            var query = _context.Set<Inventory>().AsQueryable();
+            var query = _context.Set<Inventory>()
+                .Include(x => x.Warehouse)
+                .AsQueryable();
 
             query = query.Where(inventory => inventory.ItemId == itemId);
 
@@ -112,7 +114,9 @@ namespace Agriculture.Inventories.Infrastructure.Features.Inventories.Repositori
                                    {
                                        Id = inventory.Id,
                                        ItemId = inventory.ItemId,
+                                       Item = inventory.Item,
                                        WarehouseId = inventory.WarehouseId,
+                                       Warehouse = inventory.Warehouse,
                                        Quantity = inventory.Quantity,
                                        CreatedAt = inventory.CreatedAt,
                                        UpdatedAt = inventory.UpdatedAt,

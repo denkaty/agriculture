@@ -13,6 +13,13 @@ namespace Agriculture.Inventories.Infrastructure.Features.Items.Repositories
         {
         }
 
+        public async Task<ICollection<Item>> GetByIdsAsync(ICollection<string> ids, CancellationToken cancellationToken)
+        {
+            var items = await _context.Set<Item>().Where(item => ids.Contains(item.Id)).ToListAsync(cancellationToken);
+
+            return items;
+        }
+        
         public override async Task<PaginationList<Item>> GetPaginatedAsync(CancellationToken cancellationToken, int page = 1, int pageSize = 10, string sortBy = "", string sortOrder = "asc", string searchTerm = "")
         {
             var query = _context.Set<Item>().AsQueryable();

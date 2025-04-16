@@ -15,6 +15,8 @@ builder.Host.AddSerilog();
 
 var app = builder.Build();
 
+await app.SetupDatabaseAsync();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwaggerDevelopment();

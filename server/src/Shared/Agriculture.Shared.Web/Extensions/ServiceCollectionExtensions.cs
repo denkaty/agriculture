@@ -211,7 +211,7 @@ namespace Agriculture.Shared.Web.Extensions
                            .AllowAnyMethod());
 
                 options.AddPolicy(AppPolicies.CorsPolicy, builder =>
-                    builder.WithOrigins(corsOptions.AllowedOrigins.Split(", "))
+                    builder.WithOrigins(corsOptions.AllowedOrigins.Split(',').Select(x => x.Trim()).ToArray())
                            .AllowAnyHeader()
                            .AllowAnyMethod());
             });
