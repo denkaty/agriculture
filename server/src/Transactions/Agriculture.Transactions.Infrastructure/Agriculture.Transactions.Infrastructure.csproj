@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Agriculture.Shared.Infrastructure\Agriculture.Shared.Infrastructure.csproj" />
+    <ProjectReference Include="..\Agriculture.Transactions.Application\Agriculture.Transactions.Application.csproj" />
+    <ProjectReference Include="..\Agriculture.Transactions.Domain\Agriculture.Transactions.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DatabaseInitializers\Abstractions\" />
+    <Folder Include="DatabaseInitializers\Constants\" />
+    <Folder Include="Features\BuyInvoices\" />
+    <Folder Include="Features\SellInvoices\" />
+  </ItemGroup>
+
+</Project>

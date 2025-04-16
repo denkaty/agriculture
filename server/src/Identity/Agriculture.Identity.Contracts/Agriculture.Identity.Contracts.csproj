@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Agriculture.Shared.Application\Agriculture.Shared.Application.csproj" />
+    <ProjectReference Include="..\..\Shared\Agriculture.Shared.Web\Agriculture.Shared.Web.csproj" />
+  </ItemGroup>
+
+</Project>

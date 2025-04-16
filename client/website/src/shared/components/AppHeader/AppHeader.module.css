@@ -1,0 +1,109 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    height: 50px;
+    background-color: #212121;
+    color: white;
+}
+
+.logo {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logoText {
+    font-size: 15px;
+    font-weight: 500;
+    color: white;
+    letter-spacing: 0.3px;
+    line-height: 1;
+}
+
+.logo:hover .logoText {
+    color: #4a9ea4;
+}
+
+.userMenu {
+    position: relative;
+}
+
+.userButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: white;
+    border-radius: 4px;
+    transition: all 0.2s;
+    outline: none;
+}
+
+.userButton:focus {
+    outline: none;
+}
+
+.userButton:hover {
+    background-color: #4a9ea4;
+}
+
+.userIcon {
+    width: 24px;
+    height: 24px;
+    color: white;
+}
+
+.arrow {
+    font-size: 10px;
+    margin-left: 4px;
+}
+
+.dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    min-width: 160px;
+    z-index: 1000;
+    animation: dropdownAppear 0.2s ease-out;
+}
+
+.dropdownItem {
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+    text-align: left;
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: #505c6d;
+    cursor: pointer;
+    transition: all 0.2s;
+    outline: none;
+}
+
+.dropdownItem:focus {
+    outline: none;
+}
+
+.dropdownItem:hover {
+    background-color: #e5f1f2;
+    color: #4a9ea4;
+}
+
+@keyframes dropdownAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
